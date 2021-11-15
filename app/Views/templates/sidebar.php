@@ -76,7 +76,7 @@
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                Muhammad Irfan Fahad
+                Muhammad Irfan
             </div>
         </nav>
     </div>
