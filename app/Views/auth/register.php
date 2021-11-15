@@ -18,14 +18,14 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="fullname" type="text" placeholder="Nama Pegawai" value="<?= old('fullname') ?>" />
-                                                <label for="fullname" name="fullname">Nama Pegawai</label>
+                                                <input class="form-control <?php if (session('errors.fullname')) : ?>is-invalid<?php endif ?>" id="fullname" type="text" placeholder="Nama Pegawai" value="<?= old('fullname') ?>" name="fullname" />
+                                                <label for="fullname">Nama Pegawai</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" id="username" type="text" placeholder="NIP" value="<?= old('username') ?>" name="username" />
-                                                <label for="username">NIP</label>
+                                                <input class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" id="username" type="text" placeholder="Username (NIP)" value="<?= old('username') ?>" name="username" />
+                                                <label for="username">Username (NIP)</label>
                                             </div>
                                         </div>
                                     </div>
@@ -39,12 +39,12 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
 
-                                                <select class="form-select" id="inputGroupSelect01" name="bidang">
-                                                    <option selected disabled>Bidang</option>
-                                                    <option value="operasi a">Operasi A</option>
-                                                    <option value="operasi b">Operasi B</option>
-                                                    <option value="operasi c">Operasi C</option>
-                                                    <option value="operasi d">Operasi D</option>
+                                                <select class="form-select <?php if (session('errors.bidang')) : ?>is-invalid<?php endif ?>" id="inputGroupSelect01" name="bidang">
+                                                    <option disabled selected>Bidang</option>
+                                                    <option <?= old('bidang') == 'operasi a' ? 'selected' : ''; ?> value="operasi a">Operasi A</option>
+                                                    <option <?= old('bidang') == 'operasi b' ? 'selected' : ''; ?> value="operasi b">Operasi B</option>
+                                                    <option <?= old('bidang') == 'operasi c' ? 'selected' : ''; ?> value="operasi c">Operasi C</option>
+                                                    <option <?= old('bidang') == 'operasi d' ? 'selected' : ''; ?> value="operasi d">Operasi D</option>
                                                 </select>
 
                                             </div>
