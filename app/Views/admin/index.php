@@ -1,6 +1,6 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('page-content'); ?>
 
-<h1 class="mt-4">My Profile</h1>
+<h1 class="mt-4">Admin</h1>
 
 <?= $this->endSection(); ?>

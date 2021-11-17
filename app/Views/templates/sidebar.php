@@ -3,80 +3,95 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading pb-0 mb-0">Manajer</div>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        UPK Punagaya
-                    </a>
-                    <div class="sb-sidenav-menu-heading pb-0 mb-0">Manajer Bagian</div>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Operasi
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Pemeliharaan
-                    </a>
-                    <div class="sb-sidenav-menu-heading pb-0 mb-0">Supervisor Operasi</div>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Shift A
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Shift B
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Shift C
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Shift D
-                    </a>
-                    <div class="sb-sidenav-menu-heading pb-0 mb-0">Supervisor Pemeliharaan</div>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Boiler
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Turbin
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Instrument & Control
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Listrik
-                    </a>
-                    <div class="sb-sidenav-menu-heading pb-0 mb-0">Menu Operator</div>
-                    <a class="nav-link pb-0 mb-0" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Baca SOP IK
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Checklist SOP IK
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        SR CM
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        SR FLM
-                    </a>
-                    <a class="nav-link pb-0 mb-0" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Form 5S
-                    </a>
+
+                    <?php if (in_groups('admin')) : ?>
+                        <!-- manager upk -->
+                        <div class="sb-sidenav-menu-heading pb-0 mb-0">Manajer</div>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            UPK Punagaya
+                        </a>
+
+                        <!-- manager bagian -->
+                        <div class="sb-sidenav-menu-heading pb-0 mb-0">Manajer Bagian</div>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Operasi
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Pemeliharaan
+                        </a>
+
+                        <!-- supervasor op -->
+                        <div class="sb-sidenav-menu-heading pb-0 mb-0">Supervisor Operasi</div>
+
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Shift A
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Shift B
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Shift C
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Shift D
+                        </a>
+
+                        <!-- supervasor har -->
+                        <div class="sb-sidenav-menu-heading pb-0 mb-0">Supervisor Pemeliharaan</div>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Boiler
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Turbin
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Instrument & Control
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Listrik
+                        </a>
+                    <?php endif; ?>
+
+                    <!-- operator -->
+                    <?php if (in_groups('admin') || in_groups('manager') || in_groups('operasi a') || in_groups('operasi b') || in_groups('operasi c') || in_groups('operasi d')) : ?>
+                        <div class="sb-sidenav-menu-heading pb-0 mb-0">Menu Operator</div>
+                        <a class="nav-link pb-0 mb-0" href="charts.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Baca SOP IK
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Checklist SOP IK
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="charts.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            SR CM
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            SR FLM
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="charts.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Form 5S
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                Muhammad Irfan
+                <?= user()->fullname; ?>
             </div>
         </nav>
     </div>
