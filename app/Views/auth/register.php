@@ -45,6 +45,7 @@
                                                     <option <?= old('bidang') == 'operasi b' ? 'selected' : ''; ?> value="operasi b">Operasi B</option>
                                                     <option <?= old('bidang') == 'operasi c' ? 'selected' : ''; ?> value="operasi c">Operasi C</option>
                                                     <option <?= old('bidang') == 'operasi d' ? 'selected' : ''; ?> value="operasi d">Operasi D</option>
+                                                    <option <?= old('bidang') == 'supervisor d' ? 'selected' : ''; ?> value="supervisor d">Supervisor D</option>
                                                 </select>
 
                                             </div>

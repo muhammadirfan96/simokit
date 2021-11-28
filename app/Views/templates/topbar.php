@@ -1,6 +1,9 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg_blue">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html">SIMOKIT</a>
+    <a class="navbar-brand ps-3 fs-3" href="/">
+        <!-- <img src="/img-dev/logo.png" width="30px"> -->
+        S I M O K I T
+    </a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
