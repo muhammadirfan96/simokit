@@ -50,11 +50,11 @@
                     <!-- operator -->
                     <?php if (in_groups('admin') || in_groups('supervisor d') || in_groups('operasi a') || in_groups('operasi b') || in_groups('operasi c') || in_groups('operasi d')) : ?>
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">operator</div>
-                        <a class="nav-link pb-0 mb-0" href="charts.html">
+                        <a class="nav-link pb-0 mb-0" href="/bacasopik">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-chart-area"></i></div>
                             Baca SOP IK
                         </a>
-                        <a class="nav-link pb-0 mb-0" href="tables.html">
+                        <a class="nav-link pb-0 mb-0" href="/checklist">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-table"></i></div>
                             Checklist SOP IK
                         </a>

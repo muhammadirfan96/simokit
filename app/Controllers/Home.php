@@ -6,6 +6,9 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('user/index');
+        $data = [
+            'title' => 'home | simokit'
+        ];
+        return view('home/index', $data);
     }
 }
