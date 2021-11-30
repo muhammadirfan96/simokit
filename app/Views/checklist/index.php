@@ -46,7 +46,7 @@
         <div class="col-md-4">
             <div class="d-grid gap-2 d-md-block">
                 <button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                    Checklist Peralatan Alat Bantu
+                    Checklist Peralatan Alba
                 </button>
 
                 <div class="collapse" id="collapseExample3">

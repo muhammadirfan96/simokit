@@ -41,11 +41,12 @@
 
                                                 <select class="form-select <?php if (session('errors.bidang')) : ?>is-invalid<?php endif ?>" id="inputGroupSelect01" name="bidang">
                                                     <option disabled selected>Bidang</option>
-                                                    <option <?= old('bidang') == 'operasi a' ? 'selected' : ''; ?> value="operasi a">Operasi A</option>
-                                                    <option <?= old('bidang') == 'operasi b' ? 'selected' : ''; ?> value="operasi b">Operasi B</option>
-                                                    <option <?= old('bidang') == 'operasi c' ? 'selected' : ''; ?> value="operasi c">Operasi C</option>
-                                                    <option <?= old('bidang') == 'operasi d' ? 'selected' : ''; ?> value="operasi d">Operasi D</option>
-                                                    <option <?= old('bidang') == 'supervisor d' ? 'selected' : ''; ?> value="supervisor d">Supervisor D</option>
+                                                    <option <?= old('bidang') == 'operasi shift a' ? 'selected' : ''; ?> value="operasi shift a">Operasi shift A</option>
+                                                    <option <?= old('bidang') == 'operasi shift b' ? 'selected' : ''; ?> value="operasi shift b">Operasi shift B</option>
+                                                    <option <?= old('bidang') == 'operasi shift c' ? 'selected' : ''; ?> value="operasi shift c">Operasi shift C</option>
+                                                    <option <?= old('bidang') == 'operasi shift d' ? 'selected' : ''; ?> value="operasi shift d">Operasi shift D</option>
+                                                    <option <?= old('bidang') == 'supervisor operasi shift d' ? 'selected' : ''; ?> value="supervisor operasi shift d">Supervisor operasi shift D</option>
+                                                    <option <?= old('bidang') == 'manager operasi' ? 'selected' : ''; ?> value="manager operasi">Manager Operasi</option>
                                                 </select>
 
                                             </div>

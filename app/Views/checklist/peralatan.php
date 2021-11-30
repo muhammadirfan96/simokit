@@ -41,11 +41,14 @@
                 <?php endforeach; ?>
                 <b>CATATAN</b>
                 <textarea name="catatan" class="form-control mb-3" id="floatingTextarea"><?= old('catatan'); ?></textarea>
-                <div class="position-relative">
-                    <div class="position-absolute top-0 end-0">
-                        <button class="btn btn-success btn-sm" type="submit" name="save">Save & Download</button>
+
+                <?php if (in_groups('admin') || in_groups('operasi shift a') || in_groups('operasi shift b') || in_groups('operasi shift c') || in_groups('operasi shift d')) : ?>
+                    <div class="position-relative">
+                        <div class="position-absolute top-0 end-0">
+                            <button class="btn btn-success btn-sm" type="submit" name="save">Save</button>
+                        </div>
                     </div>
-                </div>
+                <?php endif ?>
             </form>
         </div>
     </div>

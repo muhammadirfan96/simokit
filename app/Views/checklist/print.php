@@ -60,20 +60,20 @@
                         <tr>
                             <td class="ttd">
                                 <div>
-                                    <p>Supervisor Operasi Shift <?= $pegawai["shift"]; ?></p>
+                                    <p><?= $atasan['jabatan']; ?></p>
                                     <div><br><br><br><br></div>
-                                    <p> <?= $pegawai["namaAtasan"]; ?></p>
+                                    <p><?= $atasan['nama']; ?></p>
                                     <hr style="width:60%; color:black; margin:1px;">
-                                    <p><?= $pegawai["nipAtasan"]; ?></p>
+                                    <p><?= $atasan['nip']; ?></p>
                                 </div>
                             </td>
                             <td class="ttd">
                                 <div>
-                                    <p>Operator Shift <?= $pegawai["shift"]; ?></p>
+                                    <p>pegawai <?= $pegawai['bidang']; ?></p>
                                     <div><br><br><br><br></div>
-                                    <p><?= $pegawai["namaUser"]; ?></p>
+                                    <p><?= $pegawai["fullname"]; ?></p>
                                     <hr style="width:60%; color:black; margin:1px;">
-                                    <p><?= $pegawai["nipUser"]; ?></p>
+                                    <p><?= $pegawai["username"]; ?></p>
                                 </div>
                             </td>
                         </tr>
@@ -81,8 +81,6 @@
                 </td>
             </tr>
         </table>
-
-
     </div>
 </body>
 

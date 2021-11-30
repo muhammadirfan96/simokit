@@ -9,6 +9,7 @@ use App\Models\JawabanModel;
 use App\Models\KomenModel;
 use Myth\Auth\Models\UserModel;
 use App\Models\Array_formchecklist;
+use App\Models\AtasanModel;
 use \Mpdf\Mpdf;
 
 class Checklist extends BaseController
@@ -18,6 +19,7 @@ class Checklist extends BaseController
     protected $jawabanModel;
     protected $komenModel;
     protected $userModel;
+    protected $atasanModel;
     public function __construct()
     {
         $this->daftar_pertanyaanModel = new Daftar_pertanyaanModel();
@@ -25,6 +27,7 @@ class Checklist extends BaseController
         $this->jawabanModel = new JawabanModel();
         $this->komenModel = new KomenModel();
         $this->userModel = new UserModel();
+        $this->atasanModel = new AtasanModel();
     }
 
 
@@ -107,20 +110,23 @@ class Checklist extends BaseController
 
         session()->setFlashdata('pesan', 'Data Cheklist berhasil ditambahkan');
 
-        //$print = $this->print();
-        //return redirect()->to('/Checklist/print');
         return redirect()->to('checklist/' . $this->request->getVar('namaPeralatan'));
     }
 
     public function print()
     {
-        // $mpdf = new \Mpdf\Mpdf();
         $mpdf = new Mpdf();
 
-        $checklist = $this->checklistModel->orderBy('id', 'desc')->first();
-        $jawaban = $this->jawabanModel->orderBy('id', 'desc')->first();
-        $komen = $this->komenModel->orderBy('id', 'desc')->first();
-        $pegawai = $this->userModel->where(['username' => $checklist['diinput_oleh']])->first();
+        $checklist = $this->checklistModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
+        $jawaban = $this->jawabanModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
+        $komen = $this->komenModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
+        $pegawai = $this->userModel->asArray()->where(['username' => $checklist['diinput_oleh']])->first();
+        $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
+
+        // if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
+        //     $atasan = $this->atasanModel->where('bawahan', 'supervisor operasi')->first();
+        // }
+
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => $checklist['namaPeralatan']])->findAll();
 
         $i = 1;
@@ -148,6 +154,7 @@ class Checklist extends BaseController
             'jawaban' => $jawaban,
             'komen' => $komen,
             'pegawai' => $pegawai,
+            'atasan' => $atasan,
             'pertanyaan' => $pertanyaan,
             'jwb' => $jwb
         ];

@@ -12,7 +12,7 @@
     <div class="header">
         <table border="1" cellpadding="5" cellspacing="0">
             <tr>
-                <td rowspan="4"><img src="img/upk.jpg" width="150px"></td>
+                <td rowspan="4"><img src="img-dev/upk.jpg" width="150px"></td>
                 <th class="asset">enterprise asset management</th>
                 <td class="right">No. Formulir</td>
                 <td class="left">: <?= $nomorfm; ?></td>
