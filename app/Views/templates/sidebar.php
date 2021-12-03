@@ -7,7 +7,7 @@
                     <?php if (in_groups('admin')) : ?>
                         <!-- admin -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">admin</div>
-                        <a class="nav-link pb-0 mb-0" href="index.html">
+                        <a class="nav-link pb-0 mb-0" href="/Db_home">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
                             Database
                         </a>
@@ -91,11 +91,11 @@
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                    <div class="text-muted">Copyright &copy; Simokit 2021</div>
                     <div>
-                        <a href="#">Privacy Policy</a>
+                        <a href="/">Privacy Policy</a>
                         &middot;
-                        <a href="#">Terms &amp; Conditions</a>
+                        <a href="/">Terms &amp; Conditions</a>
                     </div>
                 </div>
             </div>

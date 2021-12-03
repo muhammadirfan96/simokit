@@ -82,7 +82,7 @@ class Servicerequest extends BaseController
         }
 
         if (!$this->validate($dataValidate)) {
-            return redirect()->back()->withInput();
+            return redirect()->to(base_url('/servicerequest/' . $this->request->getVar('jenisSr')))->withInput();
         }
 
         $data = [
@@ -135,14 +135,19 @@ class Servicerequest extends BaseController
 
         session()->setFlashdata('pesanSR', 'Data SR ' . $data['ket'] . ' berhasil ditambahkan');
 
-        return redirect()->to('/servicerequest/' . $data['ket']);
+        return redirect()->to(base_url('/servicerequest/' . $data['ket']));
     }
 
-    public function print()
+    public function print($id = null)
     {
+        //dd($id);
         $mpdf = new \Mpdf\Mpdf();
 
         $serviceRequest = $this->serviceRequestModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
+
+        if ($id != null) {
+            $serviceRequest = $this->serviceRequestModel->where(['id' => $id])->orderBy('id', 'desc')->first();
+        }
 
         //untuk unit
         $unit = [

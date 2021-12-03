@@ -40,9 +40,11 @@ $routes->get('/checklist/(:any)', 'Checklist::pilihPeralatan/$1');
 
 $routes->get('/servicerequest/simpan', 'Servicerequest::simpan');
 $routes->get('/servicerequest/print', 'Servicerequest::print');
-$routes->get('/servicerequest/(:any)', 'Servicerequest::index/$1');
+$routes->get('/servicerequest/(:num)', 'Servicerequest::print/$1');
+$routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1');
 
-$routes->get('/dbhome', 'Admin\Dbhome::index');
+$routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1');
+$routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1');
 
 /*
  * --------------------------------------------------------------------
