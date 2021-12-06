@@ -8,16 +8,16 @@
                         <!-- admin -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">admin</div>
                         <a class="nav-link pb-0 mb-0" href="/Db_home">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
-                            Database
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-database"></i></div>
+                            Databases
                         </a>
                         <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
-                            Schedule C.O.
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-calendar-plus"></i></div>
+                            Input Schedule C/O
                         </a>
                         <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
-                            Schedule 5S
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-calendar-plus"></i></div>
+                            Input Schedule 5S
                         </a>
                     <?php endif; ?>
 
@@ -25,11 +25,11 @@
                         <!-- manager bagian operasi -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">manager op</div>
                         <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
-                            Logsheet
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-glasses"></i></div>
+                            See Logsheet
                         </a>
                         <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-bullhorn"></i></div>
                             Make Notice
                         </a>
                     <?php endif; ?>
@@ -37,11 +37,11 @@
                         <!-- supervisor operasi -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">supervisor op</div>
                         <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
-                            Logsheet
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-glasses"></i></div>
+                            See Logsheet
                         </a>
                         <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-bullhorn"></i></div>
                             Make Notice
                         </a>
                     <?php endif; ?>
@@ -50,28 +50,28 @@
                     <?php if (in_groups('admin') || in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d') || in_groups('operasi shift a') || in_groups('operasi shift b') || in_groups('operasi shift c') || in_groups('operasi shift d')) : ?>
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">operator</div>
                         <a class="nav-link pb-0 mb-0" href="/bacasopik">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-chart-area"></i></div>
-                            Baca SOP IK
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-book-reader"></i></div>
+                            Read SOP IK
                         </a>
                         <a class="nav-link pb-0 mb-0" href="/checklist">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-table"></i></div>
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-tasks"></i></div>
                             Checklist SOP IK
                         </a>
                         <a class="nav-link pb-0 mb-0" href="/servicerequest/cm">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-chart-area"></i></div>
-                            SR CM
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-pen"></i></div>
+                            Make SR CM
                         </a>
                         <a class="nav-link pb-0 mb-0" href="/servicerequest/flm">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-table"></i></div>
-                            SR FLM
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-pen"></i></div>
+                            Make SR FLM
                         </a>
                         <a class="nav-link pb-0 mb-0" href="/limas">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-chart-area"></i></div>
-                            Form 5S
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-pen"></i></div>
+                            Make Form 5S
                         </a>
                         <a class="nav-link pb-0 mb-0" href="/">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-chart-area"></i></div>
-                            Logsheet
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-keyboard"></i></div>
+                            Input Logsheet
                         </a>
                     <?php endif; ?>
                 </div>

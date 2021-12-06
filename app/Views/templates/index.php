@@ -9,7 +9,8 @@
     <meta name="author" content="" />
     <title><?= $title; ?></title>
     <link href="<?= base_url(); ?>/sb-admin/css/styles.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
+    <link href="<?= base_url(); ?>/fontawesome/css/all.css" rel="stylesheet">
 </head>
 
 <body>

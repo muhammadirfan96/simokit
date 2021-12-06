@@ -44,6 +44,7 @@ $routes->get('/servicerequest/(:num)', 'Servicerequest::print/$1');
 $routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1');
 
 $routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1');
+$routes->get('/db_servicerequest/table/(:alphanum)', 'Db_servicerequest::table/$1');
 $routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1');
 
 /*
