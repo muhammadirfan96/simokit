@@ -7,7 +7,7 @@
                     <?php if (in_groups('admin')) : ?>
                         <!-- admin -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">admin</div>
-                        <a class="nav-link pb-0 mb-0" href="/Db_home">
+                        <a class="nav-link pb-0 mb-0" href="/db_home">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-database"></i></div>
                             Databases
                         </a>

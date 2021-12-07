@@ -32,10 +32,10 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/checklist', 'Checklist::index');
+
 $routes->get('/checklist/simpan', 'Checklist::simpan');
 $routes->get('/checklist/print', 'Checklist::print');
-$routes->get('/checklist/viewprint', 'Checklist::viewprint');
+$routes->get('/checklist/(:num)', 'Checklist::print/$1');
 $routes->get('/checklist/(:any)', 'Checklist::pilihPeralatan/$1');
 
 $routes->get('/servicerequest/simpan', 'Servicerequest::simpan');
@@ -43,8 +43,10 @@ $routes->get('/servicerequest/print', 'Servicerequest::print');
 $routes->get('/servicerequest/(:num)', 'Servicerequest::print/$1');
 $routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1');
 
+$routes->delete('/db_checklist/(:num)', 'Db_checklist::delete/$1');
+$routes->get('/db_checklist/(:any)', 'Db_checklist::prints/$1');
+
 $routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1');
-$routes->get('/db_servicerequest/table/(:alphanum)', 'Db_servicerequest::table/$1');
 $routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1');
 
 /*

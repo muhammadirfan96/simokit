@@ -9,4 +9,9 @@ class ChecklistModel extends Model
     protected $table      = 'checklist';
     protected $primaryKey = 'id';
     protected $allowedFields = ['tanggal', 'diinput_oleh', 'namaPeralatan', 'catatan'];
+
+    public function search($keyword)
+    {
+        return $this->table('checklist')->like('diinput_oleh', $keyword)->orLike('tanggal', $keyword)->orLike('namaPeralatan', $keyword);
+    }
 }

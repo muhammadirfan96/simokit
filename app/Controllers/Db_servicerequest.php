@@ -62,9 +62,6 @@ class Db_servicerequest extends BaseController
             'servicerequest' => $sr,
             'currentPage' => 1
         ];
-        //dd($data);
-
-        //return $this;
 
         return view('db_servicerequest/table', $data);
     }
@@ -89,7 +86,7 @@ class Db_servicerequest extends BaseController
 
         //hapus data
         $this->servicerequestModel->delete($id);
-        session()->setFlashdata('pesan', 'Data SR berhasil dihapus');
+        session()->setFlashdata('pesan', 'Data SR ' . $serviceRequest['nomorSr'] . ' berhasil dihapus');
         return redirect()->to(base_url('/db_servicerequest'));
     }
 }

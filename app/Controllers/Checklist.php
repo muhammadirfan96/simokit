@@ -113,19 +113,23 @@ class Checklist extends BaseController
         return redirect()->to('checklist/' . $this->request->getVar('namaPeralatan'));
     }
 
-    public function print()
+    public function print($id = null)
     {
         $mpdf = new Mpdf();
 
         $checklist = $this->checklistModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
         $jawaban = $this->jawabanModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
         $komen = $this->komenModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
+
+        if ($id != null) {
+            $checklist = $this->checklistModel->where(['id' => $id])->orderBy('id', 'desc')->first();
+            $jawaban = $this->jawabanModel->where(['id' => $id])->orderBy('id', 'desc')->first();
+            $komen = $this->komenModel->where(['id' => $id])->orderBy('id', 'desc')->first();
+        }
+
+
         $pegawai = $this->userModel->asArray()->where(['username' => $checklist['diinput_oleh']])->first();
         $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
-
-        // if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
-        //     $atasan = $this->atasanModel->where('bawahan', 'supervisor operasi')->first();
-        // }
 
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => $checklist['namaPeralatan']])->findAll();
 

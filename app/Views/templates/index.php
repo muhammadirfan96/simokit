@@ -9,15 +9,18 @@
     <meta name="author" content="" />
     <title><?= $title; ?></title>
     <link href="<?= base_url(); ?>/sb-admin/css/styles.css" rel="stylesheet" />
+    <link href="<?= base_url(); ?>/css/bootstrap.min.css" rel="stylesheet" />
     <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
     <link href="<?= base_url(); ?>/fontawesome/css/all.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/css/template.css" rel="stylesheet">
 </head>
 
 <body>
     <?= $this->include('templates/topbar'); ?>
     <?= $this->include('templates/sidebar'); ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="<?= base_url(); ?>/js/bootstrap.bundle.min.js"></script>
+
     <script src="<?= base_url(); ?>/sb-admin/js/scripts.js"></script>
 </body>
 
