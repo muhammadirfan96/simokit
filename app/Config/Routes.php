@@ -43,11 +43,16 @@ $routes->get('/servicerequest/print', 'Servicerequest::print');
 $routes->get('/servicerequest/(:num)', 'Servicerequest::print/$1');
 $routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1');
 
+$routes->get('/limas/(:num)', 'Limas::print/$1');
+
 $routes->delete('/db_checklist/(:num)', 'Db_checklist::delete/$1');
 $routes->get('/db_checklist/(:any)', 'Db_checklist::prints/$1');
 
 $routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1');
 $routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1');
+
+$routes->delete('/db_limas/(:num)', 'Db_limas::delete/$1');
+$routes->get('/db_limas/(:any)', 'Db_limas::prints/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('page-content'); ?>
 
-<?= $this->include('home/schedule'); ?>
+<h1>halaman input 5a</h1>
 
 <?= $this->endSection(); ?>

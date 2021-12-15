@@ -26,8 +26,6 @@
                 <th scope="col">tindakan sementara 1</th>
                 <th scope="col">tindakan sementara 2</th>
                 <th scope="col">tindakan sementara 3</th>
-                <th scope="col">evidence 1</th>
-                <th scope="col">evidence 2</th>
             </tr>
         </thead>
 
@@ -66,12 +64,6 @@
                 <td><?= $row["tindakanSementara1"]; ?></td>
                 <td><?= $row["tindakanSementara2"]; ?></td>
                 <td><?= $row["tindakanSementara3"]; ?></td>
-                <td>
-
-                </td>
-                <td>
-
-                </td>
             </tr>
             <?php $i++; ?>
         <?php endforeach; ?>

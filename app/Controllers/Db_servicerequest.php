@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use App\Models\ServiceRequestModel;
 
-use function PHPUnit\Framework\fileExists;
-
 class Db_servicerequest extends BaseController
 {
     protected $servicerequestModel;
@@ -77,10 +75,10 @@ class Db_servicerequest extends BaseController
         $serviceRequest = $this->servicerequestModel->find($id);
 
         //hapus gambar
-        if (file_exists(base_url() . '/img-sr/' . $serviceRequest['evidence1'])) {
+        if (file_exists('img-sr/' . $serviceRequest['evidence1'])) {
             unlink('img-sr/' . $serviceRequest['evidence1']);
         }
-        if (file_exists(base_url() . '/img-sr/' . $serviceRequest['evidence2'])) {
+        if (file_exists('img-sr/' . $serviceRequest['evidence2'])) {
             unlink('img-sr/' . $serviceRequest['evidence2']);
         }
 

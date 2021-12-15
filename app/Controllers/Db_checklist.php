@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use App\Models\ChecklistModel;
 
-use function PHPUnit\Framework\fileExists;
-
 class Db_checklist extends BaseController
 {
     protected $ChecklistModel;
@@ -42,7 +40,7 @@ class Db_checklist extends BaseController
 
         $data = [
             'title' => 'database | checklist peralatan',
-            'servicerequest' => $checklist->paginate(5, 'checklist'),
+            'checklist' => $checklist->paginate(5, 'checklist'),
             'pager' => $this->ChecklistModel->pager,
             'currentPage' => $currentPage
         ];
@@ -62,7 +60,7 @@ class Db_checklist extends BaseController
         $checklist = $this->ChecklistModel->find($id);
         //hapus data
         $this->ChecklistModel->delete($id);
-        session()->setFlashdata('pesan', 'Data Checklist '.$checklist['namaPeralatan'].' berhasil dihapus');
+        session()->setFlashdata('pesan', 'Data Checklist ' . $checklist['namaPeralatan'] . ' berhasil dihapus');
         return redirect()->to(base_url('/db_checklist'));
     }
 }

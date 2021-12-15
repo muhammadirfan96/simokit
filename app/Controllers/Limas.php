@@ -88,7 +88,7 @@ class Limas extends BaseController
         }
 
         if (!$this->validate($dataValidate)) {
-            return redirect()->back()->withInput();
+            return redirect()->to(base_url('/limas'))->withInput();
         }
 
         $dataLimas = [
@@ -125,18 +125,20 @@ class Limas extends BaseController
 
         session()->setFlashdata('pesan', 'Data 5S ' . $dataLimas['namaPeralatan'] . ' berhasil ditambahkan');
 
-        return redirect()->to('/limas');
+        return redirect()->to(base_url('/limas'));
     }
 
-    public function print()
+    public function print($id = null)
     {
         $mpdf = new \Mpdf\Mpdf();
 
-        //$limas = $this->limasModel->orderBy('id', 'desc')->first();
-        //$nilaiLimas = $this->nilaiLimasModel->orderBy('id', 'desc')->first();
-
         $limas = $this->limasModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
         $nilaiLimas = $this->nilaiLimasModel->where(['diinput_oleh' => user()->username])->orderBy('id', 'desc')->first();
+
+        if ($id != null) {
+            $limas = $this->limasModel->where(['id' => $id])->orderBy('id', 'desc')->first();
+            $nilaiLimas = $this->nilaiLimasModel->where(['id' => $id])->orderBy('id', 'desc')->first();
+        }
 
         $pegawai = $this->userModel->asArray()->where(['username' => $limas['diinput_oleh']])->first();
         $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
@@ -150,8 +152,6 @@ class Limas extends BaseController
             'atasan' => $atasan,
             'checkItem' => $this->nilaiLimasModel->checkItem
         ];
-
-        //dd($data);
 
         //$mpdf->setAutoTopMargin = 'stretch';
         $mpdf->SetHTMLHeader(view('limas/hprint'));

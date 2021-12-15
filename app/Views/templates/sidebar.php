@@ -11,11 +11,11 @@
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-database"></i></div>
                             Databases
                         </a>
-                        <a class="nav-link pb-0 mb-0" href="index.html">
+                        <a class="nav-link pb-0 mb-0" href="/input_co">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-calendar-plus"></i></div>
                             Input Schedule C/O
                         </a>
-                        <a class="nav-link pb-0 mb-0" href="index.html">
+                        <a class="nav-link pb-0 mb-0" href="input_limas">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-calendar-plus"></i></div>
                             Input Schedule 5S
                         </a>
