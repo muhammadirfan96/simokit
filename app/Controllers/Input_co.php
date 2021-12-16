@@ -153,6 +153,6 @@ class Input_co extends BaseController
                 $this->scheduleCommonModel->save($result);
             }
         }
-        return redirect()->to('/input_co');
+        return redirect()->to(base_url('/input_co'));
     }
 }

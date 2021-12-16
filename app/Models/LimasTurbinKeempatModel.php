@@ -38,12 +38,16 @@ class LimasTurbinKeempatModel extends Model
 
     public function limasTurbinKeempat()
     {
-        $rowLimasTurbinKeempat = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
         $limasTurbinKeempat = [];
-        for ($i = 0; $i < count($rowLimasTurbinKeempat); $i++) {
-            if (!empty($rowLimasTurbinKeempat[$i + 1])) {
-                $limasTurbinKeempat[] = $this->peralatanTurbinKeempat[$i];
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasTurbinKeempat[] = 'data belum diinput';
+        } else {
+            $rowLimasTurbinKeempat = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
+
+            for ($i = 0; $i < count($rowLimasTurbinKeempat); $i++) {
+                if (!empty($rowLimasTurbinKeempat[$i + 2])) {
+                    $limasTurbinKeempat[] = $this->peralatanTurbinKeempat[$i];
+                }
             }
         }
 

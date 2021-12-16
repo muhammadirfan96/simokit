@@ -42,12 +42,16 @@ class LimasAlbaPertamaModel extends Model
 
     public function limasAlbaPertama()
     {
-        $rowLimasAlbaPertama = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
         $limasAlbaPertama = [];
-        for ($i = 0; $i < count($rowLimasAlbaPertama); $i++) {
-            if (!empty($rowLimasAlbaPertama[$i + 1])) {
-                $limasAlbaPertama[] = $this->peralatanAlbaPertama[$i];
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasAlbaPertama[] = 'data belum diinput';
+        } else {
+            $rowLimasAlbaPertama = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
+
+            for ($i = 0; $i < count($rowLimasAlbaPertama); $i++) {
+                if (!empty($rowLimasAlbaPertama[$i + 2])) {
+                    $limasAlbaPertama[] = $this->peralatanAlbaPertama[$i];
+                }
             }
         }
 

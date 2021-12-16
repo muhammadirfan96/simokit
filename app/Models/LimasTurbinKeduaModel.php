@@ -42,12 +42,16 @@ class LimasTurbinKeduaModel extends Model
 
     public function limasTurbinKedua()
     {
-        $rowLimasTurbinKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
         $limasTurbinKedua = [];
-        for ($i = 0; $i < count($rowLimasTurbinKedua); $i++) {
-            if (!empty($rowLimasTurbinKedua[$i + 1])) {
-                $limasTurbinKedua[] = $this->peralatanTurbinKedua[$i];
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasTurbinKedua[] = 'data belum diinput';
+        } else {
+            $rowLimasTurbinKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
+
+            for ($i = 0; $i < count($rowLimasTurbinKedua); $i++) {
+                if (!empty($rowLimasTurbinKedua[$i + 2])) {
+                    $limasTurbinKedua[] = $this->peralatanTurbinKedua[$i];
+                }
             }
         }
 

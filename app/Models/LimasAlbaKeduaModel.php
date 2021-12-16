@@ -22,12 +22,16 @@ class LimasAlbaKeduaModel extends Model
 
     public function limasAlbaKedua()
     {
-        $rowLimasAlbaKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
         $limasAlbaKedua = [];
-        for ($i = 0; $i < count($rowLimasAlbaKedua); $i++) {
-            if (!empty($rowLimasAlbaKedua[$i + 1])) {
-                $limasAlbaKedua[] = $this->peralatanAlbaKedua[$i];
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasAlbaKedua[] = 'data belum diinput';
+        } else {
+            $rowLimasAlbaKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
+
+            for ($i = 0; $i < count($rowLimasAlbaKedua); $i++) {
+                if (!empty($rowLimasAlbaKedua[$i + 2])) {
+                    $limasAlbaKedua[] = $this->peralatanAlbaKedua[$i];
+                }
             }
         }
         return $limasAlbaKedua;

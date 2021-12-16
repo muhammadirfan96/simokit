@@ -42,12 +42,15 @@ class LimasTurbinPertamaModel extends Model
 
     public function limasTurbinPertama()
     {
-        $rowLimasTurbinPertama = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
         $limasTurbinPertama = [];
-        for ($i = 0; $i < count($rowLimasTurbinPertama); $i++) {
-            if (!empty($rowLimasTurbinPertama[$i + 1])) {
-                $limasTurbinPertama[] = $this->peralatanTurbinPertama[$i];
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasTurbinPertama[] = 'data belum diinput';
+        } else {
+            $rowLimasTurbinPertama = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
+            for ($i = 0; $i < count($rowLimasTurbinPertama); $i++) {
+                if (!empty($rowLimasTurbinPertama[$i + 2])) {
+                    $limasTurbinPertama[] = $this->peralatanTurbinPertama[$i];
+                }
             }
         }
 

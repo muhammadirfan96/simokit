@@ -7,6 +7,7 @@ use CodeIgniter\Model;
 class LimasBoilerKeduaModel extends Model
 {
     protected $table      = 'limasboilerkedua';
+    protected $primaryKey = 'id';
     protected $allowedFields = [];
 
     protected $peralatanBoilerKedua = [
@@ -40,12 +41,16 @@ class LimasBoilerKeduaModel extends Model
 
     public function limasBoilerKedua()
     {
-        $rowLimasBoilerKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
         $limasBoilerKedua = [];
-        for ($i = 0; $i < count($rowLimasBoilerKedua); $i++) {
-            if (!empty($rowLimasBoilerKedua[$i + 1])) {
-                $limasBoilerKedua[] = $this->peralatanBoilerKedua[$i];
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasBoilerKedua[] = 'data belum diinput';
+        } else {
+            $rowLimasBoilerKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
+
+            for ($i = 0; $i < count($rowLimasBoilerKedua); $i++) {
+                if (!empty($rowLimasBoilerKedua[$i + 2])) {
+                    $limasBoilerKedua[] = $this->peralatanBoilerKedua[$i];
+                }
             }
         }
 
