@@ -13,6 +13,7 @@
     <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
     <link href="<?= base_url(); ?>/fontawesome/css/all.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/css/template.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/css/profil.css" rel="stylesheet">
 </head>
 
 <body>
