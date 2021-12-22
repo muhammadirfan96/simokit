@@ -11,38 +11,12 @@ class Db_limas extends BaseController
     {
         $this->limasModel = new LimasModel();
     }
+
     public function index()
     {
-        $currentPage = $this->request->getVar('page_limas') ? $this->request->getVar('page_limas') : 1;
-
-        //cek jika tombol cari di pencet
-        if (empty($this->request->getVar('search'))) {
-            //tampilkan semua data
-            $limas = $this->limasModel;
-
-            //cek jika sudah ada sesi
-            //untuk membuat keyword berdasarkan sesi sebelumnya
-            if (session('keyword')) {
-                $keyword1 = session('keyword');
-
-                //lakukan pencarian berdasarkan session
-                $limas = $this->limasModel->search($keyword1);
-            }
-        } else {
-            //buat session berdasarkan isi keyword
-            $valueInput = $this->request->getVar('keyword');
-            session()->set('keyword', $valueInput);
-            $keyword1 = session('keyword');
-
-            //lakukan pencarian berdasarkan session
-            $limas = $this->limasModel->search($keyword1);
-        }
-
         $data = [
             'title' => 'database | limas',
-            'limas' => $limas->paginate(5, 'limas'),
-            'pager' => $this->limasModel->pager,
-            'currentPage' => $currentPage
+            'limas' => $this->limasModel->findAll(),
         ];
 
         return view('db_limas/index', $data);

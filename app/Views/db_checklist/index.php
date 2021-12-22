@@ -12,25 +12,6 @@
             </a>
         </div>
     </div>
-</div>
-
-<div class="container mb-3">
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <form action="" method="post">
-                <div class="input-group">
-                    <input class="form-control" type="text" name="keyword" autofocus="" placeholder="masukkan keyword pencarian..." value="">
-                    <button class="btn btn-success" name="search" value="search" type="submit">search</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6 justify-content-end d-md-flex">
-            <?= $pager->links('checklist', 'default_full'); ?>
-        </div>
-    </div>
-</div>
-
-<div class="container mb-3">
     <div class="row">
         <div class="col">
             <?php if (session()->getFlashdata('pesan')) : ?>
@@ -38,10 +19,53 @@
                     <?= session()->getFlashdata('pesan'); ?>
                 </div>
             <?php endif; ?>
-            <div id="container" class="tabel">
-                <?= $this->include('db_checklist/table'); ?>
-            </div>
         </div>
     </div>
 </div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead class="table-success text-capitalize">
+                <tr>
+                    <th scope="col">aksi</th>
+                    <th scope="col">tanggal</th>
+                    <th scope="col">diinput oleh</th>
+                    <th scope="col">nama peralatan</th>
+                    <th scope="col">catatan</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th scope="col">aksi</th>
+                    <th scope="col">tanggal</th>
+                    <th scope="col">diinput oleh</th>
+                    <th scope="col">nama peralatan</th>
+                    <th scope="col">catatan</th>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                <?php foreach ($checklist as $row) : ?>
+                    <tr>
+                        <td>
+                            <a class="btn btn-sm btn-danger me-2 d-inline" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank">print</a>
+
+                            <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-secondary" type="submit" onclick="return confirm('delete?')">delete</button>
+                            </form>
+                        </td>
+                        <td><?= $row["tanggal"]; ?></td>
+                        <td><?= $row["diinput_oleh"]; ?></td>
+                        <td><?= $row["namaPeralatan"] ?></td>
+                        <td><?= $row["catatan"] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <?= $this->endSection(); ?>

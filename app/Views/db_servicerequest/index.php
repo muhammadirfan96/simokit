@@ -12,25 +12,6 @@
             </a>
         </div>
     </div>
-</div>
-
-<div class="container mb-3">
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <form action="" method="post">
-                <div class="input-group">
-                    <input class="form-control" type="text" name="keyword" autofocus="" placeholder="masukkan keyword pencarian..." id="kkeyword" value="">
-                    <button class="btn btn-success" name="search" value="search" type="submit">search</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6 justify-content-end d-md-flex">
-            <?= $pager->links('srcm', 'default_full'); ?>
-        </div>
-    </div>
-</div>
-
-<div class="container mb-3">
     <div class="row">
         <div class="col">
             <?php if (session()->getFlashdata('pesan')) : ?>
@@ -38,17 +19,107 @@
                     <?= session()->getFlashdata('pesan'); ?>
                 </div>
             <?php endif; ?>
-            <div id="container" class="tabel">
-                <?= $this->include('db_servicerequest/table'); ?>
-            </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('#keyword').on('keyup', function() {
-            $('#container').load('/db_servicerequest/table/' + $('#keyword').val());
-        });
-    });
-</script>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead class="table-success text-capitalize">
+                <tr>
+                    <th scope="col">aksi</th>
+                    <th scope="col">ket</th>
+                    <th scope="col">diinput oleh</th>
+                    <th scope="col">nomor sr</th>
+                    <th scope="col">tanggal</th>
+                    <th scope="col">unit</th>
+                    <th scope="col">area</th>
+                    <th scope="col">nama peralatan</th>
+                    <th scope="col">KKS</th>
+                    <th scope="col">ur. gangguan(1)</th>
+                    <th scope="col">ur. gangguan(2)</th>
+                    <th scope="col">nor. operasi(1)</th>
+                    <th scope="col">nor. operasi(2)</th>
+                    <th scope="col">gejala(1)</th>
+                    <th scope="col">gejala(2)</th>
+                    <th scope="col">prioritas</th>
+                    <th scope="col">ak. kerusakan(1)</th>
+                    <th scope="col">ak. kerusakan(2)</th>
+                    <th scope="col">kem. dampak(1)</th>
+                    <th scope="col">kem. dampak(2)</th>
+                    <th scope="col">tin. sementara(1)</th>
+                    <th scope="col">tin. sementara(2)</th>
+                    <th scope="col">tin. sementara(3)</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th scope="col">aksi</th>
+                    <th scope="col">ket</th>
+                    <th scope="col">diinput oleh</th>
+                    <th scope="col">nomor sr</th>
+                    <th scope="col">tanggal</th>
+                    <th scope="col">unit</th>
+                    <th scope="col">area</th>
+                    <th scope="col">nama peralatan</th>
+                    <th scope="col">KKS</th>
+                    <th scope="col">ur. gangguan(1)</th>
+                    <th scope="col">ur. gangguan(2)</th>
+                    <th scope="col">nor. operasi(1)</th>
+                    <th scope="col">nor. operasi(2)</th>
+                    <th scope="col">gejala(1)</th>
+                    <th scope="col">gejala(2)</th>
+                    <th scope="col">prioritas</th>
+                    <th scope="col">ak. kerusakan(1)</th>
+                    <th scope="col">ak. kerusakan(2)</th>
+                    <th scope="col">kem. dampak(1)</th>
+                    <th scope="col">kem. dampak(2)</th>
+                    <th scope="col">tin. sementara(1)</th>
+                    <th scope="col">tin. sementara(2)</th>
+                    <th scope="col">tin. sementara(3)</th>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                <?php foreach ($servicerequest as $row) : ?>
+                    <tr>
+                        <td>
+                            <a class="btn btn-sm btn-danger mb-2" href="/db_servicerequest/<?= $row["id"]; ?>" role="button" target="_blank">print</a>
+
+                            <form action="/db_servicerequest/<?= $row["id"]; ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-secondary" type="submit" onclick="return confirm('delete?')">delete</button>
+                            </form>
+                        </td>
+                        <td><?= $row["ket"]; ?></td>
+                        <td><?= $row["diinput_oleh"]; ?></td>
+                        <td><?= $row["nomorSr"] ?></td>
+                        <td><?= $row["tanggal"] ?></td>
+                        <td><?= $row["unit"]; ?></td>
+                        <td><?= $row["area"]; ?></td>
+                        <td><?= $row["namaPeralatan"]; ?></td>
+                        <td><?= $row["kks"]; ?></td>
+                        <td><?= $row["uraianGangguan1"]; ?></td>
+                        <td><?= $row["uraianGangguan2"]; ?></td>
+                        <td><?= $row["normalOperasi1"]; ?></td>
+                        <td><?= $row["normalOperasi2"]; ?></td>
+                        <td><?= $row["gejala1"]; ?></td>
+                        <td><?= $row["gejala2"]; ?></td>
+                        <td><?= $row["prioritas"]; ?></td>
+                        <td><?= $row["akibatKerusakan1"]; ?></td>
+                        <td><?= $row["akibatKerusakan2"]; ?></td>
+                        <td><?= $row["kemungkinanDampak1"]; ?></td>
+                        <td><?= $row["kemungkinanDampak2"]; ?></td>
+                        <td><?= $row["tindakanSementara1"]; ?></td>
+                        <td><?= $row["tindakanSementara2"]; ?></td>
+                        <td><?= $row["tindakanSementara3"]; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <?= $this->endSection(); ?>
