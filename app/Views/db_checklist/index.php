@@ -54,7 +54,7 @@
                             <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-secondary" type="submit" onclick="return confirm('delete?')">delete</button>
+                                <button class="btn btn-sm btn-secondary mt-2" type="submit" onclick="return confirm('delete?')">delete</button>
                             </form>
                         </td>
                         <td><?= $row["tanggal"]; ?></td>

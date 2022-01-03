@@ -45,8 +45,11 @@
                                                     <option <?= old('bidang') == 'operasi shift b' ? 'selected' : ''; ?> value="operasi shift b">Operasi shift B</option>
                                                     <option <?= old('bidang') == 'operasi shift c' ? 'selected' : ''; ?> value="operasi shift c">Operasi shift C</option>
                                                     <option <?= old('bidang') == 'operasi shift d' ? 'selected' : ''; ?> value="operasi shift d">Operasi shift D</option>
-                                                    <option <?= old('bidang') == 'supervisor operasi shift d' ? 'selected' : ''; ?> value="supervisor operasi shift d">Supervisor operasi shift D</option>
-                                                    <option <?= old('bidang') == 'manager operasi' ? 'selected' : ''; ?> value="manager operasi">Manager Operasi</option>
+                                                    <option disabled <?= old('bidang') == 'supervisor operasi shift a' ? 'selected' : ''; ?> value="supervisor operasi shift a">Supervisor operasi shift a</option>
+                                                    <option disabled <?= old('bidang') == 'supervisor operasi shift b' ? 'selected' : ''; ?> value="supervisor operasi shift b">Supervisor operasi shift b</option>
+                                                    <option disabled <?= old('bidang') == 'supervisor operasi shift c' ? 'selected' : ''; ?> value="supervisor operasi shift c">Supervisor operasi shift c</option>
+                                                    <option disabled <?= old('bidang') == 'supervisor operasi shift d' ? 'selected' : ''; ?> value="supervisor operasi shift d">Supervisor operasi shift d</option>
+                                                    <option disabled <?= old('bidang') == 'manager bagian operasi' ? 'selected' : ''; ?> value="manager bagian operasi">Manager Bagian Operasi</option>
                                                 </select>
 
                                             </div>

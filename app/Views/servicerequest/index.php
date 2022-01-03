@@ -3,8 +3,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-11">
             <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">service request <?= $jenisSr; ?></span></p>
+        </div>
+        <div class="col-1 justify-content-end d-flex">
+            <a class="fs-4 text-danger my-3" href="/">
+                <div class="justify-content-end d-flex"><i class="fas fa-backspace"></i></div>
+            </a>
         </div>
     </div>
 </div>

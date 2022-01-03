@@ -51,12 +51,12 @@
                 <?php foreach ($limas as $row) : ?>
                     <tr>
                         <td>
-                            <a class="btn btn-sm btn-danger me-2 d-inline" href="/db_limas/<?= $row["id"]; ?>" role="button" target="_blank">print</a>
+                            <a class="btn btn-sm btn-danger d-inline me-2" href="/db_limas/<?= $row["id"]; ?>" role="button" target="_blank">print</a>
 
                             <form class="d-inline" action="/db_limas/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-secondary" type="submit" onclick="return confirm('delete?')">delete</button>
+                                <button class="btn btn-sm btn-secondary mt-2" type="submit" onclick="return confirm('delete?')">delete</button>
                             </form>
                         </td>
                         <td><?= $row["tanggal"]; ?></td>

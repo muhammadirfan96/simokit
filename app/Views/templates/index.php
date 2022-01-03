@@ -8,22 +8,43 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title><?= $title; ?></title>
+    <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
     <link href="<?= base_url(); ?>/sb-admin/css/styles.css" rel="stylesheet" />
     <link href="<?= base_url(); ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?= base_url(); ?>/fontawesome/css/all.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/css/template.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/css/profil.css" rel="stylesheet">
+
+    <!-- signature -->
+    <link href="<?= base_url(); ?>/signature/css/jquery-ui.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/signature/css/jquery.signature.css" rel="stylesheet">
+    <style>
+        .kbw-signature {
+            width: 400px;
+            height: 200px;
+        }
+
+        #sig canvas {
+            width: 100% !important;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
     <?= $this->include('templates/topbar'); ?>
     <?= $this->include('templates/sidebar'); ?>
 
-    <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
     <script src="<?= base_url(); ?>/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url(); ?>/sb-admin/js/scripts.js"></script>
+
+    <!-- for table database -->
     <script src="<?= base_url(); ?>/sb-admin/dataTable/simple-dataTable.js"></script>
     <script src="<?= base_url(); ?>/sb-admin/js/datatables-simple-demo.js"></script>
-    <script src="<?= base_url(); ?>/sb-admin/js/scripts.js"></script>
+
+    <!-- for signature -->
+    <script src="<?= base_url(); ?>/signature/js/jquery-ui.js"></script>
+    <script src="<?= base_url(); ?>/signature/js/jquery.signature.js"></script>
 </body>
 
 </html>
