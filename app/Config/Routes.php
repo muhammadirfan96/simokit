@@ -33,15 +33,15 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->get('/checklist/simpan', 'Checklist::simpan');
-$routes->get('/checklist/print', 'Checklist::print');
+$routes->get('/checklist/simpan', 'Checklist::simpan'); // agar tdk masuk ke pilihPeralatan krn (:any)
+$routes->get('/checklist/print', 'Checklist::print'); // agar tdk masuk ke pilihPeralatan krn (:any)
 $routes->get('/checklist/(:num)', 'Checklist::print/$1');
 $routes->get('/checklist/(:any)', 'Checklist::pilihPeralatan/$1');
 
-$routes->get('/servicerequest/simpan', 'Servicerequest::simpan');
-$routes->get('/servicerequest/print', 'Servicerequest::print');
+$routes->get('/servicerequest/simpan', 'Servicerequest::simpan'); // agar tdk masuk ke index krn (:alpha)
+$routes->get('/servicerequest/print', 'Servicerequest::print'); // agar tdk masuk ke index krn (:alpha)
 $routes->get('/servicerequest/(:num)', 'Servicerequest::print/$1');
-$routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1');
+$routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1'); // membedakan cm dan flm
 
 $routes->get('/limas/(:num)', 'Limas::print/$1');
 
@@ -54,7 +54,7 @@ $routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1');
 $routes->delete('/db_limas/(:num)', 'Db_limas::delete/$1');
 $routes->get('/db_limas/(:any)', 'Db_limas::prints/$1');
 
-// $routes->delete('/db_users/(:num)', 'Db_users::delete/$1');
+$routes->delete('/db_users/(:num)', 'Db_users::delete/$1');
 $routes->get('/db_users/(:any)', 'Db_users::details/$1');
 
 /*

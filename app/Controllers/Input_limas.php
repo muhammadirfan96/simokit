@@ -325,6 +325,7 @@ class Input_limas extends BaseController
                 $this->limasAlbaKeduaModel->save($result);
             }
         }
+        session()->setFlashdata('pesan', 'jadwal kegiatan 5s berhasl di update !');
         return redirect()->to(base_url('/input_limas'));
     }
 }

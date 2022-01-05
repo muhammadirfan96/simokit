@@ -1,4 +1,4 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg_blue">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg_biru0 border_bottom">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3 fs-3" href="/">
         <!-- <img src="/img-dev/logo.png" width="30px"> -->

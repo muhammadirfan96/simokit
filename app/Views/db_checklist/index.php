@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('page-content'); ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-11">
             <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">database checklist peralatan</span></p>
@@ -49,12 +49,12 @@
                 <?php foreach ($checklist as $row) : ?>
                     <tr>
                         <td>
-                            <a class="btn btn-sm btn-danger me-2 d-inline" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank">print</a>
+                            <a class="btn btn-sm btn-success mb-2 d-inline" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
 
                             <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-secondary mt-2" type="submit" onclick="return confirm('delete?')">delete</button>
+                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                         <td><?= $row["tanggal"]; ?></td>

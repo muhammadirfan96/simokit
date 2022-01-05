@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('page-content'); ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-11">
             <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">daftar sop ik</span></p>
@@ -14,14 +14,14 @@
     </div>
 </div>
 
-<div class="container text-center text-capitalize">
+<div class="container-fluid text-center text-capitalize">
     <div class="row">
-        <div class="col-md-4">
-            <div class="d-grid gap-2 d-md-block ">
-                <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    SOP & IK Peralatan Boiler
-                </button>
-
+        <div class="col-xl-4 col-md-6">
+            <div class="card text-white mb-4">
+                <div class="card-header rounded-top fw-bold text-uppercase bg_ungu0">SOP & IK Peralatan Boiler</div>
+                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_ungu1">
+                    <button class="btn btn-outline-light text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-eye text-dark"></i> See Details</button>
+                </div>
                 <div class="collapse" id="collapseExample">
                     <ul class="list-group text-start">
                         <?php foreach ($peralatan["boiler"] as $row) : ?>
@@ -31,13 +31,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="d-grid gap-2 d-md-block">
-                <button class="btn btn-warning mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-                    SOP & IK Peralatan Turbin
-                </button>
-
+        <div class="col-xl-4 col-md-6">
+            <div class="card text-white mb-4">
+                <div class="card-header rounded-top fw-bold text-uppercase bg_kuning0">SOP & IK Peralatan Turbin</div>
+                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_kuning1">
+                    <button class="btn btn-outline-light text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2"><i class="fas fa-eye text-dark"></i> See Details</button>
+                </div>
                 <div class="collapse" id="collapseExample2">
                     <ul class="list-group text-start">
                         <?php foreach ($peralatan["turbin"] as $row) : ?>
@@ -47,13 +46,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="d-grid gap-2 d-md-block">
-                <button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                    SOP & IK Peralatan Alba
-                </button>
-
+        <div class="col-xl-4 col-md-6">
+            <div class="card text-white mb-4">
+                <div class="card-header rounded-top fw-bold text-uppercase bg_biru0">SOP & IK Peralatan Alba</div>
+                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_biru1">
+                    <button class="btn btn-outline-light text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3"><i class="fas fa-eye text-dark"></i> See Details</button>
+                </div>
                 <div class="collapse" id="collapseExample3">
                     <ul class="list-group text-start">
                         <?php foreach ($peralatan["alba"] as $row) : ?>
@@ -63,18 +61,12 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- akhir row 1 -->
-
-    <!-- row 2 -->
-
-    <div class="row ">
-        <div class="col-md-4 ">
-            <div class="d-grid gap-2 d-md-block ">
-                <button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">
-                    SOP & IK Start Up
-                </button>
+        <div class="col-xl-4 col-md-6">
+            <div class="card text-white mb-4">
+                <div class="card-header rounded-top fw-bold text-uppercase bg_merah0">SOP & IK Start Up</div>
+                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_merah1">
+                    <button class="btn btn-outline-light text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4"><i class="fas fa-eye text-dark"></i> See Details</button>
+                </div>
                 <div class="collapse" id="collapseExample4">
                     <ul class="list-group text-start">
                         <?php foreach ($peralatan["startUp"] as $row) : ?>
@@ -84,12 +76,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4 ">
-            <div class="d-grid gap-3 d-md-block">
-                <button class="btn btn-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample5" aria-expanded="false" aria-controls="collapseExample">
-                    SOP & IK Shut Down
-                </button>
+        <div class="col-xl-4 col-md-6">
+            <div class="card text-white mb-4">
+                <div class="card-header rounded-top fw-bold text-uppercase bg_hijau0">SOP & IK Shut Down</div>
+                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_hijau1">
+                    <button class="btn btn-outline-light text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample5" aria-expanded="false" aria-controls="collapseExample5"><i class="fas fa-eye text-dark"></i> See Details</button>
+                </div>
                 <div class="collapse" id="collapseExample5">
                     <ul class="list-group text-start">
                         <?php foreach ($peralatan["shutDown"] as $row) : ?>

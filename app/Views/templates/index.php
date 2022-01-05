@@ -18,17 +18,7 @@
     <!-- signature -->
     <link href="<?= base_url(); ?>/signature/css/jquery-ui.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/signature/css/jquery.signature.css" rel="stylesheet">
-    <style>
-        .kbw-signature {
-            width: 400px;
-            height: 200px;
-        }
-
-        #sig canvas {
-            width: 100% !important;
-            height: auto;
-        }
-    </style>
+    <link href="<?= base_url(); ?>/signature/css/box.css" rel="stylesheet">
 </head>
 
 <body>

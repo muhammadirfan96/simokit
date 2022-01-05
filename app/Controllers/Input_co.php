@@ -153,6 +153,7 @@ class Input_co extends BaseController
                 $this->scheduleCommonModel->save($result);
             }
         }
+        session()->setFlashdata('pesan', 'jadwal change over berhasl di update !');
         return redirect()->to(base_url('/input_co'));
     }
 }

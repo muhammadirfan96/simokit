@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('page-content'); ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-11">
             <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">input schedule 5s</span></p>
@@ -12,9 +12,18 @@
             </a>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <?php if (session()->getFlashdata('pesan')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?= session()->getFlashdata('pesan'); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col">
             <div class="btn-group mb-3" role="group" aria-label="Basic mixed styles example">

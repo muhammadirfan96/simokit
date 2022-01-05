@@ -1,6 +1,6 @@
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-light bg_blue_light border_bottom" id="sidenavAccordion">
+        <nav class="sb-sidenav accordion sb-sidenav-light bg_birulaut0" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
 

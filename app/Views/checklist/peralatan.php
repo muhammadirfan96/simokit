@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('page-content'); ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-11">
             <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">checklist <?= $title; ?></span></p>
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col">
             <?php if (session()->getFlashdata('pesan')) : ?>

@@ -92,4 +92,28 @@ class Db_users extends BaseController
 
         return redirect()->to(base_url('/db_users'));
     }
+
+    public function delete($id)
+    {
+        //cari gambar
+        $User = $this->UserModel->asArray()->find($id);
+        // dd($User);
+
+        //hapus gambar
+        if ($User['picture'] != '') {
+            if (file_exists('img-profile/' . $User['picture'])) {
+                unlink('img-profile/' . $User['picture']);
+            }
+        }
+        if ($User['signature'] != '') {
+            if (file_exists('img-ttd/' . $User['signature'])) {
+                unlink('img-ttd/' . $User['signature']);
+            }
+        }
+
+        //hapus data
+        session()->setFlashdata('pesan', 'user ' . $User['username'] . ' telah dihapus');
+        $this->UserModel->delete($id);
+        return redirect()->to(base_url('/db_users'));
+    }
 }

@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('page-content'); ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-11">
             <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">database service request</span></p>
@@ -85,12 +85,12 @@
                 <?php foreach ($servicerequest as $row) : ?>
                     <tr>
                         <td>
-                            <a class="btn btn-sm btn-danger mb-2" href="/db_servicerequest/<?= $row["id"]; ?>" role="button" target="_blank">print</a>
+                            <a class="btn btn-sm btn-success mb-2" href="/db_servicerequest/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
 
                             <form action="/db_servicerequest/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-secondary" type="submit" onclick="return confirm('delete?')">delete</button>
+                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                         <td><?= $row["ket"]; ?></td>
