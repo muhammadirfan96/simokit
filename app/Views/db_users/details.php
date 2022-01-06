@@ -20,7 +20,7 @@
             <form action="/db_users/edit" method="post" enctype="multipart/form-data">
                 <div class="card">
                     <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                    <div class="card-header" style="background-color:#b7d5ac;">
+                    <div class="card-header bg_orange1">
                         <div>
                             <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-profile/' . $user['picture']); ?>">
                         </div>

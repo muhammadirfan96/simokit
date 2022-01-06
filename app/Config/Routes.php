@@ -39,23 +39,35 @@ $routes->get('/checklist/(:num)', 'Checklist::print/$1');
 $routes->get('/checklist/(:any)', 'Checklist::pilihPeralatan/$1');
 
 $routes->get('/servicerequest/simpan', 'Servicerequest::simpan'); // agar tdk masuk ke index krn (:alpha)
-$routes->get('/servicerequest/print', 'Servicerequest::print'); // agar tdk masuk ke index krn (:alpha)
+$routes->get('/servicerequest/print', 'Servicerequest::print'); // agar tdk masuk ke index krn ada (:alpha)
 $routes->get('/servicerequest/(:num)', 'Servicerequest::print/$1');
 $routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1'); // membedakan cm dan flm
 
 $routes->get('/limas/(:num)', 'Limas::print/$1');
 
-$routes->delete('/db_checklist/(:num)', 'Db_checklist::delete/$1');
-$routes->get('/db_checklist/(:any)', 'Db_checklist::prints/$1');
+$routes->get('/db_home/index', 'Db_home::index', ['filter' => 'role:admin']);
+$routes->get('/db_home', 'Db_home::index', ['filter' => 'role:admin']);
 
-$routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1');
-$routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1');
+$routes->get('/db_checklist', 'Db_checklist::index', ['filter' => 'role:admin']);
+$routes->get('/db_checklist/index', 'Db_checklist::index', ['filter' => 'role:admin']);
+$routes->delete('/db_checklist/(:num)', 'Db_checklist::delete/$1', ['filter' => 'role:admin']);
+$routes->get('/db_checklist/(:any)', 'Db_checklist::prints/$1', ['filter' => 'role:admin']);
 
-$routes->delete('/db_limas/(:num)', 'Db_limas::delete/$1');
-$routes->get('/db_limas/(:any)', 'Db_limas::prints/$1');
+$routes->get('/db_servicerequest', 'Db_servicerequest::index', ['filter' => 'role:admin']);
+$routes->get('/db_servicerequest/index', 'Db_servicerequest::index', ['filter' => 'role:admin']);
+$routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1', ['filter' => 'role:admin']);
+$routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1', ['filter' => 'role:admin']);
 
-$routes->delete('/db_users/(:num)', 'Db_users::delete/$1');
-$routes->get('/db_users/(:any)', 'Db_users::details/$1');
+$routes->get('/db_limas', 'Db_limas::index', ['filter' => 'role:admin']);
+$routes->get('/db_limas/index', 'Db_limas::index', ['filter' => 'role:admin']);
+$routes->delete('/db_limas/(:num)', 'Db_limas::delete/$1', ['filter' => 'role:admin']);
+$routes->get('/db_limas/(:any)', 'Db_limas::prints/$1', ['filter' => 'role:admin']);
+
+$routes->get('/db_users', 'Db_users::index', ['filter' => 'role:admin']);
+$routes->get('/db_users/index', 'Db_users::index', ['filter' => 'role:admin']);
+$routes->get('/db_users/edit', 'Db_users::edit', ['filter' => 'role:admin']);
+$routes->delete('/db_users/(:num)', 'Db_users::delete/$1', ['filter' => 'role:admin']);
+$routes->get('/db_users/(:any)', 'Db_users::details/$1', ['filter' => 'role:admin']);
 
 /*
  * --------------------------------------------------------------------
