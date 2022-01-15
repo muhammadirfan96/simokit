@@ -112,8 +112,8 @@ class Db_users extends BaseController
         }
 
         //hapus data
-        session()->setFlashdata('pesan', 'user ' . $User['username'] . ' telah dihapus');
         $this->UserModel->delete($id);
+        session()->setFlashdata('pesan', 'user ' . $User['username'] . ' telah dihapus');
         return redirect()->to(base_url('/db_users'));
     }
 }
