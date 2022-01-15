@@ -4,6 +4,18 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
 
+                    <?php if (in_groups('admin') || in_groups('manager bagian operasi') || in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) : ?>
+                        <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">all</div>
+                        <a class="nav-link pb-0 mb-0" href="<?= base_url('/make_notice'); ?>">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-bullhorn"></i></div>
+                            Make Notice
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="/">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-eye"></i></div>
+                            KPI Monitoring
+                        </a>
+                    <?php endif; ?>
+
                     <?php if (in_groups('admin')) : ?>
                         <!-- admin -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">admin</div>
@@ -24,25 +36,25 @@
                     <?php if (in_groups('admin') || in_groups('manager bagian operasi')) : ?>
                         <!-- manager bagian operasi -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">manager op</div>
-                        <a class="nav-link pb-0 mb-0" href="index.html">
+                        <a class="nav-link pb-0 mb-0" href="/">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-glasses"></i></div>
                             See Logsheet
                         </a>
-                        <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-bullhorn"></i></div>
-                            Make Notice
+                        <a class="nav-link pb-0 mb-0" href="/">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
+                            Approve
                         </a>
                     <?php endif; ?>
                     <?php if (in_groups('admin') || in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) : ?>
                         <!-- supervisor operasi -->
                         <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">supervisor op</div>
-                        <a class="nav-link pb-0 mb-0" href="index.html">
+                        <a class="nav-link pb-0 mb-0" href="/">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-glasses"></i></div>
                             See Logsheet
                         </a>
-                        <a class="nav-link pb-0 mb-0" href="index.html">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-bullhorn"></i></div>
-                            Make Notice
+                        <a class="nav-link pb-0 mb-0" href="/">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
+                            Approve
                         </a>
                     <?php endif; ?>
 
@@ -92,11 +104,6 @@
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
                     <div class="text-muted">Copyright &copy; Simokit 2021</div>
-                    <div>
-                        <a href="/">Privacy Policy</a>
-                        &middot;
-                        <a href="/">Terms &amp; Conditions</a>
-                    </div>
                 </div>
             </div>
         </footer>

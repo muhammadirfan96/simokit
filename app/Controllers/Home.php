@@ -14,10 +14,13 @@ use App\Models\LimasAlbaKeduaModel;
 use App\Models\ScheduleSatuModel;
 use App\Models\ScheduleDuaModel;
 use App\Models\ScheduleCommonModel;
+use App\Models\NoticeModel;
 
 class Home extends BaseController
 {
     protected $scheduleSatu, $scheduleDua, $scheduleCommon, $limasBoilerPertama, $limasBoilerKedua, $limasBoilerKetiga, $limasTurbinPertama, $limasTurbinKedua, $limasTurbinKetiga, $limasTurbinKeempat, $limasAlbaPertama, $limasAlbaKedua;
+
+    protected $noticeModel;
 
     public function __construct()
     {
@@ -33,6 +36,8 @@ class Home extends BaseController
         $this->limasTurbinKeempat = new LimasTurbinKeempatModel();
         $this->limasAlbaPertama = new LimasAlbaPertamaModel();
         $this->limasAlbaKedua = new LimasAlbaKeduaModel();
+
+        $this->noticeModel = new NoticeModel();
     }
 
     public function index()
@@ -55,6 +60,10 @@ class Home extends BaseController
             $this->limasAlbaKedua->limasAlbaKedua()
         ];
 
+        $hari = date('Y-m-d H:i:s');
+        $like = user()->bidang;
+        $where = "notice_to LIKE '%$like%' AND end_time > '$hari'";
+
         $data = [
             'title' => 'home | simokit',
             'limasBoiler' => $limasBoiler,
@@ -62,7 +71,8 @@ class Home extends BaseController
             'limasAlba' => $limasAlba,
             'jadwalCoUnit1' => $this->scheduleSatu->scheduleSatu(),
             'jadwalCoUnit2' => $this->scheduleDua->scheduleDua(),
-            'jadwalCoCommon' => $this->scheduleCommon->scheduleCommon()
+            'jadwalCoCommon' => $this->scheduleCommon->scheduleCommon(),
+            'notice' => $this->noticeModel->where($where)->findAll()
         ];
 
         return view('home/index', $data);

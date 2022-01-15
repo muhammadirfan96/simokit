@@ -45,6 +45,10 @@ $routes->get('/servicerequest/(:alpha)', 'Servicerequest::index/$1'); // membeda
 
 $routes->get('/limas/(:num)', 'Limas::print/$1');
 
+$routes->get('/make_notice', 'Make_notice::index', ['filter' => 'role:admin,manager bagian operasi,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/make_notice/index', 'Make_notice::index', ['filter' => 'role:admin,manager bagian operasi,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/make_notice/post', 'Make_notice::post', ['filter' => 'role:admin,manager bagian operasi,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+
 $routes->get('/db_home/index', 'Db_home::index', ['filter' => 'role:admin']);
 $routes->get('/db_home', 'Db_home::index', ['filter' => 'role:admin']);
 
@@ -68,6 +72,12 @@ $routes->get('/db_users/index', 'Db_users::index', ['filter' => 'role:admin']);
 $routes->get('/db_users/edit', 'Db_users::edit', ['filter' => 'role:admin']);
 $routes->delete('/db_users/(:num)', 'Db_users::delete/$1', ['filter' => 'role:admin']);
 $routes->get('/db_users/(:any)', 'Db_users::details/$1', ['filter' => 'role:admin']);
+
+$routes->get('/db_notice', 'Db_notice::index', ['filter' => 'role:admin']);
+$routes->get('/db_notice/index', 'Db_notice::index', ['filter' => 'role:admin']);
+$routes->get('/db_notice/edit', 'Db_notice::edit', ['filter' => 'role:admin']);
+$routes->delete('/db_notice/(:num)', 'Db_notice::delete/$1', ['filter' => 'role:admin']);
+$routes->get('/db_notice/(:any)', 'Db_notice::details/$1', ['filter' => 'role:admin']);
 
 /*
  * --------------------------------------------------------------------

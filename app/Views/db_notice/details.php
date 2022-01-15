@@ -1,0 +1,112 @@
+<?= $this->extend('templates/index'); ?>
+<?= $this->section('page-content'); ?>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-11">
+            <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">make notice</span></p>
+        </div>
+        <div class="col-1 justify-content-end d-flex">
+            <a class="fs-4 text-danger my-3" href="/db_notice">
+                <div class="justify-content-end d-flex"><i class="fas fa-backspace"></i></div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <?php if (session()->getFlashdata('pesan')) : ?>
+        <div class="alert alert-success" role="alert">
+            <?= session()->getFlashdata('pesan'); ?>
+        </div>
+    <?php endif; ?>
+    <form action="/db_notice/edit" method="post">
+        <input type="hidden" name="id" value="<?= $notice['id']; ?>">
+        <input type="hidden" name="maked_by" value="<?= $notice['maked_by']; ?>">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">start time | <?= $notice['start_time']; ?></span>
+                    <input type="datetime-local" class="form-control <?= ($validation->hasError('start_time')) ? 'is-invalid' : ''; ?>" name="start_time" value="<?= old('start_time'); ?>">
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('start_time'); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">end time | <?= $notice['end_time']; ?></span>
+                    <input type="datetime-local" class="form-control <?= ($validation->hasError('end_time')) ? 'is-invalid' : ''; ?>" name="end_time" value="<?= old('end_time'); ?>">
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('end_time'); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <textarea class="form-control <?= ($validation->hasError('content')) ? 'is-invalid' : ''; ?>" name="content" placeholder="text.."><?= $notice['content']; ?></textarea>
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('content'); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="dropdown">
+                                <button class="btn bg_orange0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    notify to
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <?php if (in_groups('supervisor operasi shift a') || in_groups('admin')) : ?>
+                                        <li>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftA" name="shiftA" value="operasi shift a " checked>
+                                            <label class="form-check-label" for="shiftA">
+                                                operasi shift a
+                                            </label>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if (in_groups('supervisor operasi shift b') || in_groups('admin')) : ?>
+                                        <li>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftB" name="shiftB" value="operasi shift b " checked>
+                                            <label class="form-check-label" for="shiftB">
+                                                operasi shift b
+                                            </label>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if (in_groups('supervisor operasi shift c') || in_groups('admin')) : ?>
+                                        <li>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftC" name="shiftC" value="operasi shift c " checked>
+                                            <label class="form-check-label" for="shiftC">
+                                                operasi shift c
+                                            </label>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if (in_groups('supervisor operasi shift d') || in_groups('admin')) : ?>
+                                        <li>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftD" name="shiftD" value="operasi shift d " checked>
+                                            <label class="form-check-label" for="shiftD">
+                                                operasi shift d
+                                            </label>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <div class="position-relative">
+                            <div class="position-absolute top-0 end-0">
+                                <button class="btn btn-success" type="submit">post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<?= $this->endSection(); ?>

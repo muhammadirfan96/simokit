@@ -66,11 +66,8 @@ class Checklist extends BaseController
         $dataValidate = array_combine($keyDataValidate, $valueDataValidate);
 
         if (!$this->validate($dataValidate)) {
-            return redirect()->back()->withInput();
-            //echo 'lol';
+            return redirect()->to(base_url('/checklist/' . $this->request->getVar('namaPeralatan')))->withInput();
         }
-
-        //dd($this->request->getVar());
 
         //insert ke tabel checklist
 
