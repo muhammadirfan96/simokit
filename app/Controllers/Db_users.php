@@ -36,6 +36,7 @@ class Db_users extends BaseController
 
     public function edit()
     {
+        // dd($this->request->getVar());
         $User = $this->UserModel->asArray()->find($this->request->getVar('id'));
 
         if ($this->request->getFile('picture')->getName()) {
@@ -76,6 +77,7 @@ class Db_users extends BaseController
 
         $data = [
             'id' => $this->request->getVar('id'),
+            'username' => $this->request->getVar('username'),
             'fullname' => $this->request->getVar('fullname'),
             'email' => $this->request->getVar('email'),
             'active' => $this->request->getVar('active'),

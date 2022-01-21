@@ -11,10 +11,6 @@ $(document).ready(function() {
         $('#iconFullname').removeClass('fa-lock');
         $('#iconFullname').addClass('fa-lock-open');
 
-        $('#inputBidang').removeAttr('disabled');
-        $('#iconBidang').removeClass('fa-lock');
-        $('#iconBidang').addClass('fa-lock-open');
-
         $('#inputEmail').removeAttr('disabled');
         $('#iconEmail').removeClass('fa-lock');
         $('#iconEmail').addClass('fa-lock-open');

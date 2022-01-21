@@ -60,38 +60,68 @@
                                     notify to
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <?php if (in_groups('supervisor operasi shift a') || in_groups('admin')) : ?>
-                                        <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftA" name="shiftA" value="operasi shift a " checked>
-                                            <label class="form-check-label" for="shiftA">
-                                                operasi shift a
-                                            </label>
-                                        </li>
-                                    <?php endif; ?>
-                                    <?php if (in_groups('supervisor operasi shift b') || in_groups('admin')) : ?>
-                                        <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftB" name="shiftB" value="operasi shift b " checked>
-                                            <label class="form-check-label" for="shiftB">
-                                                operasi shift b
-                                            </label>
-                                        </li>
-                                    <?php endif; ?>
-                                    <?php if (in_groups('supervisor operasi shift c') || in_groups('admin')) : ?>
-                                        <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftC" name="shiftC" value="operasi shift c " checked>
-                                            <label class="form-check-label" for="shiftC">
-                                                operasi shift c
-                                            </label>
-                                        </li>
-                                    <?php endif; ?>
-                                    <?php if (in_groups('supervisor operasi shift d') || in_groups('admin')) : ?>
-                                        <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftD" name="shiftD" value="operasi shift d " checked>
-                                            <label class="form-check-label" for="shiftD">
-                                                operasi shift d
-                                            </label>
-                                        </li>
-                                    <?php endif; ?>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="shiftA" name="shiftA" value="operasi shift a " checked>
+                                        <label class="form-check-label" for="shiftA">
+                                            operasi shift a
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="shiftB" name="shiftB" value="operasi shift b " checked>
+                                        <label class="form-check-label" for="shiftB">
+                                            operasi shift b
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="shiftC" name="shiftC" value="operasi shift c " checked>
+                                        <label class="form-check-label" for="shiftC">
+                                            operasi shift c
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="shiftD" name="shiftD" value="operasi shift d " checked>
+                                        <label class="form-check-label" for="shiftD">
+                                            operasi shift d
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="SpvShiftA" name="SpvShiftA" value="supervisor operasi shift a " checked>
+                                        <label class="form-check-label" for="SpvShiftA">
+                                            sp. operasi shift a
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="SpvShiftB" name="SpvShiftB" value="supervisor operasi shift b " checked>
+                                        <label class="form-check-label" for="SpvShiftB">
+                                            sp. operasi shift b
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="SpvShiftC" name="SpvShiftC" value="supervisor operasi shift c " checked>
+                                        <label class="form-check-label" for="SpvShiftC">
+                                            sp. operasi shift c
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="SpvShiftD" name="SpvShiftD" value="supervisor operasi shift d " checked>
+                                        <label class="form-check-label" for="SpvShiftD">
+                                            sp. operasi shift d
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input ms-2" type="checkbox" id="manOP" name="manOP" value="manager bagian operasi " checked>
+                                        <label class="form-check-label" for="manOP">
+                                            man. operasi
+                                        </label>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

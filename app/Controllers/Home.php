@@ -62,7 +62,7 @@ class Home extends BaseController
 
         $hari = date('Y-m-d H:i:s');
         $like = user()->bidang;
-        $where = "notice_to LIKE '%$like%' AND end_time > '$hari'";
+        $where = "notice_to LIKE '%$like%' AND start_time < '$hari' AND end_time > '$hari'";
 
         $data = [
             'title' => 'home | simokit',
