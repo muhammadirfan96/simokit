@@ -14,9 +14,17 @@ class Db_notice extends BaseController
 
     public function index()
     {
+        $fullname = user()->fullname;
+        $where = "maked_by LIKE '%$fullname%'";
+        if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
+            $result = $this->noticeModel->where($where)->findAll();
+        } elseif (in_groups('admin')) {
+            $result = $this->noticeModel->findAll();
+        }
+
         $data = [
             'title' => 'database | notice',
-            'notice' => $this->noticeModel->findAll(),
+            'notice' => $result
         ];
 
         return view('db_notice/index', $data);
@@ -77,7 +85,7 @@ class Db_notice extends BaseController
                 $this->request->getVar('SpvShiftD') .
                 $this->request->getVar('manOP'),
             'content' => $this->request->getVar('content'),
-            'updated_by' => 'admin'
+            'updated_by' => user()->fullname
         ];
         // dd($data);
 

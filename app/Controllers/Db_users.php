@@ -3,20 +3,29 @@
 namespace App\Controllers;
 
 use Myth\Auth\Models\UserModel;
+use App\Models\AtasanModel;
 
 class Db_users extends BaseController
 {
-    protected $UserModel;
+    protected $UserModel, $AtasanModel;
     public function __construct()
     {
         $this->UserModel = new UserModel();
+        $this->AtasanModel = new AtasanModel();
     }
 
     public function index()
     {
+        if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
+            $atasan = $this->AtasanModel->where('nama', user()->fullname)->first();
+            $users = $this->UserModel->asArray()->where('bidang', $atasan['bawahan'])->findAll();
+        } elseif (in_groups('admin')) {
+            $users = $this->UserModel->asArray()->findAll();
+        }
+
         $data = [
             'title' => 'database | users',
-            'users' => $this->UserModel->asArray()->findAll(),
+            'users' => $users
         ];
         // dd($data);
 

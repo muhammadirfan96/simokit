@@ -55,15 +55,17 @@
 
                         <label class="btn btn-sm btn-secondary">Signature</label><a href="<?= base_url('img-ttd/' . $user['signature']); ?>" class="ms-2 text-danger" target="_blank"><?= ($user['signature'] != "") ? "The user already have a signature" : "The user don't have a signature"; ?></a>
                         <br>
-                        <div id="sig"></div>
-                        <textarea id="signature64" name="signed" style="display: none"></textarea>
+                        <?php if (in_groups('admin')) : ?>
+                            <div id="sig"></div>
+                            <textarea id="signature64" name="signed" style="display: none"></textarea>
 
-                        <div class="mt-2">
-                            <button id="edit" class="btn btn-danger " type="button">edit</button>
-                            <button disabled id="clear" class="btn btn-warning" type="button">clear</button>
-                            <button disabled id="reset" class="btn btn-primary" type="reset">reset</button>
-                            <button disabled id="save" class="btn btn-success" type="submit">save</button>
-                        </div>
+                            <div class="mt-2">
+                                <button id="edit" class="btn btn-danger " type="button">edit</button>
+                                <button disabled id="clear" class="btn btn-warning" type="button">clear</button>
+                                <button disabled id="reset" class="btn btn-primary" type="reset">reset</button>
+                                <button disabled id="save" class="btn btn-success" type="submit">save</button>
+                            </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </form>

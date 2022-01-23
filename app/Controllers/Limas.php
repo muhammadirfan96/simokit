@@ -142,7 +142,21 @@ class Limas extends BaseController
 
         $pegawai = $this->userModel->asArray()->where(['username' => $limas['diinput_oleh']])->first();
         $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
+        $detailAtasan = $this->userModel->asArray()->where('fullname', $atasan['nama'])->first();
+
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => '5s'])->findAll();
+
+        $ttd = ['<br><br><br><br>', '<br><br><br><br>'];
+        if ($detailAtasan['signature'] != '') {
+            if (file_exists('img-ttd/' . $detailAtasan['signature'])) {
+                $ttd[0] = '<img src="img-ttd/' . $detailAtasan["signature"] . '" width="70px" height="70px">';
+            }
+        }
+        if ($pegawai['signature'] != '') {
+            if (file_exists('img-ttd/' . $pegawai['signature'])) {
+                $ttd[1] = '<img src="img-ttd/' . $pegawai["signature"] . '" width="70px" height="70px">';
+            }
+        }
 
         $data = [
             'limas' => $limas,
@@ -150,8 +164,11 @@ class Limas extends BaseController
             'pertanyaan' => $pertanyaan,
             'pegawai' => $pegawai,
             'atasan' => $atasan,
+            'ttd' => $ttd,
             'checkItem' => $this->nilaiLimasModel->checkItem
         ];
+
+        // dd($data);
 
         //$mpdf->setAutoTopMargin = 'stretch';
         $mpdf->SetHTMLHeader(view('limas/hprint'));

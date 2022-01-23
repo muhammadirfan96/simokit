@@ -55,13 +55,15 @@
                 <?php foreach ($notice as $row) : ?>
                     <tr>
                         <td>
-                            <a class="btn btn-sm btn-success d-inline mb-2" href="/db_notice/<?= $row["id"]; ?>" role="button"><i class="fas fa-pen"></i></a>
+                            <a class="btn btn-sm btn-primary d-inline" href="/db_notice/<?= $row["id"]; ?>" role="button"><i class="fas fa-pen"></i></a>
 
-                            <form class=" d-inline" action="/db_notice/<?= $row["id"]; ?>" method="post">
-                                <?= csrf_field(); ?>
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-danger mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
-                            </form>
+                            <?php if (in_groups('admin')) : ?>
+                                <form class="d-inline" action="/db_notice/<?= $row["id"]; ?>" method="post">
+                                    <?= csrf_field(); ?>
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                                </form>
+                            <?php endif ?>
                         </td>
                         <td><?= $row["start_time"]; ?></td>
                         <td><?= $row["end_time"]; ?></td>

@@ -82,40 +82,49 @@
             </tfoot>
 
             <tbody>
-                <?php foreach ($servicerequest as $row) : ?>
-                    <tr>
-                        <td>
-                            <a class="btn btn-sm btn-success mb-2" href="/db_servicerequest/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
+                <?php foreach ($servicerequest as $rows) : ?>
+                    <?php foreach ($rows as $row) : ?>
+                        <tr>
+                            <td>
+                                <?php if (in_groups('admin')) : ?>
+                                    <a class="btn btn-sm btn-primary" href="/db_servicerequest/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
 
-                            <form action="/db_servicerequest/<?= $row["id"]; ?>" method="post">
-                                <?= csrf_field(); ?>
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
-                            </form>
-                        </td>
-                        <td><?= $row["ket"]; ?></td>
-                        <td><?= $row["diinput_oleh"]; ?></td>
-                        <td><?= $row["nomorSr"] ?></td>
-                        <td><?= $row["tanggal"] ?></td>
-                        <td><?= $row["unit"]; ?></td>
-                        <td><?= $row["area"]; ?></td>
-                        <td><?= $row["namaPeralatan"]; ?></td>
-                        <td><?= $row["kks"]; ?></td>
-                        <td><?= $row["uraianGangguan1"]; ?></td>
-                        <td><?= $row["uraianGangguan2"]; ?></td>
-                        <td><?= $row["normalOperasi1"]; ?></td>
-                        <td><?= $row["normalOperasi2"]; ?></td>
-                        <td><?= $row["gejala1"]; ?></td>
-                        <td><?= $row["gejala2"]; ?></td>
-                        <td><?= $row["prioritas"]; ?></td>
-                        <td><?= $row["akibatKerusakan1"]; ?></td>
-                        <td><?= $row["akibatKerusakan2"]; ?></td>
-                        <td><?= $row["kemungkinanDampak1"]; ?></td>
-                        <td><?= $row["kemungkinanDampak2"]; ?></td>
-                        <td><?= $row["tindakanSementara1"]; ?></td>
-                        <td><?= $row["tindakanSementara2"]; ?></td>
-                        <td><?= $row["tindakanSementara3"]; ?></td>
-                    </tr>
+                                    <form action="/db_servicerequest/<?= $row["id"]; ?>" method="post">
+                                        <?= csrf_field(); ?>
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                <?php endif ?>
+                                <form action="/db_servicerequest/<?= $row["id"]; ?>" method="post">
+                                    <?= csrf_field(); ?>
+                                    <input type="hidden" name="approve" value="y">
+                                    <button class="btn btn-sm <?= $row["approved"] == 'y' ? 'btn-success' : 'btn-danger'; ?> mt-2" type="<?= $row["approved"] == 'y' ? 'button' : 'submit'; ?>"><?php if (in_groups('admin')) : ?> <i class="fas fa-check-double"></i> <?php endif; ?> <?php if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) : ?> <?= $row["approved"] == 'y' ? 'approved' : 'approve'; ?> <?php endif; ?></button>
+                                </form>
+                            </td>
+                            <td><?= $row["ket"]; ?></td>
+                            <td><?= $row["diinput_oleh"]; ?></td>
+                            <td><?= $row["nomorSr"] ?></td>
+                            <td><?= $row["tanggal"] ?></td>
+                            <td><?= $row["unit"]; ?></td>
+                            <td><?= $row["area"]; ?></td>
+                            <td><?= $row["namaPeralatan"]; ?></td>
+                            <td><?= $row["kks"]; ?></td>
+                            <td><?= $row["uraianGangguan1"]; ?></td>
+                            <td><?= $row["uraianGangguan2"]; ?></td>
+                            <td><?= $row["normalOperasi1"]; ?></td>
+                            <td><?= $row["normalOperasi2"]; ?></td>
+                            <td><?= $row["gejala1"]; ?></td>
+                            <td><?= $row["gejala2"]; ?></td>
+                            <td><?= $row["prioritas"]; ?></td>
+                            <td><?= $row["akibatKerusakan1"]; ?></td>
+                            <td><?= $row["akibatKerusakan2"]; ?></td>
+                            <td><?= $row["kemungkinanDampak1"]; ?></td>
+                            <td><?= $row["kemungkinanDampak2"]; ?></td>
+                            <td><?= $row["tindakanSementara1"]; ?></td>
+                            <td><?= $row["tindakanSementara2"]; ?></td>
+                            <td><?= $row["tindakanSementara3"]; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

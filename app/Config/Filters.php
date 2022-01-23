@@ -68,17 +68,19 @@ class Filters extends BaseConfig
         'login' => [
             'before' => [
                 '/',
-                'home',
                 'bacasopik',
                 'checklist',
                 'db_checklist',
                 'db_home',
                 'db_limas',
+                'db_notice',
                 'db_servicerequest',
                 'db_users',
+                'home',
                 'input_co',
                 'input_limas',
                 'limas',
+                'make_notice',
                 'profil',
                 'servicerequest'
             ]

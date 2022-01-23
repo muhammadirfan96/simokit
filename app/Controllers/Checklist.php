@@ -124,11 +124,23 @@ class Checklist extends BaseController
             $komen = $this->komenModel->where(['id' => $id])->orderBy('id', 'desc')->first();
         }
 
-
         $pegawai = $this->userModel->asArray()->where(['username' => $checklist['diinput_oleh']])->first();
         $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
+        $detailAtasan = $this->userModel->asArray()->where('fullname', $atasan['nama'])->first();
 
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => $checklist['namaPeralatan']])->findAll();
+
+        $ttd = ['<br><br><br><br>', '<br><br><br><br>'];
+        if ($detailAtasan['signature'] != '') {
+            if (file_exists('img-ttd/' . $detailAtasan['signature'])) {
+                $ttd[0] = '<img src="img-ttd/' . $detailAtasan["signature"] . '" width="70px" height="70px">';
+            }
+        }
+        if ($pegawai['signature'] != '') {
+            if (file_exists('img-ttd/' . $pegawai['signature'])) {
+                $ttd[1] = '<img src="img-ttd/' . $pegawai["signature"] . '" width="70px" height="70px">';
+            }
+        }
 
         $i = 1;
         $jwb = [];
@@ -156,6 +168,7 @@ class Checklist extends BaseController
             'komen' => $komen,
             'pegawai' => $pegawai,
             'atasan' => $atasan,
+            'ttd' => $ttd,
             'pertanyaan' => $pertanyaan,
             'jwb' => $jwb
         ];

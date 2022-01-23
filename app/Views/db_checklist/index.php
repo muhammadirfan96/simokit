@@ -46,22 +46,32 @@
             </tfoot>
 
             <tbody>
-                <?php foreach ($checklist as $row) : ?>
-                    <tr>
-                        <td>
-                            <a class="btn btn-sm btn-success mb-2 d-inline" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
+                <?php foreach ($checklist as $rows) : ?>
+                    <?php foreach ($rows as $row) : ?>
+                        <tr>
+                            <td>
+                                <?php if (in_groups('admin')) : ?>
+                                    <a class="btn btn-sm btn-primary" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
 
-                            <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
-                                <?= csrf_field(); ?>
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
-                            </form>
-                        </td>
-                        <td><?= $row["tanggal"]; ?></td>
-                        <td><?= $row["diinput_oleh"]; ?></td>
-                        <td><?= $row["namaPeralatan"] ?></td>
-                        <td><?= $row["catatan"] ?></td>
-                    </tr>
+                                    <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
+                                        <?= csrf_field(); ?>
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                <?php endif ?>
+
+                                <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
+                                    <?= csrf_field(); ?>
+                                    <input type="hidden" name="approve" value="y">
+                                    <button class="btn btn-sm <?= $row["approved"] == 'y' ? 'btn-success' : 'btn-danger'; ?> mt-2" type="<?= $row["approved"] == 'y' ? 'button' : 'submit'; ?>"><?php if (in_groups('admin')) : ?> <i class="fas fa-check-double"></i> <?php endif; ?> <?php if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) : ?> <?= $row["approved"] == 'y' ? 'approved' : 'approve'; ?> <?php endif; ?></button>
+                                </form>
+                            </td>
+                            <td><?= $row["tanggal"]; ?></td>
+                            <td><?= $row["diinput_oleh"]; ?></td>
+                            <td><?= $row["namaPeralatan"] ?></td>
+                            <td><?= $row["catatan"] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

@@ -56,6 +56,14 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card text-white mb-2">
+                <div class="card-header rounded-top fw-bold text-uppercase bg_orange0">logsheet</div>
+                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_orange1">
+                    <a class="btn btn-outline-light text-dark" href=""><i class="fas fa-eye"></i> See Details</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

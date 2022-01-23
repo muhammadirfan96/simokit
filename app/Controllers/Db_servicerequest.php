@@ -3,20 +3,36 @@
 namespace App\Controllers;
 
 use App\Models\ServiceRequestModel;
+use App\Models\AtasanModel;
+use Myth\Auth\Models\UserModel;
 
 class Db_servicerequest extends BaseController
 {
-    protected $servicerequestModel;
+    protected $servicerequestModel, $UserModel, $AtasanModel;
     public function __construct()
     {
         $this->servicerequestModel = new ServiceRequestModel();
+        $this->UserModel = new UserModel();
+        $this->AtasanModel = new AtasanModel();
     }
 
     public function index()
     {
+        if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
+            $atasan = $this->AtasanModel->where('nama', user()->fullname)->first();
+            $users = $this->UserModel->asArray()->where('bidang', $atasan['bawahan'])->findAll();
+
+            $result = [];
+            foreach ($users as $user) {
+                $result[] = $this->servicerequestModel->where('diinput_oleh', $user['username'])->findAll();
+            }
+        } elseif (in_groups('admin')) {
+            $result[] = $this->servicerequestModel->findAll();
+        }
+
         $data = [
             'title' => 'database | servicerequest',
-            'servicerequest' => $this->servicerequestModel->findAll(),
+            'servicerequest' => $result
         ];
 
         return view('db_servicerequest/index', $data);
@@ -48,6 +64,21 @@ class Db_servicerequest extends BaseController
         //hapus data
         $this->servicerequestModel->delete($id);
         session()->setFlashdata('pesan', 'Data SR ' . $serviceRequest['nomorSr'] . ' berhasil dihapus');
+        return redirect()->to(base_url('/db_servicerequest'));
+    }
+
+    public function approve($id)
+    {
+        $serviceRequest = $this->servicerequestModel->find($id);
+        $data = [
+            'id' => $id,
+            'approved' => $this->request->getVar('approve')
+        ];
+
+        session()->setFlashdata('pesan', 'Data SR ' . $serviceRequest['nomorSr'] . ' by ' . $serviceRequest['diinput_oleh'] . ' telah di approve');
+
+        $this->servicerequestModel->setAllowedFields(array_keys($data));
+        $this->servicerequestModel->save($data);
         return redirect()->to(base_url('/db_servicerequest'));
     }
 }

@@ -4,24 +4,16 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
 
+                    <!-- operator -->
                     <?php if (in_groups('admin') || in_groups('manager bagian operasi') || in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) : ?>
-                        <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">all</div>
-                        <a class="nav-link pb-0 mb-0" href="<?= base_url('/make_notice'); ?>">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-bullhorn"></i></div>
-                            Make Notice
-                        </a>
-                        <a class="nav-link pb-0 mb-0" href="/">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-eye"></i></div>
-                            KPI Monitoring
-                        </a>
-                    <?php endif; ?>
-
-                    <?php if (in_groups('admin')) : ?>
-                        <!-- admin -->
-                        <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">admin</div>
+                        <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">dashboard</div>
                         <a class="nav-link pb-0 mb-0" href="/db_home">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-database"></i></div>
                             Databases
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="<?= base_url('/make_notice'); ?>">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-bullhorn"></i></div>
+                            Make Notice
                         </a>
                         <a class="nav-link pb-0 mb-0" href="/input_co">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-calendar-plus"></i></div>
@@ -31,30 +23,9 @@
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-calendar-plus"></i></div>
                             Input Schedule 5S
                         </a>
-                    <?php endif; ?>
-
-                    <?php if (in_groups('admin') || in_groups('manager bagian operasi')) : ?>
-                        <!-- manager bagian operasi -->
-                        <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">manager op</div>
-                        <a class="nav-link pb-0 mb-0" href="/">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-glasses"></i></div>
-                            See Logsheet
-                        </a>
-                        <a class="nav-link pb-0 mb-0" href="/">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
-                            Approve
-                        </a>
-                    <?php endif; ?>
-                    <?php if (in_groups('admin') || in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) : ?>
-                        <!-- supervisor operasi -->
-                        <div class="sb-sidenav-menu-heading pb-0 mb-0 text_orange">supervisor op</div>
-                        <a class="nav-link pb-0 mb-0" href="/">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-glasses"></i></div>
-                            See Logsheet
-                        </a>
-                        <a class="nav-link pb-0 mb-0" href="/">
-                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
-                            Approve
+                        <a class="nav-link pb-0 mb-0" href="">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-eye"></i></div>
+                            KPI Monitoring
                         </a>
                     <?php endif; ?>
 

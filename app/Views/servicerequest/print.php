@@ -175,9 +175,7 @@
                             <td class="ttd">
                                 <div>
                                     <p><?= $atasan['jabatan']; ?></p>
-                                    <div>
-                                        <br><br><br><br>
-                                    </div>
+                                    <div><?= $ttd[0]; ?></div>
                                     <p><?= $atasan['nama']; ?></p>
                                     <hr style="width:60%; color:black; margin:1px;">
                                     <p><?= $atasan["nip"]; ?></p>
@@ -186,9 +184,7 @@
                             <td class="ttd">
                                 <div>
                                     <p>pegawai <?= $pegawai['bidang']; ?></p>
-                                    <div>
-                                        <br><br><br><br>
-                                    </div>
+                                    <div><?= $ttd[1]; ?></div>
                                     <p><?= $pegawai["fullname"]; ?></p>
                                     <hr style="width:60%; color:black; margin:1px;">
                                     <p><?= $pegawai["username"]; ?></p>
