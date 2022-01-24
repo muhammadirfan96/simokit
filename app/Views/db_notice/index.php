@@ -56,14 +56,11 @@
                     <tr>
                         <td>
                             <a class="btn btn-sm btn-primary d-inline" href="/db_notice/<?= $row["id"]; ?>" role="button"><i class="fas fa-pen"></i></a>
-
-                            <?php if (in_groups('admin')) : ?>
-                                <form class="d-inline" action="/db_notice/<?= $row["id"]; ?>" method="post">
-                                    <?= csrf_field(); ?>
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
-                                </form>
-                            <?php endif ?>
+                            <form class="d-inline" action="/db_notice/<?= $row["id"]; ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                            </form>
                         </td>
                         <td><?= $row["start_time"]; ?></td>
                         <td><?= $row["end_time"]; ?></td>

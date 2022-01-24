@@ -89,7 +89,7 @@ $routes->get('/db_users/(:any)', 'Db_users::details/$1', ['filter' => 'role:admi
 $routes->get('/db_notice', 'Db_notice::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_notice/index', 'Db_notice::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_notice/edit', 'Db_notice::edit', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
-$routes->delete('/db_notice/(:num)', 'Db_notice::delete/$1', ['filter' => 'role:admin']);
+$routes->delete('/db_notice/(:num)', 'Db_notice::delete/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_notice/(:any)', 'Db_notice::details/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 
 // input_limas

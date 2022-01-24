@@ -56,6 +56,10 @@
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-keyboard"></i></div>
                             Input Logsheet
                         </a>
+                        <a class="nav-link pb-0 mb-0" href="/approved_home">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
+                            Approved
+                        </a>
                     <?php endif; ?>
                 </div>
             </div>

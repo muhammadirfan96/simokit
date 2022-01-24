@@ -133,7 +133,7 @@ class Servicerequest extends BaseController
 
         $this->serviceRequestModel->save($data);
 
-        session()->setFlashdata('pesanSR', 'Data SR ' . $data['ket'] . ' berhasil ditambahkan');
+        session()->setFlashdata('pesanSR', 'Data SR ' . $data['ket'] . ' berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
 
         return redirect()->to(base_url('/servicerequest/' . $data['ket']));
     }

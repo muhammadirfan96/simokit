@@ -20,7 +20,6 @@
             <?php if (session()->getFlashdata('pesan')) : ?>
                 <div class="alert alert-success" role="alert">
                     <?= session()->getFlashdata('pesan'); ?>
-                    <a class="btn btn-primary btn-sm ms-2" href="/checklist/print" role="button" target="_blank">download</a>
                 </div>
             <?php endif; ?>
             <form action="/checklist/simpan" method="post">

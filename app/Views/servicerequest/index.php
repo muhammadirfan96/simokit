@@ -19,7 +19,6 @@
             <?php if (session()->getFlashdata('pesanSR')) : ?>
                 <div class="alert alert-success" role="alert">
                     <?= session()->getFlashdata('pesanSR'); ?>
-                    <a class="btn btn-primary btn-sm ms-2" href="/servicerequest/print" role="button" target="_blank">download</a>
                 </div>
             <?php endif; ?>
             <form action="/servicerequest/simpan" method="post" enctype="multipart/form-data">

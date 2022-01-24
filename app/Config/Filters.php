@@ -68,6 +68,10 @@ class Filters extends BaseConfig
         'login' => [
             'before' => [
                 '/',
+                'approved_checklist',
+                'approved_home',
+                'approved_limas',
+                'approved_servicerequest',
                 'bacasopik',
                 'checklist',
                 'db_checklist',

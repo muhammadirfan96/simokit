@@ -123,7 +123,7 @@ class Limas extends BaseController
         $this->limasModel->save($dataLimas);
         $this->nilaiLimasModel->save($dataNilaiLimas);
 
-        session()->setFlashdata('pesan', 'Data 5S ' . $dataLimas['namaPeralatan'] . ' berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Data 5S ' . $dataLimas['namaPeralatan'] . ' berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
 
         return redirect()->to(base_url('/limas'));
     }

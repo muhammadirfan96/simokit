@@ -105,7 +105,7 @@ class Checklist extends BaseController
         $this->jawabanModel->save($jawaban);
         $this->komenModel->save($komen);
 
-        session()->setFlashdata('pesan', 'Data Cheklist berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Data Cheklist berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
 
         return redirect()->to('checklist/' . $this->request->getVar('namaPeralatan'));
     }
