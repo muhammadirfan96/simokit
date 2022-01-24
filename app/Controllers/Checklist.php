@@ -177,6 +177,6 @@ class Checklist extends BaseController
         $mpdf->SetHTMLHeader(view('checklist/hprint', $hdata));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('checklist/print', $data));
-        return redirect()->to($mpdf->Output('checklist.pdf', "I"));
+        return redirect()->to($mpdf->Output($checklist['id'] . $checklist['namaPeralatan'] . ' checklist.pdf', "I"));
     }
 }
