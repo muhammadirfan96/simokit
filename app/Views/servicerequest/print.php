@@ -200,16 +200,16 @@
         <table border="0" cellpadding="5" cellspacing="0">
             <tr>
                 <td class="center bold"><?= $evidence[0]; ?><br><br>
-                    <img src="img-sr/<?= $serviceRequest["evidence1"]; ?>" max-height="325px">
+                    <img src="img-sr/<?= $fotoSR[0]; ?>" max-height="325px">
                 </td>
             </tr>
-            <?php if (!empty($serviceRequest["evidence2"])) : ?>
+            <?php if ($serviceRequest["ket"] == 'flm') : ?>
                 <tr>
                     <td><br></td>
                 </tr>
                 <tr>
                     <td class="center bold"><?= $evidence[1]; ?><br><br>
-                        <img src="img-sr/<?= $serviceRequest["evidence2"]; ?>" max-height="325px">
+                        <img src="img-sr/<?= $fotoSR[1]; ?>" max-height="325px">
                     </td>
                 </tr>
             <?php endif; ?>

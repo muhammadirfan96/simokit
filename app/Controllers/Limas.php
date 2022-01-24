@@ -158,8 +158,22 @@ class Limas extends BaseController
             }
         }
 
+        $fotoLimas = ['none.png', 'none.png'];
+        if ($limas['fotoSebelum'] != '') {
+            if (file_exists('img-5s/' . $limas['fotoSebelum'])) {
+                $fotoLimas[0] = $limas['fotoSebelum'];
+            }
+        }
+
+        if ($limas['fotoSetelah'] != '') {
+            if (file_exists('img-5s/' . $limas['fotoSetelah'])) {
+                $fotoLimas[1] = $limas['fotoSetelah'];
+            }
+        }
+
         $data = [
             'limas' => $limas,
+            'fotoLimas' => $fotoLimas,
             'nilaiLimas' => $nilaiLimas,
             'pertanyaan' => $pertanyaan,
             'pegawai' => $pegawai,

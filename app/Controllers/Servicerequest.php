@@ -230,6 +230,19 @@ class Servicerequest extends BaseController
             }
         }
 
+        $fotoSR = ['none.png', 'none.png'];
+        if ($serviceRequest['evidence1'] != '') {
+            if (file_exists('img-sr/' . $serviceRequest['evidence1'])) {
+                $fotoSR[0] = $serviceRequest['evidence1'];
+            }
+        }
+
+        if ($serviceRequest['evidence2'] != '') {
+            if (file_exists('img-sr/' . $serviceRequest['evidence2'])) {
+                $fotoSR[1] = $serviceRequest['evidence2'];
+            }
+        }
+
         $daftarHari = ['Sunday' => 'Minggu', 'Monday' => 'Senin', 'Tuesday' => 'Selasa', 'Wednesday' => 'Rabu', 'Thursday' => 'Kamis', 'Friday' => 'Jumat', 'Saturday' => 'Sabtu'];
 
         $data = [
@@ -241,7 +254,8 @@ class Servicerequest extends BaseController
             'unit' => $unit,
             'area' => $area,
             'prioritas' => $prioritas,
-            'evidence' => $evidence[0]
+            'evidence' => $evidence[0],
+            'fotoSR' => $fotoSR
         ];
         //dd($data);
 

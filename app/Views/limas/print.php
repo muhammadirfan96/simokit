@@ -93,8 +93,8 @@
             <td class="bold orangeMuda" colspan="3">KONDISI SETELAH</td>
         </tr>
         <tr>
-            <td colspan="2"><img src="img-5s/<?= $limas['fotoSebelum']; ?>" width=" 120px" max-height="90px"></td>
-            <td colspan="3"><img src="img-5s/<?= $limas['fotoSetelah']; ?>" width=" 140px" max-height="90px"></td>
+            <td colspan="2"><img src="img-5s/<?= $fotoLimas[0]; ?>" width=" 120px" max-height="90px"></td>
+            <td colspan="3"><img src="img-5s/<?= $fotoLimas[1]; ?>" width=" 140px" max-height="90px"></td>
         </tr>
         <tr>
             <td class="bold biruMuda" text-rotate="90">CATATAN</td>
