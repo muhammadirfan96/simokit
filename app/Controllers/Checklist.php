@@ -173,10 +173,12 @@ class Checklist extends BaseController
             'jwb' => $jwb
         ];
 
+        // $html = 'hello world';
+
         $mpdf->setAutoTopMargin = 'stretch';
         $mpdf->SetHTMLHeader(view('checklist/hprint', $hdata));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('checklist/print', $data));
-        return redirect()->to($mpdf->Output($checklist['id'] . $checklist['namaPeralatan'] . ' checklist.pdf', "I"));
+        return $mpdf->Output($checklist['id'] . ' ' . $checklist['namaPeralatan'] . ' checklist.pdf', "D");
     }
 }

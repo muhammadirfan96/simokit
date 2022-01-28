@@ -188,6 +188,6 @@ class Limas extends BaseController
         $mpdf->SetHTMLHeader(view('limas/hprint'));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('limas/print', $data));
-        return redirect()->to($mpdf->Output($limas['id'] . $limas['namaPeralatan'] . ' 5s.pdf', "I"));
+        return $mpdf->Output($limas['id'] . ' ' . $limas['namaPeralatan'] . ' 5s.pdf', "D");
     }
 }

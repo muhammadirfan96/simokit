@@ -263,6 +263,6 @@ class Servicerequest extends BaseController
         $mpdf->SetHTMLHeader(view('servicerequest/hprint'));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('servicerequest/print', $data));
-        return redirect()->to($mpdf->Output($serviceRequest['nomorSr'] . $serviceRequest['uraianGangguan1'] . 'servicerequest.pdf', "I"));
+        return $mpdf->Output($serviceRequest['nomorSr'] . ' ' . $serviceRequest['uraianGangguan1'] . ' servicerequest.pdf', "D");
     }
 }
