@@ -46,7 +46,7 @@
                 <b>CATATAN</b>
                 <textarea name="catatan" class="form-control mb-3" id="floatingTextarea"><?= old('catatan'); ?></textarea>
 
-                <?php if (in_groups('admin') || in_groups('operasi shift a') || in_groups('operasi shift b') || in_groups('operasi shift c') || in_groups('operasi shift d')) : ?>
+                <?php if (in_groups('admin') || in_groups('operator shift a') || in_groups('operator shift b') || in_groups('operator shift c') || in_groups('operator shift d')) : ?>
                     <div class="position-relative">
                         <div class="position-absolute top-0 end-0">
                             <button class="btn btn-success btn-sm" type="submit" name="save">Save</button>
