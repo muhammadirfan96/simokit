@@ -55,10 +55,13 @@
                         <div class="sb-nav-link-icon text-dark"><i class="fas fa-keyboard"></i></div>
                         Input Logsheet
                     </a>
-                    <a class="nav-link pb-0 mb-0" href="/approved_home">
-                        <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
-                        Approved
-                    </a>
+
+                    <?php if (in_groups('operator shift a') || in_groups('operator shift b') || in_groups('operator shift c') || in_groups('operator shift d')) : ?>
+                        <a class="nav-link pb-0 mb-0" href="/approved_home">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
+                            Approved
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
@@ -73,7 +76,7 @@
                 <?= $this->renderSection('page-content'); ?>
             </div>
         </main>
-        <footer class="py-4 bg-light mt-auto">
+        <footer class="py-4 bg-light mt-2">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
                     <div class="text-muted">Copyright &copy; Simokit 2021</div>

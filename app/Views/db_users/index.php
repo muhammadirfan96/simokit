@@ -57,15 +57,13 @@
                 <?php foreach ($users as $row) : ?>
                     <tr>
                         <td>
-                            <a class="btn btn-sm btn-primary" href="/db_users/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
+                            <a class="btn btn-sm btn-primary my-1" href="/db_users/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
 
-                            <?php if (in_groups('admin')) : ?>
-                                <form class="d-inline" action="/db_users/<?= $row["id"]; ?>" method="post">
-                                    <?= csrf_field(); ?>
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
-                                </form>
-                            <?php endif ?>
+                            <form class="d-inline" action="/db_users/<?= $row["id"]; ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                            </form>
                         </td>
                         <td><?= $row["fullname"]; ?></td>
                         <td><?= $row["username"]; ?></td>

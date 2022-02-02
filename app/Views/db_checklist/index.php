@@ -50,19 +50,16 @@
                     <?php foreach ($rows as $row) : ?>
                         <tr>
                             <td>
-                                <a class="btn btn-sm btn-primary" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
+                                <a class="btn btn-sm btn-success my-1" href="/db_checklist/details/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
 
                                 <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
                                 </form>
 
-                                <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
-                                    <?= csrf_field(); ?>
-                                    <input type="hidden" name="approve" value="y">
-                                    <button class="btn btn-sm <?= $row["approved"] == 'y' ? 'btn-success' : 'btn-danger'; ?> mt-2" type="<?= $row["approved"] == 'y' ? 'button' : 'submit'; ?>"><i class="fas fa-check-double"></i></button>
-                                </form>
+                                <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-secondary' : 'btn-primary'; ?> my-1" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
+
                             </td>
                             <td><?= $row["tanggal"]; ?></td>
                             <td><?= $row["diinput_oleh"]; ?></td>

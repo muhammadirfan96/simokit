@@ -60,29 +60,35 @@ $routes->get('/db_home', 'Db_home::index', ['filter' => 'role:admin,supervisor o
 // database_checklist
 $routes->get('/db_checklist', 'Db_checklist::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_checklist/index', 'Db_checklist::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
-$routes->delete('/db_checklist/(:num)', 'Db_checklist::delete/$1', ['filter' => 'role:admin']);
-$routes->get('/db_checklist/(:any)', 'Db_checklist::prints/$1', ['filter' => 'role:admin']);
+$routes->get('/db_checklist/edit', 'Db_checklist::edit', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/db_checklist/details/(:num)', 'Db_checklist::details/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->delete('/db_checklist/(:num)', 'Db_checklist::delete/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/db_checklist/(:any)', 'Db_checklist::prints/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->post('/db_checklist/(:num)', 'Db_checklist::approve/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 
 // database_servicerequest
 $routes->get('/db_servicerequest', 'Db_servicerequest::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_servicerequest/index', 'Db_servicerequest::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
-$routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1', ['filter' => 'role:admin']);
-$routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1', ['filter' => 'role:admin']);
+$routes->get('/db_servicerequest/edit', 'Db_servicerequest::edit', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/db_servicerequest/details/(:num)', 'Db_servicerequest::details/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->delete('/db_servicerequest/(:num)', 'Db_servicerequest::delete/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/db_servicerequest/(:any)', 'Db_servicerequest::prints/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->post('/db_servicerequest/(:num)', 'Db_servicerequest::approve/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 
 // database_limas
 $routes->get('/db_limas', 'Db_limas::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_limas/index', 'Db_limas::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
-$routes->delete('/db_limas/(:num)', 'Db_limas::delete/$1', ['filter' => 'role:admin']);
-$routes->get('/db_limas/(:any)', 'Db_limas::prints/$1', ['filter' => 'role:admin']);
+$routes->get('/db_limas/edit', 'Db_limas::edit', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/db_limas/details/(:num)', 'Db_limas::details/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->delete('/db_limas/(:num)', 'Db_limas::delete/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/db_limas/(:any)', 'Db_limas::prints/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->post('/db_limas/(:num)', 'Db_limas::approve/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 
 // database_users
 $routes->get('/db_users', 'Db_users::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_users/index', 'Db_users::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
-$routes->get('/db_users/edit', 'Db_users::edit', ['filter' => 'role:admin']);
-$routes->delete('/db_users/(:num)', 'Db_users::delete/$1', ['filter' => 'role:admin']);
+$routes->get('/db_users/edit', 'Db_users::edit', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->delete('/db_users/(:num)', 'Db_users::delete/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/db_users/(:any)', 'Db_users::details/$1', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 
 // database_notice

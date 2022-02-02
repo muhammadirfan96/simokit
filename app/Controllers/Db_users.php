@@ -18,7 +18,10 @@ class Db_users extends BaseController
     {
         if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
             $atasan = $this->AtasanModel->where('nama', user()->fullname)->first();
-            $users = $this->UserModel->asArray()->where('bidang', $atasan['bawahan'])->findAll();
+            $b = $atasan['bawahan'];
+            $u = user()->username;
+            $where = "bidang = '$b' OR username = '$u'";
+            $users = $this->UserModel->asArray()->where($where)->findAll();
         } elseif (in_groups('admin')) {
             $users = $this->UserModel->asArray()->findAll();
         }
