@@ -20,15 +20,18 @@
             <form action="/db_users/edit" method="post" enctype="multipart/form-data">
                 <div class="card">
                     <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                    <div class="card-header bg_orange1">
+                    <div class="card-header bg_hijau1">
                         <div>
                             <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-profile/' . $user['picture']); ?>">
                         </div>
                         <div>
                             <label for="picture">
-                                <i class="fas fa-camera fs-3 text-secondary"></i>
+                                <i class="fas fa-camera fs-3 <?= ($validation->hasError('picture')) ? 'text-danger' : ''; ?>"></i>
                             </label>
                             <input class="d-none" type="file" name="picture" id="picture" onchange="previewImg()">
+                            <div style="font-size: 12px; color:red">
+                                <?= $validation->getError('picture'); ?>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -53,19 +56,18 @@
                             <span id="btnActive" class="btn btn-secondary" type="button"><i id="iconActive" class="fas fa-lock"></i></span>
                         </div>
 
-                        <label class="btn btn-sm btn-secondary">Signature</label><a href="<?= base_url('img-ttd/' . $user['signature']); ?>" class="ms-2 text-danger" target="_blank"><?= ($user['signature'] != "") ? "The user already have a signature" : "The user don't have a signature"; ?></a>
-                        <br>
-                        <?php if (in_groups('admin')) : ?>
-                            <div id="sig"></div>
-                            <textarea id="signature64" name="signed" style="display: none"></textarea>
-
-                            <div class="mt-2">
-                                <button id="edit" class="btn btn-danger " type="button">edit</button>
-                                <button disabled id="clear" class="btn btn-warning" type="button">clear</button>
-                                <button disabled id="reset" class="btn btn-primary" type="reset">reset</button>
-                                <button disabled id="save" class="btn btn-success" type="submit">save</button>
-                            </div>
-                        <?php endif ?>
+                        <label class="" for="signature">
+                            <i class="fas fa-file-signature fs-3 <?= ($validation->hasError('signature')) ? 'text-danger' : ''; ?>"></i><a href="<?= base_url('img-ttd/' . $user['signature']); ?>" class="ms-2 text-danger" target="_blank"><?= ($user['signature'] != "") ? "The user already have a signature" : "The user don't have a signature"; ?></a>
+                        </label>
+                        <input class="d-none" type="file" name="signature" id="signature">
+                        <div style="font-size: 12px; color:red">
+                            <?= $validation->getError('signature'); ?>
+                        </div>
+                        <div class="mt-3">
+                            <button id="edit" class="btn-sm btn btn-danger " type="button">edit</button>
+                            <button disabled id="reset" class="btn-sm btn btn-primary" type="reset">reset</button>
+                            <button disabled id="save" class="btn-sm btn btn-success" type="submit">save</button>
+                        </div>
                     </div>
                 </div>
             </form>

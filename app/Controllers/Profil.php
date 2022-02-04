@@ -15,8 +15,8 @@ class Profil extends BaseController
     {
 
         $data = [
-            'title' => 'my profil'
-            // 'user' => $this->userModel->asArray()->where('username', user()->username)->first()
+            'title' => 'my profil',
+            'validation' => \Config\Services::validation()
         ];
 
         // dd($data);
@@ -27,6 +27,22 @@ class Profil extends BaseController
     public function edit()
     {
         if ($this->request->getFile('picture')->getName()) {
+            $dataValidate = [
+                'picture' => [
+                    'rules' => 'max_size[picture,1024]|is_image[picture]|mime_in[picture,image/jpg,image/jpeg,image/png]',
+                    'errors' => [
+                        'max_size' => 'ukuran gambar maksimal 1 MB',
+                        'is_image' => 'yang anda pilih bukan gambar',
+                        'mime_in' => 'format gambar yang dibolehkan .jpg, jpeg, atau .png'
+                    ]
+                ]
+            ];
+
+            if (!$this->validate($dataValidate)) {
+                return redirect()->to(base_url('/profil'))->withInput();
+            }
+
+            //lolos validasi
             $img = $this->request->getFile('picture')->getName();
 
             //hapus gambar profile lama
@@ -42,22 +58,34 @@ class Profil extends BaseController
             $img = user()->picture;
         }
 
-        if ($this->request->getVar('signed')) {
-            $imageParts = explode(";base64,", $this->request->getVar('signed'));
-            $imageTypeAux = explode("image/", $imageParts[0]);
-            $imageType = $imageTypeAux[1];
-            $imageBase64 = base64_decode($imageParts[1]);
-            $file = uniqid() . '.' . $imageType;
+        if ($this->request->getFile('signature') != '') {
+            $dataValidate = [
+                'signature' => [
+                    'rules' => 'max_size[signature,1024]|is_image[signature]|mime_in[signature,image/jpg,image/jpeg,image/png]',
+                    'errors' => [
+                        'max_size' => 'ukuran gambar maksimal 1 MB',
+                        'is_image' => 'yang anda pilih bukan gambar',
+                        'mime_in' => 'format gambar yang dibolehkan .jpg, jpeg, atau .png'
+                    ]
+                ]
+            ];
 
-            //hapus ttd lama
+            if (!$this->validate($dataValidate)) {
+                return redirect()->to(base_url('/profil'))->withInput();
+            }
+
+            //lolos validasi
+            $file = $this->request->getFile('signature')->getName();
+
+            //hapus gambar ttd lama
             if (user()->signature != '') {
                 if (file_exists('img-ttd/' . user()->signature)) {
                     unlink('img-ttd/' . user()->signature);
                 }
             }
 
-            // pindahkan ttd ke folder img-ttd
-            file_put_contents('img-ttd/' . $file, $imageBase64);
+            //pindahkan foto profil ke img-ttd
+            $this->request->getFile('signature')->move('img-ttd');
         } else {
             $file = user()->signature;
         }
