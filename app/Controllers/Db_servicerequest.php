@@ -164,7 +164,7 @@ class Db_servicerequest extends BaseController
                 return redirect()->to(base_url('/db_servicerequest/details/' . $this->request->getVar('id')))->withInput();
             }
             //lolos validasi
-            $data['evidence1'] = $this->request->getFile('evidence1')->getName();
+            $data['evidence1'] = $this->request->getFile('evidence1')->getRandomName();
             //hapus gambar lama
             if ($servicerequest['evidence1'] != '') {
                 if (file_exists('img-sr/' . $servicerequest['evidence1'])) {
@@ -172,7 +172,7 @@ class Db_servicerequest extends BaseController
                 }
             }
             //pindahkan baru ke folder img
-            $this->request->getFile('evidence1')->move('img-sr');
+            $this->request->getFile('evidence1')->move('img-sr', $data['evidence1']);
         }
         if ($this->request->getFile('evidence2') != '') {
             $dataValidate = [
@@ -190,7 +190,7 @@ class Db_servicerequest extends BaseController
                 return redirect()->to(base_url('/db_servicerequest/details/' . $this->request->getVar('id')))->withInput();
             }
             //lolos validasi
-            $data['evidence2'] = $this->request->getFile('evidence2')->getName();
+            $data['evidence2'] = $this->request->getFile('evidence2')->getRandomName();
             //hapus gambar lama
             if ($servicerequest['evidence2'] != '') {
                 if (file_exists('img-sr/' . $servicerequest['evidence2'])) {
@@ -198,7 +198,7 @@ class Db_servicerequest extends BaseController
                 }
             }
             //pindahkan gambar2 ke folder img
-            $this->request->getFile('evidence2')->move('img-sr');
+            $this->request->getFile('evidence2')->move('img-sr', $data['evidence2']);
         }
 
         // dd($data);

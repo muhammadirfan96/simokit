@@ -106,7 +106,7 @@ class Db_limas extends BaseController
             }
 
             // lolos validasi
-            $dataLimas['fotoSebelum'] = $this->request->getFile('fotoSebelum')->getName();
+            $dataLimas['fotoSebelum'] = $this->request->getFile('fotoSebelum')->getRandomName();
             //hapus gambar lama
             if ($limas['fotoSebelum'] != '') {
                 if (file_exists('img-5s/' . $limas['fotoSebelum'])) {
@@ -114,7 +114,7 @@ class Db_limas extends BaseController
                 }
             }
             //pindahkan baru ke folder img
-            $this->request->getFile('fotoSebelum')->move('img-5s');
+            $this->request->getFile('fotoSebelum')->move('img-5s', $dataLimas['fotoSebelum']);
         }
         if ($this->request->getFile('fotoSetelah') != '') {
             $dataValidate = [
@@ -132,7 +132,7 @@ class Db_limas extends BaseController
                 return redirect()->to(base_url('/db_limas/details/' . $this->request->getVar('id')))->withInput();
             }
             // lolos validasi
-            $dataLimas['fotoSetelah'] = $this->request->getFile('fotoSetelah')->getName();
+            $dataLimas['fotoSetelah'] = $this->request->getFile('fotoSetelah')->getRandomName();
             //hapus gambar lama
             if ($limas['fotoSetelah'] != '') {
                 if (file_exists('img-5s/' . $limas['fotoSetelah'])) {
@@ -140,7 +140,7 @@ class Db_limas extends BaseController
                 }
             }
             //pindahkan baru ke folder img
-            $this->request->getFile('fotoSetelah')->move('img-5s');
+            $this->request->getFile('fotoSetelah')->move('img-5s', $dataLimas['fotoSetelah']);
         }
 
         $keyDataNilaiLimas = ['id'];

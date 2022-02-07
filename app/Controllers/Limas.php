@@ -97,12 +97,12 @@ class Limas extends BaseController
             'namaPeralatan' => $this->request->getVar('namaPeralatan'),
             'area' => $this->request->getVar('area'),
             'saran' => $this->request->getVar('saran'),
-            'fotoSebelum' => $this->request->getFile('fotoSebelum')->getName(),
-            'fotoSetelah' => $this->request->getFile('fotoSetelah')->getName()
+            'fotoSebelum' => $this->request->getFile('fotoSebelum')->getRandomName(),
+            'fotoSetelah' => $this->request->getFile('fotoSetelah')->getRandomName()
         ];
 
-        $this->request->getFile('fotoSebelum')->move('img-5s');
-        $this->request->getFile('fotoSetelah')->move('img-5s');
+        $this->request->getFile('fotoSebelum')->move('img-5s', $dataLimas['fotoSebelum']);
+        $this->request->getFile('fotoSetelah')->move('img-5s', $dataLimas['fotoSetelah']);
 
         $keyDataNilaiLimas = ['diinput_oleh'];
         $valueDataNilaiLimas = [user()->username];

@@ -51,7 +51,15 @@ class Db_users extends BaseController
     {
         $User = $this->UserModel->asArray()->find($this->request->getVar('id'));
 
-        if ($this->request->getFile('picture')->getName()) {
+        // dd($this->request->getFile('picture'));
+
+        // if ($this->request->getFile('picture') != '') {
+        //     dd('y');
+        // } else {
+        //     dd('n');
+        // }
+
+        if ($this->request->getFile('picture') != '') {
             $dataValidate = [
                 'picture' => [
                     'rules' => 'max_size[picture,1024]|is_image[picture]|mime_in[picture,image/jpg,image/jpeg,image/png]',
@@ -68,7 +76,7 @@ class Db_users extends BaseController
             }
 
             //lolos validasi
-            $img = $this->request->getFile('picture')->getName();
+            $img = $this->request->getFile('picture')->getRandomName();
 
             //hapus gambar profile lama
             if ($User['picture'] != '') {
@@ -78,12 +86,12 @@ class Db_users extends BaseController
             }
 
             //pindahkan foto profil ke img-profile
-            $this->request->getFile('picture')->move('img-profile');
+            $this->request->getFile('picture')->move('img-profile', $img);
         } else {
             $img = $User['picture'];
         }
 
-        if ($this->request->getFile('signature')->getName()) {
+        if ($this->request->getFile('signature') != '') {
             $dataValidate = [
                 'signature' => [
                     'rules' => 'max_size[signature,1024]|is_image[signature]|mime_in[signature,image/jpg,image/jpeg,image/png]',
@@ -99,7 +107,7 @@ class Db_users extends BaseController
                 return redirect()->to(base_url('/db_users/' . $this->request->getVar('id')))->withInput();
             }
             //lolos pengecekan
-            $file = $this->request->getFile('signature')->getName();
+            $file = $this->request->getFile('signature')->getRandomName();
 
             //hapus gambar ttd lama
             if (user()->signature != '') {
@@ -109,9 +117,9 @@ class Db_users extends BaseController
             }
 
             //pindahkan foto profil ke img-ttd
-            $this->request->getFile('signature')->move('img-ttd');
+            $this->request->getFile('signature')->move('img-ttd', $file);
         } else {
-            $file = user()->signature;
+            $file = $User['signature'];
         }
 
         $data = [

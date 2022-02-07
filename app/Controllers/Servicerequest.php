@@ -112,21 +112,15 @@ class Servicerequest extends BaseController
             'evidence2' => ''
         ];
 
-        //dd($data);
-
-        //ambil gambar
-        $evidence1 = $this->request->getFile('evidence1');
+        //masukan nama gambar
+        $data['evidence1'] = $this->request->getFile('evidence1')->getRandomName();
 
         //pindahkan gambar ke folder img
-        $evidence1->move('img-sr');
-
-        //masukan nama gambar
-        $data['evidence1'] = $evidence1->getName();
+        $this->request->getFile('evidence1')->move('img-sr', $data['evidence1']);
 
         if ($this->request->getVar('jenisSr') == 'flm') {
-            $evidence2 = $this->request->getFile('evidence2');
-            $evidence2->move('img-sr');
-            $data['evidence2'] = $evidence2->getName();
+            $data['evidence2'] = $this->request->getFile('evidence2')->getRandomName();
+            $this->request->getFile('evidence2')->move('img-sr', $data['evidence2']);
         }
 
         $this->serviceRequestModel->setAllowedFields(array_keys($data));

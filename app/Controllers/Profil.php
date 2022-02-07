@@ -26,7 +26,7 @@ class Profil extends BaseController
 
     public function edit()
     {
-        if ($this->request->getFile('picture')->getName()) {
+        if ($this->request->getFile('picture') != '') {
             $dataValidate = [
                 'picture' => [
                     'rules' => 'max_size[picture,1024]|is_image[picture]|mime_in[picture,image/jpg,image/jpeg,image/png]',
@@ -43,7 +43,7 @@ class Profil extends BaseController
             }
 
             //lolos validasi
-            $img = $this->request->getFile('picture')->getName();
+            $img = $this->request->getFile('picture')->getRandomName();
 
             //hapus gambar profile lama
             if (user()->picture != '') {
@@ -53,7 +53,7 @@ class Profil extends BaseController
             }
 
             //pindahkan foto profil ke img-profile
-            $this->request->getFile('picture')->move('img-profile');
+            $this->request->getFile('picture')->move('img-profile', $img);
         } else {
             $img = user()->picture;
         }
@@ -75,7 +75,7 @@ class Profil extends BaseController
             }
 
             //lolos validasi
-            $file = $this->request->getFile('signature')->getName();
+            $file = $this->request->getFile('signature')->getRandomName();
 
             //hapus gambar ttd lama
             if (user()->signature != '') {
@@ -85,7 +85,7 @@ class Profil extends BaseController
             }
 
             //pindahkan foto profil ke img-ttd
-            $this->request->getFile('signature')->move('img-ttd');
+            $this->request->getFile('signature')->move('img-ttd', $file);
         } else {
             $file = user()->signature;
         }
