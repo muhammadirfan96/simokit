@@ -63,36 +63,36 @@
 
                                     <?php if (in_groups('admin') || in_groups('supervisor operasi shift a')) : ?>
                                         <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftA" name="shiftA" value="operasi shift a " checked>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftA" name="shiftA" value="operator shift a " checked>
                                             <label class="form-check-label" for="shiftA">
-                                                operasi shift a
+                                                operator shift a
                                             </label>
                                         </li>
                                     <?php endif ?>
 
                                     <?php if (in_groups('admin') || in_groups('supervisor operasi shift b')) : ?>
                                         <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftB" name="shiftB" value="operasi shift b " checked>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftB" name="shiftB" value="operator shift b " checked>
                                             <label class="form-check-label" for="shiftB">
-                                                operasi shift b
+                                                operator shift b
                                             </label>
                                         </li>
                                     <?php endif ?>
 
                                     <?php if (in_groups('admin') || in_groups('supervisor operasi shift c')) : ?>
                                         <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftC" name="shiftC" value="operasi shift c " checked>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftC" name="shiftC" value="operator shift c " checked>
                                             <label class="form-check-label" for="shiftC">
-                                                operasi shift c
+                                                operator shift c
                                             </label>
                                         </li>
                                     <?php endif ?>
 
                                     <?php if (in_groups('admin') || in_groups('supervisor operasi shift d')) : ?>
                                         <li>
-                                            <input class="form-check-input ms-2" type="checkbox" id="shiftD" name="shiftD" value="operasi shift d " checked>
+                                            <input class="form-check-input ms-2" type="checkbox" id="shiftD" name="shiftD" value="operator shift d " checked>
                                             <label class="form-check-label" for="shiftD">
-                                                operasi shift d
+                                                operator shift d
                                             </label>
                                         </li>
                                     <?php endif ?>

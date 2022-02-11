@@ -253,6 +253,8 @@ class Servicerequest extends BaseController
         ];
         //dd($data);
 
+        $this->response->setContentType("application/pdf");
+
         $mpdf->setAutoTopMargin = 'stretch';
         $mpdf->SetHTMLHeader(view('servicerequest/hprint'));
         $mpdf->shrink_tables_to_fit = 1;

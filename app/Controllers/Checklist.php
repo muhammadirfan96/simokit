@@ -173,7 +173,7 @@ class Checklist extends BaseController
             'jwb' => $jwb
         ];
 
-        // $html = 'hello world';
+        $this->response->setContentType("application/pdf");
 
         $mpdf->setAutoTopMargin = 'stretch';
         $mpdf->SetHTMLHeader(view('checklist/hprint', $hdata));

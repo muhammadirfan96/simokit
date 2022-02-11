@@ -7,6 +7,7 @@ use App\Models\Daftar_pertanyaanModel;
 use App\Models\LimasModel;
 use App\Models\NilaiLimasModel;
 use Myth\Auth\Models\UserModel;
+use Mpdf\Mpdf;
 
 class Limas extends BaseController
 {
@@ -182,12 +183,13 @@ class Limas extends BaseController
             'checkItem' => $this->nilaiLimasModel->checkItem
         ];
 
-        // dd($data);
+        $this->response->setContentType("application/pdf");
 
-        //$mpdf->setAutoTopMargin = 'stretch';
+        // $mpdf->setAutoTopMargin = 'stretch';
         $mpdf->SetHTMLHeader(view('limas/hprint'));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('limas/print', $data));
+
         return $mpdf->Output($limas['id'] . ' ' . $limas['namaPeralatan'] . ' 5s.pdf', "D");
     }
 }
