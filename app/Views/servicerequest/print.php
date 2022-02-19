@@ -174,21 +174,35 @@
                         <tr>
                             <td class="ttd">
                                 <div>
-                                    <p><?= $atasan['jabatan']; ?></p>
-                                    <div><?= $ttd[0]; ?></div>
-                                    <p><?= $atasan['nama']; ?></p>
+                                    <p><?= $atasan[0]['jabatan']; ?></p>
+                                    <div><?= $ttdAtasan[0]; ?></div>
+                                    <p><?= $atasan[0]['nama']; ?></p>
                                     <hr style="width:60%; color:black; margin:1px;">
-                                    <p><?= $atasan["nip"]; ?></p>
+                                    <p><?= $atasan[0]["nip"]; ?></p>
                                 </div>
                             </td>
                             <td class="ttd">
-                                <div>
-                                    <p>pegawai <?= $pegawai['bidang']; ?></p>
-                                    <div><?= $ttd[1]; ?></div>
-                                    <p><?= $pegawai["fullname"]; ?></p>
-                                    <hr style="width:60%; color:black; margin:1px;">
-                                    <p><?= $pegawai["username"]; ?></p>
-                                </div>
+                                <p>pegawai <?= $pegawai[0]['bidang']; ?></p>
+                                <?php if (count($pegawai) == 1) : ?>
+                                    <div>
+                                        <div><?= $ttdPegawai[0]; ?></div>
+                                        <p><?= $pegawai[0]["fullname"]; ?></p>
+                                        <hr style="width:60%; color:black; margin:1px;">
+                                        <p><?= $pegawai[0]["username"]; ?></p>
+                                    </div>
+                                <?php endif ?>
+
+                                <?php if (count($pegawai) > 1) : ?>
+                                    <div>
+                                        <?php $i = 0 ?>
+                                        <?php foreach ($pegawai as $peg) : ?>
+                                            <span><?= $ttdPegawai[$i]; ?></span>
+                                            <?php $i++ ?>
+                                        <?php endforeach ?>
+                                        <br>
+                                        <?= $cetakPelaksana; ?>
+                                    </div>
+                                <?php endif ?>
                             </td>
                         </tr>
                     </table>

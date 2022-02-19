@@ -210,7 +210,7 @@ class Input_limas extends BaseController
 
                 $this->limasBoilerKetigaModel->save($result);
             }
-            // die;
+            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s boiler berhasil di update !');
         }
         if ($this->request->getVar('turbin') == "v") {
             // dd($this->request->getVar());
@@ -286,6 +286,7 @@ class Input_limas extends BaseController
 
                 $this->limasTurbinKeempatModel->save($result);
             }
+            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s turbin berhasil di update !');
         }
         if ($this->request->getVar('alba') == "v") {
             // dd($this->request->getVar());
@@ -324,8 +325,8 @@ class Input_limas extends BaseController
 
                 $this->limasAlbaKeduaModel->save($result);
             }
+            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s alba berhasil di update !');
         }
-        session()->setFlashdata('pesan', 'jadwal kegiatan 5s berhasl di update !');
         return redirect()->to(base_url('/input_limas'));
     }
 }

@@ -15,11 +15,8 @@
 </div>
 
 <div class="container-fluid">
-    <?php if (session()->getFlashdata('pesan')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?= session()->getFlashdata('pesan'); ?>
-        </div>
-    <?php endif; ?>
+    <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
+    <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
     <form action="/make_notice/post" method="post">
         <div class="row">
             <div class="col-md-6">

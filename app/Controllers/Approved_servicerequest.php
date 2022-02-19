@@ -14,10 +14,12 @@ class Approved_servicerequest extends BaseController
 
     public function index()
     {
+        $like = user()->username;
+        $where = "diinput_oleh LIKE '%$like%'";
 
         $data = [
             'title' => 'approved',
-            'servicerequest' => $this->ServiceRequestModel->where(['diinput_oleh' => user()->username, 'approved' => 'y'])->findAll()
+            'servicerequest' => $this->ServiceRequestModel->where($where)->findAll()
         ];
 
         return view('approved_servicerequest/index', $data);

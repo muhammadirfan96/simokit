@@ -51,14 +51,6 @@ class Db_users extends BaseController
     {
         $User = $this->UserModel->asArray()->find($this->request->getVar('id'));
 
-        // dd($this->request->getFile('picture'));
-
-        // if ($this->request->getFile('picture') != '') {
-        //     dd('y');
-        // } else {
-        //     dd('n');
-        // }
-
         if ($this->request->getFile('picture') != '') {
             $dataValidate = [
                 'picture' => [
@@ -133,13 +125,12 @@ class Db_users extends BaseController
         ];
 
         // dd($data);
-        session()->setFlashdata('pesan', 'Data ' . $User['username'] . ' telah diubah. Silahkan cek kembali');
+        session()->setFlashdata('pesanSuccess', 'Data ' . $User['username'] . ' telah diubah. Silahkan cek kembali');
 
         $this->UserModel->setAllowedFields(array_keys($data));
         $this->UserModel->save($data);
 
-
-        return redirect()->to(base_url('/db_users'));
+        return redirect()->to(base_url('/db_users/' . $this->request->getVar('id')));
     }
 
     public function delete($id)
@@ -162,7 +153,7 @@ class Db_users extends BaseController
 
         //hapus data
         $this->UserModel->delete($id);
-        session()->setFlashdata('pesan', 'user ' . $User['username'] . ' telah dihapus');
+        session()->setFlashdata('pesanSuccess', 'user ' . $User['username'] . ' telah dihapus');
         return redirect()->to(base_url('/db_users'));
     }
 }

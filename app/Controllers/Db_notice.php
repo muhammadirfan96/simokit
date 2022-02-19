@@ -35,8 +35,7 @@ class Db_notice extends BaseController
         $notice = $this->noticeModel->find($id);
         $data = [
             'title' => 'notice details',
-            'notice' => $notice,
-            'validation' => \Config\Services::validation()
+            'notice' => $notice
         ];
         // dd($data['notice']);
         return view('db_notice/details', $data);
@@ -44,38 +43,13 @@ class Db_notice extends BaseController
 
     public function edit()
     {
-        $dataValidate = [
-            'start_time' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'tanggal harus di isi'
-                ]
-            ],
-            'end_time' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'tanggal harus di isi'
-                ]
-            ],
-            'content' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'isi notifikasi tidak boleh kosong'
-                ]
-            ]
-        ];
-
-        if (!$this->validate($dataValidate)) {
-            return redirect()->to(base_url('/db_notice/' . $this->request->getVar('id')))->withInput();
-        }
+        $notice = $this->noticeModel->find($this->request->getVar('id'));
 
         $data = [
             'id' => $this->request->getVar('id'),
-            'start_time' => $this->request->getVar('start_time'),
-            'end_time' => $this->request->getVar('end_time'),
-            'maked_by' => $this->request->getVar('maked_by'),
-            'notice_to' =>
-            $this->request->getVar('shiftA') .
+            'start_time' => $notice['start_time'],
+            'end_time' => $notice['end_time'],
+            'notice_to' => $this->request->getVar('shiftA') .
                 $this->request->getVar('shiftB') .
                 $this->request->getVar('shiftC') .
                 $this->request->getVar('shiftD') .
@@ -84,15 +58,25 @@ class Db_notice extends BaseController
                 $this->request->getVar('SpvShiftC') .
                 $this->request->getVar('SpvShiftD') .
                 $this->request->getVar('manOP'),
-            'content' => $this->request->getVar('content'),
+            'content' => $notice['content'],
             'updated_by' => user()->fullname
         ];
+
+        if ($this->request->getVar('start_time')) {
+            $data['start_time'] = $this->request->getVar('start_time');
+        }
+        if ($this->request->getVar('end_time')) {
+            $data['end_time'] = $this->request->getVar('end_time');
+        }
+        if ($this->request->getVar('content')) {
+            $data['content'] = $this->request->getVar('content');
+        }
         // dd($data);
 
         $this->noticeModel->setAllowedFields(array_keys($data));
         $this->noticeModel->save($data);
 
-        session()->setFlashdata('pesan', 'anda telah mengubah notice');
+        session()->setFlashdata('pesanSuccess', 'anda telah mengubah notice');
         return redirect()->to(base_url('/db_notice'));
     }
 
@@ -100,7 +84,7 @@ class Db_notice extends BaseController
     {
         //hapus data
         $this->noticeModel->delete($id);
-        session()->setFlashdata('pesan', 'notice berhasil dihapus');
+        session()->setFlashdata('pesanSuccess', 'notice berhasil dihapus');
         return redirect()->to(base_url('/db_notice'));
     }
 }

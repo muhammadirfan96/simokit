@@ -14,10 +14,12 @@ class Approved_checklist extends BaseController
 
     public function index()
     {
+        $like = user()->username;
+        $where = "diinput_oleh LIKE '%$like%'";
 
         $data = [
             'title' => 'approved',
-            'checklist' => $this->ChecklistModel->where(['diinput_oleh' => user()->username, 'approved' => 'y'])->findAll()
+            'checklist' => $this->ChecklistModel->where($where)->findAll()
         ];
 
         // dd($data);

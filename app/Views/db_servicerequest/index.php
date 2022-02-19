@@ -14,11 +14,8 @@
     </div>
     <div class="row">
         <div class="col">
-            <?php if (session()->getFlashdata('pesan')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?= session()->getFlashdata('pesan'); ?>
-                </div>
-            <?php endif; ?>
+            <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
+            <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
         </div>
     </div>
 </div>
@@ -82,45 +79,43 @@
             </tfoot>
 
             <tbody>
-                <?php foreach ($servicerequest as $rows) : ?>
-                    <?php foreach ($rows as $row) : ?>
-                        <tr>
-                            <td>
-                                <a class="btn btn-sm btn-success my-1" href="/db_servicerequest/details/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
+                <?php foreach ($servicerequest as $row) : ?>
+                    <tr>
+                        <td>
+                            <a class="btn btn-sm btn-success my-1" href="/db_servicerequest/details/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
 
-                                <form action="/db_servicerequest/<?= $row["id"]; ?>" method="post">
-                                    <?= csrf_field(); ?>
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
-                                </form>
+                            <form action="/db_servicerequest/<?= $row["id"]; ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                            </form>
 
-                                <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-secondary' : 'btn-primary'; ?> my-1" href="/db_servicerequest/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
+                            <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-danger' : 'btn-primary'; ?> my-1" href="/db_servicerequest/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
 
-                            </td>
-                            <td><?= $row["ket"]; ?></td>
-                            <td><?= $row["diinput_oleh"]; ?></td>
-                            <td><?= $row["nomorSr"] ?></td>
-                            <td><?= $row["tanggal"] ?></td>
-                            <td><?= $row["unit"]; ?></td>
-                            <td><?= $row["area"]; ?></td>
-                            <td><?= $row["namaPeralatan"]; ?></td>
-                            <td><?= $row["kks"]; ?></td>
-                            <td><?= $row["uraianGangguan1"]; ?></td>
-                            <td><?= $row["uraianGangguan2"]; ?></td>
-                            <td><?= $row["normalOperasi1"]; ?></td>
-                            <td><?= $row["normalOperasi2"]; ?></td>
-                            <td><?= $row["gejala1"]; ?></td>
-                            <td><?= $row["gejala2"]; ?></td>
-                            <td><?= $row["prioritas"]; ?></td>
-                            <td><?= $row["akibatKerusakan1"]; ?></td>
-                            <td><?= $row["akibatKerusakan2"]; ?></td>
-                            <td><?= $row["kemungkinanDampak1"]; ?></td>
-                            <td><?= $row["kemungkinanDampak2"]; ?></td>
-                            <td><?= $row["tindakanSementara1"]; ?></td>
-                            <td><?= $row["tindakanSementara2"]; ?></td>
-                            <td><?= $row["tindakanSementara3"]; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                        </td>
+                        <td><?= $row["ket"]; ?></td>
+                        <td><?= $row["diinput_oleh"]; ?></td>
+                        <td><?= $row["nomorSr"] ?></td>
+                        <td><?= $row["tanggal"] ?></td>
+                        <td><?= $row["unit"]; ?></td>
+                        <td><?= $row["area"]; ?></td>
+                        <td><?= $row["namaPeralatan"]; ?></td>
+                        <td><?= $row["kks"]; ?></td>
+                        <td><?= $row["uraianGangguan1"]; ?></td>
+                        <td><?= $row["uraianGangguan2"]; ?></td>
+                        <td><?= $row["normalOperasi1"]; ?></td>
+                        <td><?= $row["normalOperasi2"]; ?></td>
+                        <td><?= $row["gejala1"]; ?></td>
+                        <td><?= $row["gejala2"]; ?></td>
+                        <td><?= $row["prioritas"]; ?></td>
+                        <td><?= $row["akibatKerusakan1"]; ?></td>
+                        <td><?= $row["akibatKerusakan2"]; ?></td>
+                        <td><?= $row["kemungkinanDampak1"]; ?></td>
+                        <td><?= $row["kemungkinanDampak2"]; ?></td>
+                        <td><?= $row["tindakanSementara1"]; ?></td>
+                        <td><?= $row["tindakanSementara2"]; ?></td>
+                        <td><?= $row["tindakanSementara3"]; ?></td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

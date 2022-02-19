@@ -14,12 +14,7 @@ use \Mpdf\Mpdf;
 
 class Checklist extends BaseController
 {
-    protected $daftar_pertanyaanModel;
-    protected $checklistModel;
-    protected $jawabanModel;
-    protected $komenModel;
-    protected $userModel;
-    protected $atasanModel;
+    protected $daftar_pertanyaanModel, $checklistModel, $jawabanModel, $komenModel, $userModel, $atasanModel;
     public function __construct()
     {
         $this->daftar_pertanyaanModel = new Daftar_pertanyaanModel();
@@ -29,7 +24,6 @@ class Checklist extends BaseController
         $this->userModel = new UserModel();
         $this->atasanModel = new AtasanModel();
     }
-
 
     public function index()
     {
@@ -45,10 +39,13 @@ class Checklist extends BaseController
 
     public function pilihPeralatan($peralatan)
     {
+        $users = $this->userModel->asArray()->where(['bidang' => user()->bidang, 'username !=' => user()->username])->findAll();
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => $peralatan])->findAll();
+
         $data = [
             'title' => $peralatan,
             'pertanyaan' => $pertanyaan,
+            'users' => $users,
             'validation' => \Config\Services::validation()
         ];
         return view('checklist/peralatan', $data);
@@ -56,6 +53,13 @@ class Checklist extends BaseController
 
     public function simpan()
     {
+        if (user()->signature == '') {
+            session()->setFlashdata('pesanWarning', 'masukkan tanda tangan terlebih dahulu');
+            return redirect()->to(base_url('/profil'));
+        }
+
+        $users = $this->userModel->asArray()->where(['bidang' => user()->bidang, 'username !=' => user()->username])->findAll();
+
         $keyDataValidate = [];
         $valueDataValidate = [];
         for ($i = 1; $i <= $this->request->getVar('jumlahPertanyaan'); $i++) {
@@ -69,19 +73,42 @@ class Checklist extends BaseController
             return redirect()->to(base_url('/checklist/' . $this->request->getVar('namaPeralatan')))->withInput();
         }
 
-        //insert ke tabel checklist
+        $friend = [];
+        foreach ($users as $user) {
+            if ($this->request->getVar($user['username'])) {
 
-        $this->checklistModel->save([
-            'tanggal' => date('d-m-Y'),
-            'diinput_oleh' => user()->username,
+                if ($user['signature'] == '') {
+                    $teman = $user['fullname'];
+                    session()->setFlashdata('pesanWarning', $teman . ' belum memiliki tanda tangan');
+                    return redirect()->to(base_url('/checklist/' . $this->request->getVar('namaPeralatan')))->withInput();
+                }
+
+                $friend[] = $this->request->getVar($user['username']);
+            }
+        }
+
+        if (count($friend) >= 3) {
+            session()->setFlashdata('pesanWarning', 'jumlah teman maksimal 2 orang');
+            return redirect()->to(base_url('/checklist/' . $this->request->getVar('namaPeralatan')))->withInput();
+        }
+
+        if ($friends = implode(' | ', $friend)) {
+            $friends = ' | ' . implode(' | ', $friend);
+        }
+
+        //data tabel checklist
+
+        $checklist = [
+            'tanggal' => date('Y-m-d H:i:s'),
+            'diinput_oleh' => user()->username . $friends,
             'namaPeralatan' => $this->request->getVar('namaPeralatan'),
             'catatan' => $this->request->getVar(htmlspecialchars('catatan'))
-        ]);
+        ];
 
         //data tabel jawaban
 
         $keyJawaban = ['diinput_oleh'];
-        $valueJawaban = [user()->username];
+        $valueJawaban = [user()->username . $friends];
         for ($i = 1; $i <= $this->request->getVar('jumlahPertanyaan'); $i++) {
             array_push($keyJawaban, 'jawaban' . $i);
             array_push($valueJawaban, $this->request->getVar("pertanyaan" . $i));
@@ -91,21 +118,25 @@ class Checklist extends BaseController
         //data tabel komen
 
         $keyKomen = ['diinput_oleh'];
-        $valueKomen = [user()->username];
+        $valueKomen = [user()->username . $friends];
         for ($i = 1; $i <= $this->request->getVar('jumlahPertanyaan'); $i++) {
             array_push($keyKomen, 'komen' . $i);
             array_push($valueKomen, $this->request->getVar("komen" . $i));
         }
         $komen = array_combine($keyKomen, $valueKomen);
 
-        //lakukan inser ke tabel jawaban dan komen
+        // dd($checklist);
 
+        //lakukan inser ke tabel checklist, jawaban dan komen
+
+        $this->checklistModel->setAllowedFields(array_keys($checklist));
         $this->jawabanModel->setAllowedFields($keyJawaban);
         $this->komenModel->setAllowedFields($keyKomen);
+        $this->checklistModel->save($checklist);
         $this->jawabanModel->save($jawaban);
         $this->komenModel->save($komen);
 
-        session()->setFlashdata('pesan', 'Data Cheklist berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
+        session()->setFlashdata('pesanSuccess', 'Data Cheklist berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
 
         return redirect()->to('checklist/' . $this->request->getVar('namaPeralatan'));
     }
@@ -124,23 +155,46 @@ class Checklist extends BaseController
             $komen = $this->komenModel->where(['id' => $id])->orderBy('id', 'desc')->first();
         }
 
-        $pegawai = $this->userModel->asArray()->where(['username' => $checklist['diinput_oleh']])->first();
-        $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
-        $detailAtasan = $this->userModel->asArray()->where('fullname', $atasan['nama'])->first();
+        $users = explode(" | ", $checklist['diinput_oleh']);
+        $pegawai = [];
+        $atasan = [];
+        $detailAtasan = [];
+        $ttdAtasan = [];
+        $ttdPegawai = [];
+
+        $i = 0;
+        foreach ($users as $user) {
+            $where = "username LIKE '%$user%'";
+            $pegawai[] = $this->userModel->asArray()->where($where)->first();
+            $atasan[] = $this->atasanModel->where(['bawahan' => $pegawai[$i]['bidang']])->first();
+            $detailAtasan[] = $this->userModel->asArray()->where('fullname', $atasan[$i]['nama'])->first();
+
+            if ($detailAtasan[$i]['signature'] != '') {
+                if (file_exists('img-ttd/' . $detailAtasan[$i]['signature'])) {
+                    $ttdAtasan[] = '<img src="img-ttd/' . $detailAtasan[$i]["signature"] . '" width="70px" height="70px">';
+                }
+            } else {
+                $ttdAtasan[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+            }
+            if ($pegawai[$i]['signature'] != '') {
+                if (file_exists('img-ttd/' . $pegawai[$i]['signature'])) {
+                    $ttdPegawai[] = '<img src="img-ttd/' . $pegawai[$i]["signature"] . '" width="70px" height="70px">';
+                }
+            } else {
+                $ttdPegawai[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+            }
+
+            $i++;
+        }
+
+        $pelaksana = [];
+        foreach ($pegawai as $peg) {
+            $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
+        }
+
+        $cetakPelaksana = implode(' | ', $pelaksana);
 
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => $checklist['namaPeralatan']])->findAll();
-
-        $ttd = ['<br><br><br><br>', '<br><br><br><br>'];
-        if ($detailAtasan['signature'] != '') {
-            if (file_exists('img-ttd/' . $detailAtasan['signature'])) {
-                $ttd[0] = '<img src="img-ttd/' . $detailAtasan["signature"] . '" width="70px" height="70px">';
-            }
-        }
-        if ($pegawai['signature'] != '') {
-            if (file_exists('img-ttd/' . $pegawai['signature'])) {
-                $ttd[1] = '<img src="img-ttd/' . $pegawai["signature"] . '" width="70px" height="70px">';
-            }
-        }
 
         $i = 1;
         $jwb = [];
@@ -167,8 +221,10 @@ class Checklist extends BaseController
             'jawaban' => $jawaban,
             'komen' => $komen,
             'pegawai' => $pegawai,
+            'cetakPelaksana' => $cetakPelaksana,
             'atasan' => $atasan,
-            'ttd' => $ttd,
+            'ttdPegawai' => $ttdPegawai,
+            'ttdAtasan' => $ttdAtasan,
             'pertanyaan' => $pertanyaan,
             'jwb' => $jwb
         ];
@@ -179,6 +235,6 @@ class Checklist extends BaseController
         $mpdf->SetHTMLHeader(view('checklist/hprint', $hdata));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('checklist/print', $data));
-        return $mpdf->Output($checklist['id'] . ' ' . $checklist['namaPeralatan'] . ' checklist.pdf', "D");
+        return $mpdf->Output($checklist['id'] . ' ' . $checklist['namaPeralatan'] . ' checklist.pdf', "I");
     }
 }

@@ -112,6 +112,7 @@ class Input_co extends BaseController
 
                 $this->scheduleSatuModel->save($result);
             }
+            session()->setFlashdata('pesanSuccess', 'jadwal change over unit 1 telah di update !');
         }
         if ($this->request->getVar('unit#2') == "v") {
             $key = $this->scheduleDuaModel->getFieldNames('scheduledua');
@@ -132,6 +133,7 @@ class Input_co extends BaseController
 
                 $this->scheduleDuaModel->save($result);
             }
+            session()->setFlashdata('pesanSuccess', 'jadwal change over unit 2 telah di update !');
         }
         if ($this->request->getVar('common') == "v") {
             $key = $this->scheduleCommonModel->getFieldNames('schedulecommon');
@@ -152,8 +154,8 @@ class Input_co extends BaseController
 
                 $this->scheduleCommonModel->save($result);
             }
+            session()->setFlashdata('pesanSuccess', 'jadwal change over common telah di update !');
         }
-        session()->setFlashdata('pesan', 'jadwal change over berhasl di update !');
         return redirect()->to(base_url('/input_co'));
     }
 }

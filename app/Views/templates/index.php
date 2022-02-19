@@ -16,9 +16,9 @@
     <link href="<?= base_url(); ?>/css/profil.css" rel="stylesheet">
 
     <!-- signature -->
-    <link href="<?= base_url(); ?>/signature/css/jquery-ui.css" rel="stylesheet">
+    <!-- <link href="<?= base_url(); ?>/signature/css/jquery-ui.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/signature/css/jquery.signature.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>/signature/css/box.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/signature/css/box.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -35,6 +35,11 @@
     <!-- for signature -->
     <script src="<?= base_url(); ?>/signature/js/jquery-ui.js"></script>
     <script src="<?= base_url(); ?>/signature/js/jquery.signature.js"></script>
+
+    <!-- for sweet alert -->
+    <script src="<?= base_url(); ?>/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="<?= base_url(); ?>/sweetalert/myscript.js"></script>
+
 </body>
 
 </html>

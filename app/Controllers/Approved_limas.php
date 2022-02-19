@@ -14,10 +14,12 @@ class Approved_limas extends BaseController
 
     public function index()
     {
+        $like = user()->username;
+        $where = "diinput_oleh LIKE '%$like%'";
 
         $data = [
             'title' => 'approved',
-            'limas' => $this->LimasModel->where(['diinput_oleh' => user()->username, 'approved' => 'y'])->findAll()
+            'limas' => $this->LimasModel->where($where)->findAll()
         ];
 
         return view('approved_limas/index', $data);

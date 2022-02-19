@@ -20,26 +20,49 @@ class Db_limas extends BaseController
         $this->AtasanModel = new AtasanModel();
     }
 
-    public function index()
+    public function getUsers()
     {
         if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
             $atasan = $this->AtasanModel->where('nama', user()->fullname)->first();
             $users = $this->UserModel->asArray()->where('bidang', $atasan['bawahan'])->findAll();
+        } elseif (in_groups('admin')) {
+            $users = $this->UserModel->asArray()->findAll();
+        }
+        return $users;
+    }
+
+    public function index()
+    {
+        if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
+
+            $res = [];
+            foreach ($this->getUsers() as $user) {
+                $like = $user['username'];
+                $where = "diinput_oleh LIKE '%$like%'";
+                $res[] = $this->limasModel->where($where)->findAll();
+            }
+            $t = [];
+            foreach ($res as $re) {
+                foreach ($re as $r) {
+                    $t[] = $r['id'];
+                }
+            }
+
+            $u = array_unique($t);
+            asort($u);
 
             $result = [];
-            foreach ($users as $user) {
-                $result[] = $this->limasModel->where('diinput_oleh', $user['username'])->findAll();
+            foreach ($u as $v) {
+                $result[] = $this->limasModel->find($v);
             }
         } elseif (in_groups('admin')) {
-            $result[] = $this->limasModel->findAll();
+            $result = $this->limasModel->findAll();
         }
 
         $data = [
             'title' => 'database | limas',
             'limas' => $result
         ];
-
-        // dd($data);
 
         return view('db_limas/index', $data);
     }
@@ -49,25 +72,51 @@ class Db_limas extends BaseController
         $limas = $this->limasModel->find($id);
         $nilaiLimas = $this->nilaiLimasModel->find($id);
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => '5s'])->findAll();
+
         $data = [
             'title' => 'details kegiatan 5s',
             'limas' => $limas,
             'nilaiLimas' => $nilaiLimas,
             'pertanyaan' => $pertanyaan,
+            'users' => $this->getUsers(),
             'validation' => \Config\Services::validation()
         ];
-
-        // dd($data);
 
         return view('db_limas/details', $data);
     }
 
     public function edit()
     {
-        // dd($this->request->getVar());
         $limas = $this->limasModel->find($this->request->getVar('id'));
+
+        $friend = [];
+        foreach ($this->getUsers() as $user) {
+            if ($this->request->getVar($user['username'])) {
+
+                if ($user['signature'] == '') {
+                    $teman = $user['fullname'];
+                    session()->setFlashdata('pesanWarning', $teman . ' belum memiliki tanda tangan');
+                    return redirect()->to(base_url('/db_limas/details/' . $this->request->getVar('id')))->withInput();
+                }
+
+                $friend[] = $this->request->getVar($user['username']);
+            }
+        }
+
+        if (count($friend) >= 4) {
+            session()->setFlashdata('pesanWarning', 'jumlah pelaksana maksimal 3 orang');
+            return redirect()->to(base_url('/db_limas/details/' . $this->request->getVar('id')))->withInput();
+        }
+
+        $friends = implode(' | ', $friend);
+
+        if (empty($friends)) {
+            $friends = $limas['diinput_oleh'];
+        }
+
         $dataLimas = [
             'id' => $limas['id'],
+            'diinput_oleh' => $friends,
             'tanggal' => $limas['tanggal'],
             'namaPeralatan' => $limas['namaPeralatan'],
             'area' => $limas['area'],
@@ -75,7 +124,6 @@ class Db_limas extends BaseController
             'fotoSebelum' => $limas['fotoSebelum'],
             'fotoSetelah' => $limas['fotoSetelah']
         ];
-        // dd($dataLimas);
 
         if ($this->request->getVar('tanggal')) {
             $dataLimas['tanggal'] = $this->request->getVar('tanggal');
@@ -159,7 +207,7 @@ class Db_limas extends BaseController
         $this->limasModel->save($dataLimas);
         $this->nilaiLimasModel->save($dataNilaiLimas);
 
-        session()->setFlashdata('pesan', 'Data 5S ' . $dataLimas['namaPeralatan'] . ' berhasil diubah');
+        session()->setFlashdata('pesanSuccess', 'Data 5S ' . $dataLimas['namaPeralatan'] . ' telah diubah');
 
         return redirect()->to(base_url('/db_limas/details/' . $this->request->getVar('id')));
     }
@@ -184,7 +232,7 @@ class Db_limas extends BaseController
 
         //hapus data
         $this->limasModel->delete($id);
-        session()->setFlashdata('pesan', 'Data 5S ' . $limas['namaPeralatan'] . ' berhasil dihapus');
+        session()->setFlashdata('pesanSuccess', 'Data 5S ' . $limas['namaPeralatan'] . ' telah dihapus');
         return redirect()->to(base_url('/db_limas'));
     }
 
@@ -193,10 +241,11 @@ class Db_limas extends BaseController
         $Limas = $this->limasModel->find($id);
         $data = [
             'id' => $id,
+            'tanggal' => $Limas['tanggal'],
             'approved' => $this->request->getVar('approve')
         ];
 
-        session()->setFlashdata('pesan', 'Data kegiatan 5s ' . $Limas['namaPeralatan'] . ' by ' . $Limas['diinput_oleh'] . ' telah di approve');
+        session()->setFlashdata('pesanSuccess', 'Data kegiatan 5s ' . $Limas['namaPeralatan'] . ' by ' . $Limas['diinput_oleh'] . ' telah di approve');
 
         $this->limasModel->setAllowedFields(array_keys($data));
         $this->limasModel->save($data);

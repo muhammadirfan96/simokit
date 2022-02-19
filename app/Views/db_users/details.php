@@ -17,6 +17,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col mb-3">
+            <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
+            <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
             <form action="/db_users/edit" method="post" enctype="multipart/form-data">
                 <div class="card">
                     <input type="hidden" name="id" value="<?= $user['id']; ?>">

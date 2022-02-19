@@ -8,7 +8,7 @@ class ChecklistModel extends Model
 {
     protected $table      = 'checklist';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['tanggal', 'diinput_oleh', 'namaPeralatan', 'catatan'];
+    protected $allowedFields = [];
 
     public function search($keyword)
     {

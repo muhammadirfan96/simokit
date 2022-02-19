@@ -15,39 +15,30 @@
 </div>
 
 <div class="container-fluid">
-    <?php if (session()->getFlashdata('pesan')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?= session()->getFlashdata('pesan'); ?>
-        </div>
-    <?php endif; ?>
+    <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
+    <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
     <form action="/db_notice/edit" method="post">
         <input type="hidden" name="id" value="<?= $notice['id']; ?>">
         <input type="hidden" name="maked_by" value="<?= $notice['maked_by']; ?>">
         <div class="row">
             <div class="col-md-6">
+                <label class="fw-bold"><b>start time</b></label>
                 <div class="input-group mb-3">
-                    <span class="input-group-text">start time | <?= $notice['start_time']; ?></span>
-                    <input type="datetime-local" class="form-control <?= ($validation->hasError('start_time')) ? 'is-invalid' : ''; ?>" name="start_time" value="<?= old('start_time'); ?>">
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('start_time'); ?>
-                    </div>
+                    <span class="input-group-text"><?= $notice['start_time']; ?></span>
+                    <input type="datetime-local" class="form-control" name="start_time">
                 </div>
             </div>
             <div class="col-md-6">
+                <label class="fw-bold"><b>end time</b></label>
                 <div class="input-group mb-3">
-                    <span class="input-group-text">end time | <?= $notice['end_time']; ?></span>
-                    <input type="datetime-local" class="form-control <?= ($validation->hasError('end_time')) ? 'is-invalid' : ''; ?>" name="end_time" value="<?= old('end_time'); ?>">
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('end_time'); ?>
-                    </div>
+                    <span class="input-group-text"><?= $notice['end_time']; ?></span>
+                    <input type="datetime-local" class="form-control" name="end_time">
                 </div>
             </div>
             <div class="col-md-6">
+                <label class="fw-bold"><b>content</b></label>
                 <div class="input-group mb-3">
-                    <textarea class="form-control <?= ($validation->hasError('content')) ? 'is-invalid' : ''; ?>" name="content" placeholder="text.."><?= $notice['content']; ?></textarea>
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('content'); ?>
-                    </div>
+                    <textarea class="form-control" name="content"><?= $notice['content']; ?></textarea>
                 </div>
             </div>
 

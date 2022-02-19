@@ -18,10 +18,10 @@
             <td class="bold biru" colspan="6">INFORMASI</td>
         </tr>
         <tr>
-            <td class="bold biruMuda" colspan="2">Satuan Kerja<br><br>OPERASI</td>
-            <td class="bold biruMuda besar" colspan="2">NAMA PELAKSANA<br><br><?= $pegawai['fullname']; ?></td>
-            <td class="bold biruMuda">Area / Lokasi Kerja<br><br><?= $limas['area']; ?></td>
-            <td class="bold biruMuda" width="120px">WAKTU<br><br><?= date('H:i', strtotime($limas['tanggal'])); ?></td>
+            <td class="bold biruMuda" colspan="2">Satuan Kerja<br>OPERASI</td>
+            <td class="bold biruMuda besar" colspan="2">NAMA PELAKSANA<br><?= $cetakPelaksana; ?></td>
+            <td class="bold biruMuda">Area / Lokasi Kerja<br><?= $limas['area']; ?></td>
+            <td class="bold biruMuda" width="120px">WAKTU<br><?= date('H:i', strtotime($limas['tanggal'])); ?></td>
         </tr>
         <tr>
             <td class="bold biru" colspan="6">PENDAHULUAN</td>
@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <td class="bold biruMuda" colspan="2">Sasaran</td>
-            <td colspan="4">Membersihkan debu, tetesan oli, dan membuang sampah yang ada di sekitar peralatan <?= $limas['namaPeralatan']; ?></td>
+            <td colspan="4">Membersihkan debu, tetesan oli, dan membuang sampah yang ada di sekitar peralatan <b><?= $limas['namaPeralatan']; ?></b></td>
         </tr>
         <tr>
             <td class="bold biru" colspan="6">PENILAIAN</td>
@@ -108,21 +108,38 @@
         <tr>
             <td class="ttd">
                 <div>
-                    <p><?= $atasan['jabatan']; ?></p>
-                    <div><?= $ttd[0]; ?></div>
-                    <p><?= $atasan['nama']; ?></p>
+                    <p><?= $atasan[0]['jabatan']; ?></p>
+                    <div><?= $ttdAtasan[0]; ?></div>
+                    <p><?= $atasan[0]['nama']; ?></p>
                     <hr style="width:60%; color:black; margin:1px;">
-                    <p><?= $atasan['nip']; ?></p>
+                    <p><?= $atasan[0]['nip']; ?></p>
                 </div>
             </td>
             <td class="ttd">
-                <div>
-                    <p>pegawai <?= $pegawai['bidang']; ?></p>
-                    <div><?= $ttd[1]; ?></div>
-                    <p><?= $pegawai['fullname']; ?></p>
-                    <hr style="width:60%; color:black; margin:1px;">
-                    <p><?= $pegawai['username']; ?></p>
-                </div>
+
+                <p>pegawai <?= $pegawai[0]['bidang']; ?></p>
+                <?php if (count($pegawai) == 1) : ?>
+                    <div>
+                        <div><?= $ttdPegawai[0]; ?></div>
+                        <p><?= $pegawai[0]["fullname"]; ?></p>
+                        <hr style="width:60%; color:black; margin:1px;">
+                        <p><?= $pegawai[0]["username"]; ?></p>
+                    </div>
+                <?php endif ?>
+
+                <?php if (count($pegawai) > 1) : ?>
+                    <div>
+                        <?php $i = 0 ?>
+                        <?php foreach ($pegawai as $peg) : ?>
+                            <span><?= $ttdPegawai[$i]; ?></span>
+                            <?php $i++ ?>
+                        <?php endforeach ?>
+                        <br>
+                        <?= $cetakPelaksana; ?>
+                    </div>
+                <?php endif ?>
+
+
             </td>
         </tr>
     </table>

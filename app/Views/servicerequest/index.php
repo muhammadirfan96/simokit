@@ -16,14 +16,32 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col">
-            <?php if (session()->getFlashdata('pesanSR')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?= session()->getFlashdata('pesanSR'); ?>
-                </div>
-            <?php endif; ?>
+            <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
+            <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
             <form action="/servicerequest/simpan" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="jenisSr" value="<?= $jenisSr; ?>">
+
+                <label class="fw-bold"><b>Nama Pelaksana (selain anda)</b></label>
+                <div class="input-group mb-3">
+
+                    <div class="dropdown">
+                        <button class="btn bg_orange0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            pilih nama teman anda
+                        </button>
+                        <ul class="dropdown-menu overflow-auto" aria-labelledby="dropdownMenuButton1">
+                            <?php foreach ($users as $user) : ?>
+                                <li>
+                                    <input class="form-check-input ms-2" type="checkbox" id="<?= $user['username']; ?>" name="<?= $user['username']; ?>" value="<?= $user['username']; ?>" <?= old($user['username']) == $user['username'] ? 'checked' : ''; ?>>
+                                    <label class="form-check-label me-2" for="<?= $user['username']; ?>">
+                                        <?= $user['fullname']; ?>
+                                    </label>
+                                </li>
+                            <?php endforeach ?>
+                        </ul>
+                    </div>
+                </div>
+
                 <label class="fw-bold">Nomor SR</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control rounded <?= ($validation->hasError('nomorSr')) ? 'is-invalid' : ''; ?>" aria-label="Username" aria-describedby="basic-addon1" name="nomorSr" value="<?= old('nomorSr'); ?>">

@@ -26,10 +26,13 @@ class Servicerequest extends BaseController
         } elseif ($judul == "flm") {
             $evidence = "Sebelum FLM";
         }
+
+        $users = $this->userModel->asArray()->where(['bidang' => user()->bidang, 'username !=' => user()->username])->findAll();
         $data = [
             'title' => 'service request',
             'jenisSr' => $judul,
             'evidence' => $evidence,
+            'users' => $users,
             'validation' => \Config\Services::validation()
         ];
 
@@ -38,6 +41,13 @@ class Servicerequest extends BaseController
 
     public function simpan()
     {
+        if (user()->signature == '') {
+            session()->setFlashdata('pesanWarning', 'masukkan tanda tangan terlebih dahulu');
+            return redirect()->to(base_url('/profil'));
+        }
+
+        $users = $this->userModel->asArray()->where(['bidang' => user()->bidang, 'username !=' => user()->username])->findAll();
+
         $dataValidate = [
             'nomorSr' => [
                 'rules' => 'required|is_unique[srcm.nomorSr]',
@@ -85,6 +95,29 @@ class Servicerequest extends BaseController
             return redirect()->to(base_url('/servicerequest/' . $this->request->getVar('jenisSr')))->withInput();
         }
 
+        $friend = [];
+        foreach ($users as $user) {
+            if ($this->request->getVar($user['username'])) {
+
+                if ($user['signature'] == '') {
+                    $teman = $user['fullname'];
+                    session()->setFlashdata('pesanWarning', $teman . ' belum memiliki tanda tangan');
+                    return redirect()->to(base_url('/servicerequest/' . $this->request->getVar('jenisSr')))->withInput();
+                }
+
+                $friend[] = $this->request->getVar($user['username']);
+            }
+        }
+
+        if (count($friend) >= 3) {
+            session()->setFlashdata('pesanWarning', 'jumlah teman maksimal 2 orang');
+            return redirect()->to(base_url('/servicerequest/' . $this->request->getVar('jenisSr')))->withInput();
+        }
+
+        if ($friends = implode(' | ', $friend)) {
+            $friends = ' | ' . implode(' | ', $friend);
+        }
+
         $data = [
             'nomorSr' => $this->request->getVar('nomorSr'),
             'unit' => $this->request->getVar('unit'),
@@ -105,7 +138,7 @@ class Servicerequest extends BaseController
             'tindakanSementara1' => $this->request->getVar('tindakanSementara1'),
             'tindakanSementara2' => $this->request->getVar('tindakanSementara2'),
             'tindakanSementara3' => $this->request->getVar('tindakanSementara3'),
-            'diinput_oleh' => user()->username,
+            'diinput_oleh' => user()->username . $friends,
             'tanggal' => $this->request->getVar('tanggal'),
             'ket' => $this->request->getVar('jenisSr'),
             'evidence1' => '',
@@ -127,7 +160,7 @@ class Servicerequest extends BaseController
 
         $this->serviceRequestModel->save($data);
 
-        session()->setFlashdata('pesanSR', 'Data SR ' . $data['ket'] . ' berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
+        session()->setFlashdata('pesanSuccess', 'Data SR ' . $data['ket'] . ' berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
 
         return redirect()->to(base_url('/servicerequest/' . $data['ket']));
     }
@@ -208,21 +241,44 @@ class Servicerequest extends BaseController
             $evidence[] = ["Lampiran", ""];
         }
 
-        $pegawai = $this->userModel->asArray()->where(['username' => $serviceRequest['diinput_oleh']])->first();
-        $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
-        $detailAtasan = $this->userModel->asArray()->where('fullname', $atasan['nama'])->first();
+        $users = explode(" | ", $serviceRequest['diinput_oleh']);
+        $pegawai = [];
+        $atasan = [];
+        $detailAtasan = [];
+        $ttdAtasan = [];
+        $ttdPegawai = [];
 
-        $ttd = ['<br><br><br><br>', '<br><br><br><br>'];
-        if ($detailAtasan['signature'] != '') {
-            if (file_exists('img-ttd/' . $detailAtasan['signature'])) {
-                $ttd[0] = '<img src="img-ttd/' . $detailAtasan["signature"] . '" width="70px" height="70px">';
+        $i = 0;
+        foreach ($users as $user) {
+            $where = "username LIKE '%$user%'";
+            $pegawai[] = $this->userModel->asArray()->where($where)->first();
+            $atasan[] = $this->atasanModel->where(['bawahan' => $pegawai[$i]['bidang']])->first();
+            $detailAtasan[] = $this->userModel->asArray()->where('fullname', $atasan[$i]['nama'])->first();
+
+            if ($detailAtasan[$i]['signature'] != '') {
+                if (file_exists('img-ttd/' . $detailAtasan[$i]['signature'])) {
+                    $ttdAtasan[] = '<img src="img-ttd/' . $detailAtasan[$i]["signature"] . '" width="70px" height="70px">';
+                }
+            } else {
+                $ttdAtasan[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
             }
-        }
-        if ($pegawai['signature'] != '') {
-            if (file_exists('img-ttd/' . $pegawai['signature'])) {
-                $ttd[1] = '<img src="img-ttd/' . $pegawai["signature"] . '" width="70px" height="70px">';
+            if ($pegawai[$i]['signature'] != '') {
+                if (file_exists('img-ttd/' . $pegawai[$i]['signature'])) {
+                    $ttdPegawai[] = '<img src="img-ttd/' . $pegawai[$i]["signature"] . '" width="70px" height="70px">';
+                }
+            } else {
+                $ttdPegawai[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
             }
+
+            $i++;
         }
+
+        $pelaksana = [];
+        foreach ($pegawai as $peg) {
+            $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
+        }
+
+        $cetakPelaksana = implode(' | ', $pelaksana);
 
         $fotoSR = ['none.png', 'none.png'];
         if ($serviceRequest['evidence1'] != '') {
@@ -242,8 +298,10 @@ class Servicerequest extends BaseController
         $data = [
             'serviceRequest' => $serviceRequest,
             'pegawai' => $pegawai,
+            'cetakPelaksana' => $cetakPelaksana,
             'atasan' => $atasan,
-            'ttd' => $ttd,
+            'ttdPegawai' => $ttdPegawai,
+            'ttdAtasan' => $ttdAtasan,
             'daftarHari' => $daftarHari,
             'unit' => $unit,
             'area' => $area,
@@ -251,7 +309,7 @@ class Servicerequest extends BaseController
             'evidence' => $evidence[0],
             'fotoSR' => $fotoSR
         ];
-        //dd($data);
+        // dd($data);
 
         $this->response->setContentType("application/pdf");
 
@@ -259,6 +317,6 @@ class Servicerequest extends BaseController
         $mpdf->SetHTMLHeader(view('servicerequest/hprint'));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('servicerequest/print', $data));
-        return $mpdf->Output($serviceRequest['nomorSr'] . ' ' . $serviceRequest['uraianGangguan1'] . ' servicerequest.pdf', "D");
+        return $mpdf->Output($serviceRequest['nomorSr'] . ' ' . $serviceRequest['uraianGangguan1'] . ' servicerequest.pdf', "I");
     }
 }

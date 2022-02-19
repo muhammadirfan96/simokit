@@ -16,18 +16,42 @@ class Db_servicerequest extends BaseController
         $this->AtasanModel = new AtasanModel();
     }
 
-    public function index()
+    public function getUsers()
     {
         if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
             $atasan = $this->AtasanModel->where('nama', user()->fullname)->first();
             $users = $this->UserModel->asArray()->where('bidang', $atasan['bawahan'])->findAll();
+        } elseif (in_groups('admin')) {
+            $users = $this->UserModel->asArray()->findAll();
+        }
+        return $users;
+    }
+
+    public function index()
+    {
+        if (in_groups('supervisor operasi shift a') || in_groups('supervisor operasi shift b') || in_groups('supervisor operasi shift c') || in_groups('supervisor operasi shift d')) {
+
+            $res = [];
+            foreach ($this->getUsers() as $user) {
+                $like = $user['username'];
+                $where = "diinput_oleh LIKE '%$like%'";
+                $res[] = $this->servicerequestModel->where($where)->findAll();
+            }
+            $t = [];
+            foreach ($res as $re) {
+                foreach ($re as $r) {
+                    $t[] = $r['id'];
+                }
+            }
+            $u = array_unique($t);
+            asort($u);
 
             $result = [];
-            foreach ($users as $user) {
-                $result[] = $this->servicerequestModel->where('diinput_oleh', $user['username'])->findAll();
+            foreach ($u as $v) {
+                $result[] = $this->servicerequestModel->find($v);
             }
         } elseif (in_groups('admin')) {
-            $result[] = $this->servicerequestModel->findAll();
+            $result = $this->servicerequestModel->findAll();
         }
 
         $data = [
@@ -52,16 +76,42 @@ class Db_servicerequest extends BaseController
             'title' => 'details servicerequest',
             'evidence' => $evidence,
             'servicerequest' => $servicerequest,
+            'users' => $this->getUsers(),
             'validation' => \Config\Services::validation()
         ];
 
-        // dd($data);
         return view('db_servicerequest/details', $data);
     }
 
     public function edit()
     {
         $servicerequest = $this->servicerequestModel->find($this->request->getVar('id'));
+
+        $friend = [];
+        foreach ($this->getUsers() as $user) {
+            if ($this->request->getVar($user['username'])) {
+
+                if ($user['signature'] == '') {
+                    $teman = $user['fullname'];
+                    session()->setFlashdata('pesanWarning', $teman . ' belum memiliki tanda tangan');
+                    return redirect()->to(base_url('/db_servicerequest/details/' . $this->request->getVar('id')))->withInput();
+                }
+
+                $friend[] = $this->request->getVar($user['username']);
+            }
+        }
+
+        if (count($friend) >= 4) {
+            session()->setFlashdata('pesanWarning', 'jumlah pelaksana maksimal 3 orang');
+            return redirect()->to(base_url('/db_servicerequest/details/' . $this->request->getVar('id')))->withInput();
+        }
+
+        $friends = implode(' | ', $friend);
+
+        if (empty($friends)) {
+            $friends = $servicerequest['diinput_oleh'];
+        }
+
         $data = [
             'id' => $servicerequest['id'],
             'nomorSr' => $servicerequest['nomorSr'],
@@ -83,6 +133,7 @@ class Db_servicerequest extends BaseController
             'tindakanSementara1' => $servicerequest['tindakanSementara1'],
             'tindakanSementara2' => $servicerequest['tindakanSementara2'],
             'tindakanSementara3' => $servicerequest['tindakanSementara3'],
+            'diinput_oleh' => $friends,
             'tanggal' => $servicerequest['tanggal'],
             'evidence1' => $servicerequest['evidence1'],
             'evidence2' => $servicerequest['evidence2']
@@ -148,6 +199,7 @@ class Db_servicerequest extends BaseController
         if ($this->request->getVar('tanggal')) {
             $data['tanggal'] = $this->request->getVar('tanggal');
         }
+
         if ($this->request->getFile('evidence1') != '') {
             $dataValidate = [
                 'evidence1' => [
@@ -207,7 +259,7 @@ class Db_servicerequest extends BaseController
 
         $this->servicerequestModel->save($data);
 
-        session()->setFlashdata('pesan', 'Data SR ' . $data['nomorSr'] . ' telah diubah');
+        session()->setFlashdata('pesanSuccess', 'Data SR ' . $data['nomorSr'] . ' telah diubah');
 
         return redirect()->to(base_url('/db_servicerequest/details/' . $this->request->getVar('id')));
     }
@@ -237,7 +289,7 @@ class Db_servicerequest extends BaseController
 
         //hapus data
         $this->servicerequestModel->delete($id);
-        session()->setFlashdata('pesan', 'Data SR ' . $serviceRequest['nomorSr'] . ' berhasil dihapus');
+        session()->setFlashdata('pesanSuccess', 'Data SR ' . $serviceRequest['nomorSr'] . ' telah dihapus');
         return redirect()->to(base_url('/db_servicerequest'));
     }
 
@@ -246,10 +298,11 @@ class Db_servicerequest extends BaseController
         $serviceRequest = $this->servicerequestModel->find($id);
         $data = [
             'id' => $id,
+            'tanggal' => $serviceRequest['tanggal'],
             'approved' => $this->request->getVar('approve')
         ];
 
-        session()->setFlashdata('pesan', 'Data SR ' . $serviceRequest['nomorSr'] . ' by ' . $serviceRequest['diinput_oleh'] . ' telah di approve');
+        session()->setFlashdata('pesanSuccess', 'Data SR ' . $serviceRequest['nomorSr'] . ' by ' . $serviceRequest['diinput_oleh'] . ' telah di approve');
 
         $this->servicerequestModel->setAllowedFields(array_keys($data));
         $this->servicerequestModel->save($data);

@@ -17,16 +17,34 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col">
-            <?php if (session()->getFlashdata('pesan')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?= session()->getFlashdata('pesan'); ?>
-                </div>
-            <?php endif; ?>
+            <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
+            <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
             <form action="/db_checklist/edit" method="post">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="namaPeralatan" value="<?= $checklist['namaPeralatan']; ?>">
                 <input type="hidden" name="jumlahPertanyaan" value="<?= count($pertanyaan); ?>">
                 <input type="hidden" name="id" value="<?= $checklist['id']; ?>">
+
+                <label class="fw-bold"><b>Nama Pelaksana</b></label>
+                <div class="input-group mb-3">
+
+                    <div class="dropdown">
+                        <button class="btn bg_orange0 dropdown-toggle px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            pilih nama pelaksana
+                        </button>
+                        <ul class="dropdown-menu overflow-auto" aria-labelledby="dropdownMenuButton1">
+                            <?php foreach ($users as $user) : ?>
+                                <li>
+                                    <input class="form-check-input ms-2" type="checkbox" id="<?= $user['username']; ?>" name="<?= $user['username']; ?>" value="<?= $user['username']; ?>" <?= str_contains($checklist['diinput_oleh'], $user['username']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label me-2" for="<?= $user['username']; ?>">
+                                        <?= $user['fullname']; ?>
+                                    </label>
+                                </li>
+                            <?php endforeach ?>
+                        </ul>
+                    </div>
+                </div>
+
                 <?php $i = 1; ?>
                 <?php foreach ($pertanyaan as $row) : ?>
                     <p><?= $row["pertanyaan"]; ?></p>

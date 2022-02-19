@@ -100,7 +100,7 @@ class Profil extends BaseController
 
         // dd($data);
 
-        session()->setFlashdata('pesan', 'Data Anda telah diubah. Silahkan cek kembali');
+        session()->setFlashdata('pesanSuccess', 'Data Anda telah diubah. Silahkan cek kembali');
 
         $this->userModel->setAllowedFields(array_keys($data));
 

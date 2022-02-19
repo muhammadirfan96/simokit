@@ -11,11 +11,8 @@ use Mpdf\Mpdf;
 
 class Limas extends BaseController
 {
-    protected $daftar_pertanyaanModel;
-    protected $userModel;
-    protected $atasanModel;
-    protected $limasModel;
-    protected $nilaiLimasModel;
+    protected $daftar_pertanyaanModel, $userModel, $atasanModel, $limasModel, $nilaiLimasModel;
+
     public function __construct()
     {
         $this->daftar_pertanyaanModel = new Daftar_pertanyaanModel();
@@ -27,17 +24,28 @@ class Limas extends BaseController
     public function index()
     {
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => '5s'])->findAll();
+        $users = $this->userModel->asArray()->where(['bidang' => user()->bidang, 'username !=' => user()->username])->findAll();
         $data = [
             'title' => 'lima es',
             'pertanyaan' => $pertanyaan,
+            'users' => $users,
             'validation' => \Config\Services::validation()
         ];
+
+        // dd($data['user']);
 
         return view('limas/index', $data);
     }
 
     public function simpan()
     {
+        if (user()->signature == '') {
+            session()->setFlashdata('pesanWarning', 'masukkan tanda tangan terlebih dahulu');
+            return redirect()->to(base_url('/profil'));
+        }
+
+        $users = $this->userModel->asArray()->where(['bidang' => user()->bidang, 'username !=' => user()->username])->findAll();
+
         $dataValidate = [
             'namaPeralatan' => [
                 'rules' => 'required',
@@ -92,8 +100,33 @@ class Limas extends BaseController
             return redirect()->to(base_url('/limas'))->withInput();
         }
 
+        $friend = [];
+        foreach ($users as $user) {
+            if ($this->request->getVar($user['username'])) {
+
+                if ($user['signature'] == '') {
+                    $teman = $user['fullname'];
+                    session()->setFlashdata('pesanWarning', $teman . ' belum memiliki tanda tangan');
+                    return redirect()->to(base_url('/limas'))->withInput();
+                }
+
+                $friend[] = $this->request->getVar($user['username']);
+            }
+        }
+
+        if (count($friend) >= 3) {
+            session()->setFlashdata('pesanWarning', 'jumlah teman maksimal 2 orang');
+            return redirect()->to(base_url('/limas'))->withInput();
+        }
+
+        if ($friends = implode(' | ', $friend)) {
+            $friends = ' | ' . implode(' | ', $friend);
+        }
+
+        // dd($friends);
+
         $dataLimas = [
-            'diinput_oleh' => user()->username,
+            'diinput_oleh' => user()->username . $friends,
             'tanggal' => $this->request->getVar('tanggal'),
             'namaPeralatan' => $this->request->getVar('namaPeralatan'),
             'area' => $this->request->getVar('area'),
@@ -106,7 +139,7 @@ class Limas extends BaseController
         $this->request->getFile('fotoSetelah')->move('img-5s', $dataLimas['fotoSetelah']);
 
         $keyDataNilaiLimas = ['diinput_oleh'];
-        $valueDataNilaiLimas = [user()->username];
+        $valueDataNilaiLimas = [user()->username . ' | '];
 
         for ($i = 1; $i <= 25; $i++) {
             $keyDataNilaiLimas[] = 'nilai' . $i;
@@ -118,13 +151,10 @@ class Limas extends BaseController
         $this->limasModel->setAllowedFields(array_keys($dataLimas));
         $this->nilaiLimasModel->setAllowedFields(array_keys($dataNilaiLimas));
 
-        //d($dataLimas);
-        //dd($dataNilaiLimas);
-
         $this->limasModel->save($dataLimas);
         $this->nilaiLimasModel->save($dataNilaiLimas);
 
-        session()->setFlashdata('pesan', 'Data 5S ' . $dataLimas['namaPeralatan'] . ' berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
+        session()->setFlashdata('pesanSuccess', 'Data 5S ' . $dataLimas['namaPeralatan'] . ' berhasil ditambahkan. Setelah diapprove oleh atasan anda dapat mendownloadnya pada halaman approved');
 
         return redirect()->to(base_url('/limas'));
     }
@@ -141,23 +171,44 @@ class Limas extends BaseController
             $nilaiLimas = $this->nilaiLimasModel->where(['id' => $id])->orderBy('id', 'desc')->first();
         }
 
-        $pegawai = $this->userModel->asArray()->where(['username' => $limas['diinput_oleh']])->first();
-        $atasan = $this->atasanModel->where('bawahan', $pegawai['bidang'])->first();
-        $detailAtasan = $this->userModel->asArray()->where('fullname', $atasan['nama'])->first();
+        $users = explode(" | ", $limas['diinput_oleh']);
+        $pegawai = [];
+        $atasan = [];
+        $detailAtasan = [];
+        $ttdAtasan = [];
+        $ttdPegawai = [];
 
-        $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => '5s'])->findAll();
+        $i = 0;
+        foreach ($users as $user) {
+            $where = "username LIKE '%$user%'";
+            $pegawai[] = $this->userModel->asArray()->where($where)->first();
+            $atasan[] = $this->atasanModel->where(['bawahan' => $pegawai[$i]['bidang']])->first();
+            $detailAtasan[] = $this->userModel->asArray()->where('fullname', $atasan[$i]['nama'])->first();
 
-        $ttd = ['<br><br><br><br>', '<br><br><br><br>'];
-        if ($detailAtasan['signature'] != '') {
-            if (file_exists('img-ttd/' . $detailAtasan['signature'])) {
-                $ttd[0] = '<img src="img-ttd/' . $detailAtasan["signature"] . '" width="70px" height="70px">';
+            if ($detailAtasan[$i]['signature'] != '') {
+                if (file_exists('img-ttd/' . $detailAtasan[$i]['signature'])) {
+                    $ttdAtasan[] = '<img src="img-ttd/' . $detailAtasan[$i]["signature"] . '" width="70px" height="70px">';
+                }
+            } else {
+                $ttdAtasan[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
             }
-        }
-        if ($pegawai['signature'] != '') {
-            if (file_exists('img-ttd/' . $pegawai['signature'])) {
-                $ttd[1] = '<img src="img-ttd/' . $pegawai["signature"] . '" width="70px" height="70px">';
+            if ($pegawai[$i]['signature'] != '') {
+                if (file_exists('img-ttd/' . $pegawai[$i]['signature'])) {
+                    $ttdPegawai[] = '<img src="img-ttd/' . $pegawai[$i]["signature"] . '" width="70px" height="70px">';
+                }
+            } else {
+                $ttdPegawai[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
             }
+
+            $i++;
         }
+
+        $pelaksana = [];
+        foreach ($pegawai as $peg) {
+            $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
+        }
+
+        $cetakPelaksana = implode(' | ', $pelaksana);
 
         $fotoLimas = ['none.png', 'none.png'];
         if ($limas['fotoSebelum'] != '') {
@@ -172,14 +223,18 @@ class Limas extends BaseController
             }
         }
 
+        $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => '5s'])->findAll();
+
         $data = [
             'limas' => $limas,
             'fotoLimas' => $fotoLimas,
             'nilaiLimas' => $nilaiLimas,
             'pertanyaan' => $pertanyaan,
             'pegawai' => $pegawai,
+            'cetakPelaksana' => $cetakPelaksana,
             'atasan' => $atasan,
-            'ttd' => $ttd,
+            'ttdPegawai' => $ttdPegawai,
+            'ttdAtasan' => $ttdAtasan,
             'checkItem' => $this->nilaiLimasModel->checkItem
         ];
 
@@ -190,6 +245,6 @@ class Limas extends BaseController
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('limas/print', $data));
 
-        return $mpdf->Output($limas['id'] . ' ' . $limas['namaPeralatan'] . ' 5s.pdf', "D");
+        return $mpdf->Output($limas['id'] . ' ' . $limas['namaPeralatan'] . ' 5s.pdf', "I");
     }
 }

@@ -14,11 +14,8 @@
     </div>
     <div class="row">
         <div class="col">
-            <?php if (session()->getFlashdata('pesan')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?= session()->getFlashdata('pesan'); ?>
-                </div>
-            <?php endif; ?>
+            <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
+            <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
         </div>
     </div>
 </div>
@@ -48,28 +45,26 @@
             </tfoot>
 
             <tbody>
-                <?php foreach ($limas as $rows) : ?>
-                    <?php foreach ($rows as $row) : ?>
-                        <tr>
-                            <td>
-                                <a class="btn btn-sm btn-success my-1" href="/db_limas/details/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
+                <?php foreach ($limas as $row) : ?>
+                    <tr>
+                        <td>
+                            <a class="btn btn-sm btn-success my-1" href="/db_limas/details/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
 
-                                <form class="d-inline" action="/db_limas/<?= $row["id"]; ?>" method="post">
-                                    <?= csrf_field(); ?>
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
-                                </form>
+                            <form class="d-inline" action="/db_limas/<?= $row["id"]; ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                            </form>
 
-                                <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-secondary' : 'btn-primary'; ?> my-1" href="/db_limas/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
+                            <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-danger' : 'btn-primary'; ?> my-1" href="/db_limas/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
 
-                            </td>
-                            <td><?= $row["tanggal"]; ?></td>
-                            <td><?= $row["diinput_oleh"]; ?></td>
-                            <td><?= $row["namaPeralatan"] ?></td>
-                            <td><?= $row["area"] ?></td>
-                            <td><?= $row["saran"] ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                        </td>
+                        <td><?= $row["tanggal"]; ?></td>
+                        <td><?= $row["diinput_oleh"]; ?></td>
+                        <td><?= $row["namaPeralatan"] ?></td>
+                        <td><?= $row["area"] ?></td>
+                        <td><?= $row["saran"] ?></td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

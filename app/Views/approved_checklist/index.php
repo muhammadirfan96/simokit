@@ -49,7 +49,7 @@
                 <?php foreach ($checklist as $row) : ?>
                     <tr>
                         <td>
-                            <a class="btn btn-sm btn-primary" href="/approved_checklist/printChecklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
+                            <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-danger' : 'btn-primary'; ?> my-1" href="/approved_checklist/printChecklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
                         </td>
                         <td><?= $row["tanggal"]; ?></td>
                         <td><?= $row["diinput_oleh"]; ?></td>
