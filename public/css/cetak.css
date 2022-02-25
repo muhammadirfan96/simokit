@@ -16,6 +16,14 @@
   text-align: right;
 }
 
+.leftt {
+  text-align: left;
+}
+
+.ucase {
+  text-transform: uppercase;
+}
+
 .right,
 .left {
   font-size: 12px;

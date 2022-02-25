@@ -257,28 +257,28 @@ class Servicerequest extends BaseController
 
             if ($detailAtasan[$i]['signature'] != '') {
                 if (file_exists('img-ttd/' . $detailAtasan[$i]['signature'])) {
-                    $ttdAtasan[] = '<img src="img-ttd/' . $detailAtasan[$i]["signature"] . '" width="70px" height="70px">';
+                    $ttdAtasan[] = $detailAtasan[$i]["signature"];
                 }
             } else {
-                $ttdAtasan[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+                $ttdAtasan[] = 'none.png';
             }
             if ($pegawai[$i]['signature'] != '') {
                 if (file_exists('img-ttd/' . $pegawai[$i]['signature'])) {
-                    $ttdPegawai[] = '<img src="img-ttd/' . $pegawai[$i]["signature"] . '" width="70px" height="70px">';
+                    $ttdPegawai[] = $pegawai[$i]["signature"];
                 }
             } else {
-                $ttdPegawai[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+                $ttdPegawai[] = 'none.png';
             }
 
             $i++;
         }
 
-        $pelaksana = [];
-        foreach ($pegawai as $peg) {
-            $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
-        }
+        // $pelaksana = [];
+        // foreach ($pegawai as $peg) {
+        //     $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
+        // }
 
-        $cetakPelaksana = implode(' | ', $pelaksana);
+        // $cetakPelaksana = implode(' | ', $pelaksana);
 
         $fotoSR = ['none.png', 'none.png'];
         if ($serviceRequest['evidence1'] != '') {
@@ -298,7 +298,7 @@ class Servicerequest extends BaseController
         $data = [
             'serviceRequest' => $serviceRequest,
             'pegawai' => $pegawai,
-            'cetakPelaksana' => $cetakPelaksana,
+            // 'cetakPelaksana' => $cetakPelaksana,
             'atasan' => $atasan,
             'ttdPegawai' => $ttdPegawai,
             'ttdAtasan' => $ttdAtasan,
@@ -317,6 +317,6 @@ class Servicerequest extends BaseController
         $mpdf->SetHTMLHeader(view('servicerequest/hprint'));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('servicerequest/print', $data));
-        return $mpdf->Output($serviceRequest['nomorSr'] . ' ' . $serviceRequest['uraianGangguan1'] . ' servicerequest.pdf', "I");
+        return $mpdf->Output($serviceRequest['nomorSr'] . ' ' . $serviceRequest['uraianGangguan1'] . ' servicerequest.pdf', "D");
     }
 }

@@ -187,17 +187,17 @@ class Limas extends BaseController
 
             if ($detailAtasan[$i]['signature'] != '') {
                 if (file_exists('img-ttd/' . $detailAtasan[$i]['signature'])) {
-                    $ttdAtasan[] = '<img src="img-ttd/' . $detailAtasan[$i]["signature"] . '" width="70px" height="70px">';
+                    $ttdAtasan[] = $detailAtasan[$i]["signature"];
                 }
             } else {
-                $ttdAtasan[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+                $ttdAtasan[] = 'none.png';
             }
             if ($pegawai[$i]['signature'] != '') {
                 if (file_exists('img-ttd/' . $pegawai[$i]['signature'])) {
-                    $ttdPegawai[] = '<img src="img-ttd/' . $pegawai[$i]["signature"] . '" width="70px" height="70px">';
+                    $ttdPegawai[] = $pegawai[$i]["signature"];
                 }
             } else {
-                $ttdPegawai[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+                $ttdPegawai[] = 'none.png';
             }
 
             $i++;
@@ -205,7 +205,7 @@ class Limas extends BaseController
 
         $pelaksana = [];
         foreach ($pegawai as $peg) {
-            $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
+            $pelaksana[] = $peg['fullname'];
         }
 
         $cetakPelaksana = implode(' | ', $pelaksana);
@@ -245,6 +245,6 @@ class Limas extends BaseController
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('limas/print', $data));
 
-        return $mpdf->Output($limas['id'] . ' ' . $limas['namaPeralatan'] . ' 5s.pdf', "I");
+        return $mpdf->Output($limas['id'] . ' ' . $limas['namaPeralatan'] . ' 5s.pdf', "D");
     }
 }

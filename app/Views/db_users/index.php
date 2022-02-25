@@ -56,10 +56,10 @@
                         <td>
                             <a class="btn btn-sm btn-primary my-1" href="/db_users/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
 
-                            <form class="d-inline" action="/db_users/<?= $row["id"]; ?>" method="post">
+                            <form class="d-inline fHapus" action="/db_users/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-sm btn-warning my-1"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                         <td><?= $row["fullname"]; ?></td>

@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    var sig = $('#sig').signature({syncField: '#signature64', syncFormat: 'PNG'});
-    sig.signature('disable');
+    // var sig = $('#sig').signature({syncField: '#signature64', syncFormat: 'PNG'});
+    // sig.signature('disable');
 
-    $('#edit').on('click', function() {
+    $('#edit').click(function() {
         $('#inputUsername').removeAttr('disabled');
         $('#iconUsername').removeClass('fa-lock');
         $('#iconUsername').addClass('fa-lock-open');
@@ -19,18 +19,18 @@ $(document).ready(function() {
         $('#iconActive').removeClass('fa-lock');
         $('#iconActive').addClass('fa-lock-open');
 
-        $('#clear').removeAttr('disabled');
+        // $('#clear').removeAttr('disabled');
         $('#save').removeAttr('disabled');
         $('#reset').removeAttr('disabled');
 
-        sig.signature('enable');
+        // sig.signature('enable');
     });
 
-    $('#clear').click(function(e) {
-        e.preventDefault();
-        sig.signature('clear');
-        $("#signature64").val('');
-    });
+    // $('#clear').click(function(e) {
+    //     e.preventDefault();
+    //     sig.signature('clear');
+    //     $("#signature64").val('');
+    // });
 });
 
 function previewImg() {

@@ -52,11 +52,11 @@
                 <?php foreach ($notice as $row) : ?>
                     <tr>
                         <td>
-                            <a class="btn btn-sm btn-primary d-inline" href="/db_notice/<?= $row["id"]; ?>" role="button"><i class="fas fa-pen"></i></a>
-                            <form class="d-inline" action="/db_notice/<?= $row["id"]; ?>" method="post">
+                            <a class="btn btn-sm btn-primary my-1" href="/db_notice/<?= $row["id"]; ?>" role="button"><i class="fas fa-pen"></i></a>
+                            <form class="d-inline fHapus" action="/db_notice/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-warning mt-2" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-sm btn-warning my-1"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                         <td><?= $row["start_time"]; ?></td>

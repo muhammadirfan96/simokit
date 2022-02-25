@@ -102,9 +102,9 @@ class Db_users extends BaseController
             $file = $this->request->getFile('signature')->getRandomName();
 
             //hapus gambar ttd lama
-            if (user()->signature != '') {
-                if (file_exists('img-ttd/' . user()->signature)) {
-                    unlink('img-ttd/' . user()->signature);
+            if ($User['signature'] != '') {
+                if (file_exists('img-ttd/' . $User['signature'])) {
+                    unlink('img-ttd/' . $User['signature']);
                 }
             }
 

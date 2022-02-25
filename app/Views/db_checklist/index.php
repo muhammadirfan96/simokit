@@ -48,10 +48,10 @@
                         <td>
                             <a class="btn btn-sm btn-success my-1" href="/db_checklist/details/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
 
-                            <form class="d-inline" action="/db_checklist/<?= $row["id"]; ?>" method="post">
+                            <form class="d-inline fHapus" action="/db_checklist/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-warning my-1" type="submit" onclick="return confirm('delete?')"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-sm btn-warning my-1"><i class="fas fa-trash"></i></button>
                             </form>
 
                             <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-danger' : 'btn-primary'; ?> my-1" href="/db_checklist/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>

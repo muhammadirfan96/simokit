@@ -33,8 +33,8 @@
     <script src="<?= base_url(); ?>/sb-admin/js/datatables-simple-demo.js"></script>
 
     <!-- for signature -->
-    <script src="<?= base_url(); ?>/signature/js/jquery-ui.js"></script>
-    <script src="<?= base_url(); ?>/signature/js/jquery.signature.js"></script>
+    <!-- <script src="<?= base_url(); ?>/signature/js/jquery-ui.js"></script> -->
+    <!-- <script src="<?= base_url(); ?>/signature/js/jquery.signature.js"></script> -->
 
     <!-- for sweet alert -->
     <script src="<?= base_url(); ?>/sweetalert/sweetalert2.all.min.js"></script>

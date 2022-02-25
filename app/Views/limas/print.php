@@ -101,26 +101,27 @@
             <td class="left" colspan="5"><?= $limas['saran']; ?></td>
         </tr>
     </table>
-    <table class="size12" width="100%" border="0" cellpadding="10" cellspacing="0">
+    <table class="size12 mt5" width="100%" border="0" cellpadding="2" cellspacing="0">
         <tr>
             <td class="left" colspan="2">Jeneponto, <?= date('d-m-Y', strtotime($limas['tanggal'])); ?></td>
         </tr>
         <tr>
+            <td width="50%" class="ttd"><?= $atasan[0]['jabatan']; ?></td>
+            <td width="50%" class="ttd">pegawai <?= $pegawai[0]['bidang']; ?></td>
+        </tr>
+        <tr>
             <td class="ttd">
                 <div>
-                    <p><?= $atasan[0]['jabatan']; ?></p>
-                    <div><?= $ttdAtasan[0]; ?></div>
+                    <div><img src="img-ttd/<?= $ttdAtasan[0]; ?>" width="70px" height="70px"></div>
                     <p><?= $atasan[0]['nama']; ?></p>
                     <hr style="width:60%; color:black; margin:1px;">
                     <p><?= $atasan[0]['nip']; ?></p>
                 </div>
             </td>
             <td class="ttd">
-
-                <p>pegawai <?= $pegawai[0]['bidang']; ?></p>
                 <?php if (count($pegawai) == 1) : ?>
                     <div>
-                        <div><?= $ttdPegawai[0]; ?></div>
+                        <div><img src="img-ttd/<?= $ttdPegawai[0]; ?>" width="70px" height="70px"></div>
                         <p><?= $pegawai[0]["fullname"]; ?></p>
                         <hr style="width:60%; color:black; margin:1px;">
                         <p><?= $pegawai[0]["username"]; ?></p>
@@ -128,18 +129,17 @@
                 <?php endif ?>
 
                 <?php if (count($pegawai) > 1) : ?>
-                    <div>
+                    <table class="left size12" width="100%" border="0" cellpadding="0" cellspacing="0">
                         <?php $i = 0 ?>
                         <?php foreach ($pegawai as $peg) : ?>
-                            <span><?= $ttdPegawai[$i]; ?></span>
+                            <tr>
+                                <td width="85%" class="ttd"><?= $i + 1 . '. ' . $peg['fullname']; ?></td>
+                                <td width="15%" class="center"><img src="img-ttd/<?= $ttdPegawai[$i]; ?>" width="40px" height="40px"></td>
+                            </tr>
                             <?php $i++ ?>
                         <?php endforeach ?>
-                        <br>
-                        <?= $cetakPelaksana; ?>
-                    </div>
+                    </table>
                 <?php endif ?>
-
-
             </td>
         </tr>
     </table>

@@ -171,28 +171,28 @@ class Checklist extends BaseController
 
             if ($detailAtasan[$i]['signature'] != '') {
                 if (file_exists('img-ttd/' . $detailAtasan[$i]['signature'])) {
-                    $ttdAtasan[] = '<img src="img-ttd/' . $detailAtasan[$i]["signature"] . '" width="70px" height="70px">';
+                    $ttdAtasan[] = $detailAtasan[$i]["signature"];
                 }
             } else {
-                $ttdAtasan[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+                $ttdAtasan[] = 'none.png';
             }
             if ($pegawai[$i]['signature'] != '') {
                 if (file_exists('img-ttd/' . $pegawai[$i]['signature'])) {
-                    $ttdPegawai[] = '<img src="img-ttd/' . $pegawai[$i]["signature"] . '" width="70px" height="70px">';
+                    $ttdPegawai[] = $pegawai[$i]["signature"];
                 }
             } else {
-                $ttdPegawai[] = '<img src="img-ttd/none.png" width="70px" height="70px">';
+                $ttdPegawai[] = 'none.png';
             }
 
             $i++;
         }
 
-        $pelaksana = [];
-        foreach ($pegawai as $peg) {
-            $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
-        }
+        // $pelaksana = [];
+        // foreach ($pegawai as $peg) {
+        //     $pelaksana[] = $peg['fullname'] . ' (' . $peg['username'] . ') ';
+        // }
 
-        $cetakPelaksana = implode(' | ', $pelaksana);
+        // $cetakPelaksana = implode(' | ', $pelaksana);
 
         $pertanyaan = $this->daftar_pertanyaanModel->where(['untuk' => $checklist['namaPeralatan']])->findAll();
 
@@ -221,7 +221,7 @@ class Checklist extends BaseController
             'jawaban' => $jawaban,
             'komen' => $komen,
             'pegawai' => $pegawai,
-            'cetakPelaksana' => $cetakPelaksana,
+            // 'cetakPelaksana' => $cetakPelaksana,
             'atasan' => $atasan,
             'ttdPegawai' => $ttdPegawai,
             'ttdAtasan' => $ttdAtasan,
@@ -235,6 +235,6 @@ class Checklist extends BaseController
         $mpdf->SetHTMLHeader(view('checklist/hprint', $hdata));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML(view('checklist/print', $data));
-        return $mpdf->Output($checklist['id'] . ' ' . $checklist['namaPeralatan'] . ' checklist.pdf', "I");
+        return $mpdf->Output($checklist['id'] . ' ' . $checklist['namaPeralatan'] . ' checklist.pdf', "D");
     }
 }
