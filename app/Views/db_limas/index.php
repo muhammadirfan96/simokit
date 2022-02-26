@@ -50,10 +50,10 @@
                         <td>
                             <a class="btn btn-sm btn-success my-1" href="/db_limas/details/<?= $row["id"]; ?>" role="button"><i class="fas fa-eye"></i></a>
 
-                            <form class="d-inline fHapus" action="/db_limas/<?= $row["id"]; ?>" method="post">
+                            <form class="d-inline <?= $row['id']; ?>" action="/db_limas/<?= $row["id"]; ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-warning my-1"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-sm btn-warning my-1" type="button" onclick="return konfirmasi(<?= $row['id']; ?>)"><i class="fas fa-trash"></i></button>
                             </form>
 
                             <a style="pointer-events:<?= $row["approved"] == 'n' ? 'none' : ''; ?>;" class="btn btn-sm <?= $row["approved"] == 'n' ? 'btn-danger' : 'btn-primary'; ?> my-1" href="/db_limas/<?= $row["id"]; ?>" role="button" target="_blank"><i class="fas fa-print"></i></a>
@@ -71,4 +71,5 @@
     </div>
 </div>
 
+<script src="<?= base_url('/js/sweetalert.js'); ?>"></script>
 <?= $this->endSection(); ?>
