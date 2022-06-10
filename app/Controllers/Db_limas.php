@@ -232,6 +232,7 @@ class Db_limas extends BaseController
 
         //hapus data
         $this->limasModel->delete($id);
+        $this->nilaiLimasModel->delete($id);
         session()->setFlashdata('pesanSuccess', 'Data 5S ' . $limas['namaPeralatan'] . ' telah dihapus');
         return redirect()->to(base_url('/db_limas'));
     }

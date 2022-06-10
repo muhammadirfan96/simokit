@@ -23,7 +23,7 @@
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-calendar-plus"></i></div>
                             Input Schedule 5S
                         </a>
-                        <a class="nav-link pb-0 mb-0" href="">
+                        <a class="nav-link pb-0 mb-0" href="/kpi_monitoring">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-eye"></i></div>
                             KPI Monitoring
                         </a>
@@ -60,6 +60,10 @@
                         <a class="nav-link pb-0 mb-0" href="/approved_home">
                             <div class="sb-nav-link-icon text-dark"><i class="fas fa-check-double"></i></div>
                             Approved
+                        </a>
+                        <a class="nav-link pb-0 mb-0" href="/kpi">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-eye"></i></div>
+                            KPI
                         </a>
                     <?php endif; ?>
                 </div>

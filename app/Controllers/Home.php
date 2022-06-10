@@ -40,8 +40,30 @@ class Home extends BaseController
         $this->noticeModel = new NoticeModel();
     }
 
+    public function autoDelete($tabel)
+    {
+        $data = $tabel->where('tanggal <', date('Y-m-d', strtotime("-35 day", strtotime(date('Y-m-d')))))->findAll();
+
+        foreach ($data as $row) {
+            $tabel->delete($row['id']);
+        }
+    }
+
     public function index()
     {
+        $this->autoDelete($this->scheduleSatu);
+        $this->autoDelete($this->scheduleDua);
+        $this->autoDelete($this->scheduleCommon);
+        $this->autoDelete($this->limasBoilerPertama);
+        $this->autoDelete($this->limasBoilerKedua);
+        $this->autoDelete($this->limasBoilerKetiga);
+        $this->autoDelete($this->limasTurbinPertama);
+        $this->autoDelete($this->limasTurbinKedua);
+        $this->autoDelete($this->limasTurbinKetiga);
+        $this->autoDelete($this->limasTurbinKeempat);
+        $this->autoDelete($this->limasAlbaPertama);
+        $this->autoDelete($this->limasAlbaKedua);
+
         $limasBoiler = [
             $this->limasBoilerPertama->limasBoilerPertama(),
             $this->limasBoilerKedua->limasBoilerKedua(),

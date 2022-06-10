@@ -40,10 +40,25 @@ class LimasTurbinPertamaModel extends Model
         "jo pump b #2"
     ];
 
+    public function limasTurbinPertamaFix()
+    {
+        $limasTurbinPertama = $this->orderBy('id', 'desc')->findAll(31, 0);
+        $limasTurbinPertamaID = [];
+        foreach ($limasTurbinPertama as $row) {
+            $limasTurbinPertamaID[] = $row['id'];
+        }
+        asort($limasTurbinPertamaID);
+        $limasTurbinPertamaFix = [];
+        foreach ($limasTurbinPertamaID as $fix) {
+            $limasTurbinPertamaFix[] = $this->find($fix);
+        }
+        return $limasTurbinPertamaFix;
+    }
+
     public function limasTurbinPertama()
     {
         $limasTurbinPertama = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
             $limasTurbinPertama[] = 'data belum diinput';
         } else {
             $rowLimasTurbinPertama = array_values($this->where(['tanggal' => date('Y-m-d')])->first());

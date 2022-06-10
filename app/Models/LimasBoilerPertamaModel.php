@@ -39,10 +39,25 @@ class LimasBoilerPertamaModel extends Model
         "feeding mat bed #2"
     ];
 
+    public function limasBoilerPertamaFix()
+    {
+        $limasBoilerPertama = $this->orderBy('id', 'desc')->findAll(31, 0);
+        $limasBoilerPertamaID = [];
+        foreach ($limasBoilerPertama as $row) {
+            $limasBoilerPertamaID[] = $row['id'];
+        }
+        asort($limasBoilerPertamaID);
+        $limasBoilerPertamaFix = [];
+        foreach ($limasBoilerPertamaID as $fix) {
+            $limasBoilerPertamaFix[] = $this->find($fix);
+        }
+        return $limasBoilerPertamaFix;
+    }
+
     public function limasBoilerPertama()
     {
         $limasBoilerPertama = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
             $limasBoilerPertama[] = 'data belum diinput';
         } else {
             $rowLimasBoilerPertama = array_values($this->where(['tanggal' => date('Y-m-d')])->first());

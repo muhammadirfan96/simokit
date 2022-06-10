@@ -37,12 +37,30 @@ class ScheduleDuaModel extends Model
         "ball cleaning #2"
     ];
 
+    public function scheduleDuaFix()
+    {
+        $schedule = $this->orderBy('id', 'desc')->findAll(31, 0);
+        $scheduleID = [];
+        foreach ($schedule as $row) {
+            $scheduleID[] = $row['id'];
+        }
+        asort($scheduleID);
+        $scheduleDuaFix = [];
+        foreach ($scheduleID as $fix) {
+            $scheduleDuaFix[] = $this->find($fix);
+        }
+
+        return $scheduleDuaFix;
+    }
+
     public function scheduleDua()
     {
 
         $jadwalCoUnit2 = [];
         if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
             $jadwalCoUnit2[] = "data belum diinput";
+        } elseif ($this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first() == null) {
+            $jadwalCoUnit2[] = "data belum belum dapat ditampilkan";
         } else {
             $hariIniUnit2 = $this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first();
             $kemarinUnit2 = $this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first();

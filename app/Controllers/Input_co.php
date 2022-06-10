@@ -33,14 +33,15 @@ class Input_co extends BaseController
 
     public function index()
     {
-        $schedule = $this->scheduleSatuModel->findAll();
+        // d($scheduleID);
+        // dd($scheduleFix);
         $key = $this->scheduleSatuModel->getFieldNames('schedulesatu');
         $data = [
             'title' => 'input | co',
             'hari' => $this->hari,
             'tools' => $this->scheduleSatuModel->tools,
             'bagian' => 'unit#1',
-            'schedule' => $schedule,
+            'schedule' => $this->scheduleSatuModel->scheduleSatuFix(),
             'key' => $key
         ];
 
@@ -57,7 +58,7 @@ class Input_co extends BaseController
             'hari' => $this->hari,
             'tools' => $this->scheduleSatuModel->tools,
             'bagian' => 'unit#1',
-            'schedule' => $this->scheduleSatuModel->findAll(),
+            'schedule' => $this->scheduleSatuModel->scheduleSatuFix(),
             'key' => $this->scheduleSatuModel->getFieldNames('schedulesatu')
         ];
         // dd($data);
@@ -71,7 +72,7 @@ class Input_co extends BaseController
             'hari' => $this->hari,
             'tools' => $this->scheduleDuaModel->tools,
             'bagian' => 'unit#2',
-            'schedule' => $this->scheduleDuaModel->findAll(),
+            'schedule' => $this->scheduleDuaModel->scheduleDuaFix(),
             'key' => $this->scheduleDuaModel->getFieldNames('scheduledua')
         ];
         // dd($data);
@@ -84,7 +85,7 @@ class Input_co extends BaseController
             'hari' => $this->hari,
             'tools' => $this->scheduleCommonModel->tools,
             'bagian' => 'common',
-            'schedule' => $this->scheduleCommonModel->findAll(),
+            'schedule' => $this->scheduleCommonModel->scheduleCommonFix(),
             'key' => $this->scheduleCommonModel->getFieldNames('schedulecommon')
         ];
         // dd($data);
@@ -96,8 +97,9 @@ class Input_co extends BaseController
         if ($this->request->getVar('unit#1') == "v") {
             $key = $this->scheduleSatuModel->getFieldNames('schedulesatu');
             $this->scheduleSatuModel->setAllowedFields($key);
-            $this->scheduleSatuModel->truncate('schedulesatu');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->scheduleSatuModel->truncate('schedulesatu');
+            // $schedule[$i - 1][$key[$j - 97]] == 'ya' ? 'checked' : '';
+            for ($i = 1; $i <= 31; $i++) {
                 $value = [''];
                 $value[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 123; $j++) {
@@ -112,13 +114,14 @@ class Input_co extends BaseController
 
                 $this->scheduleSatuModel->save($result);
             }
+            // die;
             session()->setFlashdata('pesanSuccess', 'jadwal change over unit 1 telah di update !');
         }
         if ($this->request->getVar('unit#2') == "v") {
             $key = $this->scheduleDuaModel->getFieldNames('scheduledua');
             $this->scheduleDuaModel->setAllowedFields($key);
-            $this->scheduleDuaModel->truncate('scheduledua');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->scheduleDuaModel->truncate('scheduledua');
+            for ($i = 1; $i <= 31; $i++) {
                 $value = [''];
                 $value[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 123; $j++) {
@@ -138,8 +141,8 @@ class Input_co extends BaseController
         if ($this->request->getVar('common') == "v") {
             $key = $this->scheduleCommonModel->getFieldNames('schedulecommon');
             $this->scheduleCommonModel->setAllowedFields($key);
-            $this->scheduleCommonModel->truncate('schedulecommon');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->scheduleCommonModel->truncate('schedulecommon');
+            for ($i = 1; $i <= 31; $i++) {
                 $value = [''];
                 $value[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 112; $j++) {

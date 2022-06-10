@@ -83,6 +83,8 @@ class Filters extends BaseConfig
                 'home',
                 'input_co',
                 'input_limas',
+                'kpi_monitoring',
+                'kpi',
                 'limas',
                 'make_notice',
                 'profil',

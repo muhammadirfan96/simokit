@@ -37,11 +37,29 @@ class ScheduleSatuModel extends Model
         "ball cleaning #1"
     ];
 
+    public function scheduleSatuFix()
+    {
+        $schedule = $this->orderBy('id', 'desc')->findAll(31, 0);
+        $scheduleID = [];
+        foreach ($schedule as $row) {
+            $scheduleID[] = $row['id'];
+        }
+        asort($scheduleID);
+        $scheduleSatuFix = [];
+        foreach ($scheduleID as $fix) {
+            $scheduleSatuFix[] = $this->find($fix);
+        }
+
+        return $scheduleSatuFix;
+    }
+
     public function scheduleSatu()
     {
         $jadwalCoUnit1 = [];
         if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
             $jadwalCoUnit1[] = "data belum diinput";
+        } elseif ($this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first() == null) {
+            $jadwalCoUnit1[] = "data belum belum dapat ditampilkan";
         } else {
             $hariIniUnit1 = $this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first();
             $kemarinUnit1 = $this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first();

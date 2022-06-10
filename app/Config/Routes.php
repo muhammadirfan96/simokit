@@ -108,6 +108,11 @@ $routes->get('/input_co', 'Input_co::index', ['filter' => 'role:admin,supervisor
 $routes->get('/input_co/index', 'Input_co::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 $routes->get('/input_co/simpan', 'Input_co::simpan', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
 
+// kpi_monitring
+$routes->get('/kpi_monitoring', 'Kpi_monitoring::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/kpi_monitoring/index', 'Kpi_monitoring::index', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+$routes->get('/kpi_monitoring/details', 'Kpi_monitoring::details', ['filter' => 'role:admin,supervisor operasi shift a,supervisor operasi shift b,supervisor operasi shift c,supervisor operasi shift d']);
+
 
 /*
  * --------------------------------------------------------------------

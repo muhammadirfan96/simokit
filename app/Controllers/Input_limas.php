@@ -34,9 +34,9 @@ class Input_limas extends BaseController
         ];
 
         $this->scheduleBoiler = [
-            $this->limasBoilerPertamaModel->findAll(),
-            $this->limasBoilerKeduaModel->findAll(),
-            $this->limasBoilerKetigaModel->findAll()
+            $this->limasBoilerPertamaModel->limasBoilerPertamaFix(),
+            $this->limasBoilerKeduaModel->limasBoilerKeduaFix(),
+            $this->limasBoilerKetigaModel->limasBoilerKetigaFix()
         ];
 
         $this->keyBoiler = [
@@ -51,10 +51,10 @@ class Input_limas extends BaseController
         ];
 
         $this->scheduleTurbin = [
-            $this->limasTurbinPertamaModel->findAll(),
-            $this->limasTurbinKeduaModel->findAll(),
-            $this->limasTurbinKetigaModel->findAll(),
-            $this->limasTurbinKeempatModel->findAll()
+            $this->limasTurbinPertamaModel->limasTurbinPertamaFix(),
+            $this->limasTurbinKeduaModel->limasTurbinKeduaFix(),
+            $this->limasTurbinKetigaModel->limasTurbinKetigaFix(),
+            $this->limasTurbinKeempatModel->limasTurbinKeempatFix()
         ];
 
         $this->keyTurbin = [
@@ -71,8 +71,8 @@ class Input_limas extends BaseController
         ];
 
         $this->scheduleAlba = [
-            $this->limasAlbaPertamaModel->findAll(),
-            $this->limasAlbaKeduaModel->findAll()
+            $this->limasAlbaPertamaModel->limasAlbaPertamaFix(),
+            $this->limasAlbaKeduaModel->limasAlbaKeduaFix()
         ];
 
         $this->keyAlba = [
@@ -158,8 +158,8 @@ class Input_limas extends BaseController
             // dd($this->request->getVar());
             $key1 = $this->limasBoilerPertamaModel->getFieldNames('limasboilerpertama');
             $this->limasBoilerPertamaModel->setAllowedFields($key1);
-            $this->limasBoilerPertamaModel->truncate('limasboilerpertama');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasBoilerPertamaModel->truncate('limasboilerpertama');
+            for ($i = 1; $i <= 31; $i++) {
                 $value1 = [''];
                 $value1[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 124; $j++) {
@@ -176,8 +176,8 @@ class Input_limas extends BaseController
             }
             $key2 = $this->limasBoilerKeduaModel->getFieldNames('limasboilerkedua');
             $this->limasBoilerKeduaModel->setAllowedFields($key2);
-            $this->limasBoilerKeduaModel->truncate('limasboilerkedua');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasBoilerKeduaModel->truncate('limasboilerkedua');
+            for ($i = 1; $i <= 31; $i++) {
                 $value2 = [''];
                 $value2[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 124; $j++) {
@@ -194,8 +194,8 @@ class Input_limas extends BaseController
             }
             $key3 = $this->limasBoilerKetigaModel->getFieldNames('limasboilerketiga');
             $this->limasBoilerKetigaModel->setAllowedFields($key3);
-            $this->limasBoilerKetigaModel->truncate('limasboilerketiga');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasBoilerKetigaModel->truncate('limasboilerketiga');
+            for ($i = 1; $i <= 31; $i++) {
                 $value3 = [''];
                 $value3[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 118; $j++) {
@@ -216,8 +216,8 @@ class Input_limas extends BaseController
             // dd($this->request->getVar());
             $key1 = $this->limasTurbinPertamaModel->getFieldNames('limasturbinpertama');
             $this->limasTurbinPertamaModel->setAllowedFields($key1);
-            $this->limasTurbinPertamaModel->truncate('limasturbinpertama');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasTurbinPertamaModel->truncate('limasturbinpertama');
+            for ($i = 1; $i <= 31; $i++) {
                 $value1 = [''];
                 $value1[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 126; $j++) {
@@ -235,8 +235,8 @@ class Input_limas extends BaseController
 
             $key2 = $this->limasTurbinKeduaModel->getFieldNames('limasturbinkedua');
             $this->limasTurbinKeduaModel->setAllowedFields($key2);
-            $this->limasTurbinKeduaModel->truncate('limasturbinkedua');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasTurbinKeduaModel->truncate('limasturbinkedua');
+            for ($i = 1; $i <= 31; $i++) {
                 $value2 = [''];
                 $value2[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 126; $j++) {
@@ -253,8 +253,8 @@ class Input_limas extends BaseController
 
             $key3 = $this->limasTurbinKetigaModel->getFieldNames('limasturbinketiga');
             $this->limasTurbinKetigaModel->setAllowedFields($key3);
-            $this->limasTurbinKetigaModel->truncate('limasturbinketiga');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasTurbinKetigaModel->truncate('limasturbinketiga');
+            for ($i = 1; $i <= 31; $i++) {
                 $value3 = [''];
                 $value3[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 124; $j++) {
@@ -271,8 +271,8 @@ class Input_limas extends BaseController
 
             $key4 = $this->limasTurbinKeempatModel->getFieldNames('limasturbinkeempat');
             $this->limasTurbinKeempatModel->setAllowedFields($key4);
-            $this->limasTurbinKeempatModel->truncate('limasturbinkeempat');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasTurbinKeempatModel->truncate('limasturbinkeempat');
+            for ($i = 1; $i <= 31; $i++) {
                 $value4 = [''];
                 $value4[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 122; $j++) {
@@ -292,8 +292,8 @@ class Input_limas extends BaseController
             // dd($this->request->getVar());
             $key1 = $this->limasAlbaPertamaModel->getFieldNames('limasalbapertama');
             $this->limasAlbaPertamaModel->setAllowedFields($key1);
-            $this->limasAlbaPertamaModel->truncate('limasalbapertama');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasAlbaPertamaModel->truncate('limasalbapertama');
+            for ($i = 1; $i <= 31; $i++) {
                 $value1 = [''];
                 $value1[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 126; $j++) {
@@ -310,8 +310,8 @@ class Input_limas extends BaseController
 
             $key2 = $this->limasAlbaKeduaModel->getFieldNames('limasalbakedua');
             $this->limasAlbaKeduaModel->setAllowedFields($key2);
-            $this->limasAlbaKeduaModel->truncate('limasalbakedua');
-            for ($i = 1; $i <= $this->hari; $i++) {
+            // $this->limasAlbaKeduaModel->truncate('limasalbakedua');
+            for ($i = 1; $i <= 31; $i++) {
                 $value2 = [''];
                 $value2[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 106; $j++) {

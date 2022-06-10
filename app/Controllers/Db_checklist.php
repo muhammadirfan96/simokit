@@ -163,6 +163,8 @@ class Db_checklist extends BaseController
         $checklist = $this->ChecklistModel->find($id);
         //hapus data
         $this->ChecklistModel->delete($id);
+        $this->JawabanModel->delete($id);
+        $this->KomenModel->delete($id);
         session()->setFlashdata('pesanSuccess', 'Data Checklist ' . $checklist['namaPeralatan'] . ' berhasil dihapus');
         return redirect()->to(base_url('/db_checklist'));
     }

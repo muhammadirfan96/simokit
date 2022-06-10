@@ -26,11 +26,29 @@ class ScheduleCommonModel extends Model
         "warming up auxilliary boiler"
     ];
 
+    public function scheduleCommonFix()
+    {
+        $schedule = $this->orderBy('id', 'desc')->findAll(31, 0);
+        $scheduleID = [];
+        foreach ($schedule as $row) {
+            $scheduleID[] = $row['id'];
+        }
+        asort($scheduleID);
+        $scheduleCommonFix = [];
+        foreach ($scheduleID as $fix) {
+            $scheduleCommonFix[] = $this->find($fix);
+        }
+
+        return $scheduleCommonFix;
+    }
+
     public function scheduleCommon()
     {
         $jadwalCoCommon = [];
         if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
             $jadwalCoCommon[] = "data belum diinput";
+        } elseif ($this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first() == null) {
+            $jadwalCoCommon[] = "data belum belum dapat ditampilkan";
         } else {
             $hariIniCommon = $this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first();
             $kemarinCommon = $this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first();

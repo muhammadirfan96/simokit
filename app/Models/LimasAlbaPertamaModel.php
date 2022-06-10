@@ -40,10 +40,25 @@ class LimasAlbaPertamaModel extends Model
         "outlet room"
     ];
 
+    public function limasAlbaPertamaFix()
+    {
+        $limasAlbaPertama = $this->orderBy('id', 'desc')->findAll(31, 0);
+        $limasAlbaPertamaID = [];
+        foreach ($limasAlbaPertama as $row) {
+            $limasAlbaPertamaID[] = $row['id'];
+        }
+        asort($limasAlbaPertamaID);
+        $limasAlbaPertamaFix = [];
+        foreach ($limasAlbaPertamaID as $fix) {
+            $limasAlbaPertamaFix[] = $this->find($fix);
+        }
+        return $limasAlbaPertamaFix;
+    }
+
     public function limasAlbaPertama()
     {
         $limasAlbaPertama = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
             $limasAlbaPertama[] = 'data belum diinput';
         } else {
             $rowLimasAlbaPertama = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
