@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-11">
-            <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">database</span></p>
+            <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">list of databases</span></p>
         </div>
         <div class="col-1 justify-content-end d-flex">
             <a class="fs-4 text-danger my-3" href="/">
@@ -14,56 +14,32 @@
     </div>
 </div>
 
+<?php
+$data = [
+    ['db_servicerequest', 'fa-pen', 'service request'],
+    ['db_limas', 'fa-pen', 'kegiatan 5s'],
+    ['db_checklist', 'fa-tasks', 'checklist sop'],
+    ['db_users', 'fa-user', 'user list'],
+    ['db_notice', 'fa-bullhorn', 'notice'],
+    ['#', 'fa-keyboard', 'logsheet']
+];
+?>
+
 <div class="container-fluid text-center">
     <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card text-white mb-2">
-                <div class="card-header rounded-top fw-bold text-uppercase bg_ungu0">service request</div>
-                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_ungu1">
-                    <a class="btn btn-outline-light text-dark" href="/db_servicerequest"><i class="fas fa-eye"></i> See Details</a>
-                </div>
+        <?php foreach ($data as $row) : ?>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <a href="/<?= $row[0]; ?>" class="text-decoration-none rounded shadow d-block">
+                    <div class="p-2 bg_hijau1 rounded-top border_bottom2 text-start">
+                        <i class="fas <?= $row[1]; ?> fs-2 text-success"></i>
+                        <p class="fw-bolder text-uppercase fs-5 d-inline-block mb-0 text-success text-right">database</p>
+                    </div>
+                    <div class="rounded-bottom text-dark fw-bolder text-uppercase py-2">
+                        <?= $row[2]; ?>
+                    </div>
+                </a>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card text-white mb-2">
-                <div class="card-header rounded-top fw-bold text-uppercase bg_kuning0">Kegiatan 5s</div>
-                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_kuning1">
-                    <a class="btn btn-outline-light text-dark" href="/db_limas"><i class="fas fa-eye"></i> See Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card text-white mb-2">
-                <div class="card-header rounded-top fw-bold text-uppercase bg_merah0">Checklist Peralatan</div>
-                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_merah1">
-                    <a class="btn btn-outline-light text-dark" href="/db_checklist"><i class="fas fa-eye"></i> See Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card text-white mb-2">
-                <div class="card-header rounded-top fw-bold text-uppercase bg_hijau0">User List</div>
-                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_hijau1">
-                    <a class="btn btn-outline-light text-dark" href="/db_users"><i class="fas fa-eye"></i> See Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card text-white mb-2">
-                <div class="card-header rounded-top fw-bold text-uppercase bg_biru0">Notice</div>
-                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_biru1">
-                    <a class="btn btn-outline-light text-dark" href="/db_notice"><i class="fas fa-eye"></i> See Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card text-white mb-2">
-                <div class="card-header rounded-top fw-bold text-uppercase bg_orange0">logsheet</div>
-                <div class="card-footer rounded-bottom d-flex align-items-center justify-content-between bg_orange1">
-                    <a class="btn btn-outline-light text-dark" href=""><i class="fas fa-eye"></i> See Details</a>
-                </div>
-            </div>
-        </div>
+        <?php endforeach ?>
     </div>
 </div>
 

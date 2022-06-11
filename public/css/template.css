@@ -2,6 +2,9 @@
 .border_bottom {
   border-bottom: 3px solid #fc8b05 !important;
 }
+.border_bottom2 {
+  border-bottom: 2px solid #fc8b05 !important;
+}
 .text_orange {
   color: #fc8b05 !important;
 }
@@ -49,4 +52,7 @@
 }
 .bg_birulaut1 {
   background-color: #7ffaf8 !important;
+}
+.bg_biru2 {
+  background-color: #d2d9fa;
 }

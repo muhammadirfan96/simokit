@@ -29,11 +29,16 @@
     <div class="row">
         <div class="col mb-3">
             <form action="/profil/edit" method="post" enctype="multipart/form-data">
-                <div class="card">
+                <div class="card rounded shadow">
                     <input type="hidden" name="id" value="<?= user()->id; ?>">
                     <div class="card-header bg_hijau1">
                         <div>
-                            <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-profile/' . user()->picture); ?>">
+                            <?php if (user()->picture == '') : ?>
+                                <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-dev/default.png'); ?>">
+                            <?php endif ?>
+                            <?php if (user()->picture != '') : ?>
+                                <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-profile/' . user()->picture); ?>">
+                            <?php endif ?>
                         </div>
                         <div>
                             <label for="picture">

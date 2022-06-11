@@ -21,7 +21,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col rounded shadow p-2">
             <table class="table table-sm">
                 <?php if (count($kpiUser) == 0) : ?>
                     <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text-danger" style="font-size: 160px;"></i><br>KPI BELUM DI TAMBAHKAN</p>

@@ -20,11 +20,16 @@
             <div class="flash-data-warning" data-flashdata="<?= session()->getFlashdata('pesanWarning'); ?>"></div>
             <div class="flash-data-success" data-flashdata="<?= session()->getFlashdata('pesanSuccess'); ?>"></div>
             <form action="/db_users/edit" method="post" enctype="multipart/form-data">
-                <div class="card">
+                <div class="card rounded shadow">
                     <input type="hidden" name="id" value="<?= $user['id']; ?>">
                     <div class="card-header bg_hijau1">
                         <div>
-                            <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-profile/' . $user['picture']); ?>">
+                            <?php if ($user['picture'] == '') : ?>
+                                <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-dev/default.png'); ?>">
+                            <?php endif ?>
+                            <?php if ($user['picture'] != '') : ?>
+                                <img class="logo img-thumbnail rounded-circle" src="<?= base_url('img-profile/' . $user['picture']); ?>">
+                            <?php endif ?>
                         </div>
                         <div>
                             <label for="picture">
