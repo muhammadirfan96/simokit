@@ -12,7 +12,8 @@
     <link href="<?= base_url(); ?>/sb-admin/css/styles.css" rel="stylesheet" />
     <link href="<?= base_url(); ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?= base_url(); ?>/fontawesome/css/all.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>/css/template.css" rel="stylesheet">
+    <!-- <link href="<?= base_url(); ?>/css/template.css" rel="stylesheet"> -->
+    <link href="<?= base_url(); ?>/css/templates.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/css/profil.css" rel="stylesheet">
 
     <!-- signature -->
