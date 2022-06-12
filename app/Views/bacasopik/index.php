@@ -28,7 +28,7 @@ $data = [
     <div class="row">
         <?php foreach ($data as $row) : ?>
             <div class="col-xl-4 col-md-6 mb-3">
-                <a href="<?= $row[0]; ?>" class="text-decoration-none rounded shadow d-block">
+                <a target="_blank" href="<?= $row[0]; ?>" class="text-decoration-none rounded shadow d-block">
                     <div class="p-2 bg_hijau1 rounded-top border_bottom2 text-start">
                         <i class="fas <?= $row[1]; ?> fs-2 text-success"></i>
                         <p class="fw-bolder text-uppercase fs-5 d-inline-block mb-0 text-success text-right">sop ik</p>
