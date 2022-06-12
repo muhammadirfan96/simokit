@@ -20,7 +20,7 @@
                 <div class="p-2">
                     <?php foreach ($limasBoiler as $row) : ?>
                         <?php foreach ($row as $r) : ?>
-                            <p class="text-dark text-center mb-0"><?= $r; ?></p>
+                            <p class="text-dark text-center text-uppercase mb-0"><?= $r; ?></p>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="p-2">
                     <?php foreach ($limasTurbin as $row) : ?>
                         <?php foreach ($row as $r) : ?>
-                            <p class="text-dark text-center mb-0"><?= $r; ?></p>
+                            <p class="text-dark text-center text-uppercase mb-0"><?= $r; ?></p>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
                 </div>
@@ -57,7 +57,7 @@
                 <div class="p-2">
                     <?php foreach ($limasAlba as $row) : ?>
                         <?php foreach ($row as $r) : ?>
-                            <p class="text-dark text-center mb-0"><?= $r; ?></p>
+                            <p class="text-dark text-center text-uppercase mb-0"><?= $r; ?></p>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
                 </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="p-2">
                     <?php foreach ($jadwalCoUnit1 as $row) : ?>
-                        <p class="text-dark text-center mb-0"><?= $row; ?></p>
+                        <p class="text-dark text-center text-uppercase mb-0"><?= $row; ?></p>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="p-2">
                     <?php foreach ($jadwalCoUnit2 as $row) : ?>
-                        <p class="text-dark text-center mb-0"><?= $row; ?></p>
+                        <p class="text-dark text-center text-uppercase mb-0"><?= $row; ?></p>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                 </div>
                 <div class="p-2">
                     <?php foreach ($jadwalCoCommon as $row) : ?>
-                        <p class="text-dark text-center mb-0"><?= $row; ?></p>
+                        <p class="text-dark text-center text-uppercase mb-0"><?= $row; ?></p>
                     <?php endforeach; ?>
                 </div>
             </div>
