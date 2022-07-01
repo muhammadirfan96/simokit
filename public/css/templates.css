@@ -5,8 +5,17 @@
   .border_bottom2 {
     border-bottom: 2px solid #fc8b05 !important;
   }
+  .border_orange {
+    border: 2px solid #fc8b05 !important;
+  }
   .text_orange {
     color: #fc8b05 !important;
+  }
+  .text_merah {
+    color: #ba0000 !important;
+  }
+  .text_biru {
+    color: #100b70 !important;
   }
   
   /* bg card */
@@ -54,6 +63,10 @@
     background-color: #7ffaf8 !important;
   }
   .bg_biru2 {
-    background-color: #d2d9fa;
+    background-color: #def3ed !important;
+  }
+
+  .size12 {
+    font-size: 12px;
   }
   

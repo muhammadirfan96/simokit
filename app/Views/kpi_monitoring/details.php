@@ -58,7 +58,7 @@
                 <div class="overflow-auto" style="height: 239px;">
                     <table class="table table-sm">
                         <?php if (count($kpiUser) == 0) : ?>
-                            <p class="text-center fw-bolder mt-4"><i class="fas fa-triangle-exclamation text-danger" style="font-size: 150px;"></i><br>KPI BELUM DI TAMBAHKAN</p>
+                            <p class="text-center fw-bolder mt-4"><i class="fas fa-triangle-exclamation text_merah" style="font-size: 150px;"></i><br>KPI BELUM DI TAMBAHKAN</p>
                         <?php endif ?>
                         <?php foreach ($kpiUser as $row) : ?>
                             <tr>
@@ -91,7 +91,7 @@
                                                         </table>
                                                     <?php endif ?>
                                                     <?php if ($row['evidence'] == '') : ?>
-                                                        <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text-danger" style="font-size: 160px;"></i><br>EVIDENCE BELUM ADA</p>
+                                                        <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text_merah" style="font-size: 160px;"></i><br>EVIDENCE BELUM ADA</p>
                                                     <?php endif ?>
                                                 </div>
                                             </div>

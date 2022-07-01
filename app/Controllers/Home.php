@@ -16,6 +16,8 @@ use App\Models\ScheduleDuaModel;
 use App\Models\ScheduleCommonModel;
 use App\Models\NoticeModel;
 
+use function PHPUnit\Framework\isEmpty;
+
 class Home extends BaseController
 {
     protected $scheduleSatu, $scheduleDua, $scheduleCommon, $limasBoilerPertama, $limasBoilerKedua, $limasBoilerKetiga, $limasTurbinPertama, $limasTurbinKedua, $limasTurbinKetiga, $limasTurbinKeempat, $limasAlbaPertama, $limasAlbaKedua;
@@ -40,47 +42,56 @@ class Home extends BaseController
         $this->noticeModel = new NoticeModel();
     }
 
-    public function autoDelete($tabel)
+    public function isNull($data)
     {
-        $data = $tabel->where('tanggal <', date('Y-m-d', strtotime("-35 day", strtotime(date('Y-m-d')))))->findAll();
-
+        $dataNull = [];
         foreach ($data as $row) {
-            $tabel->delete($row['id']);
+            if ($row == null) {
+                $dataNull[] = 'y';
+            }
+        }
+        if (count($dataNull) == count($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isNone($peralatan)
+    {
+        $data = array_merge(
+            $peralatan
+        );
+        if (in_array("!", $data)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
     public function index()
     {
-        $this->autoDelete($this->scheduleSatu);
-        $this->autoDelete($this->scheduleDua);
-        $this->autoDelete($this->scheduleCommon);
-        $this->autoDelete($this->limasBoilerPertama);
-        $this->autoDelete($this->limasBoilerKedua);
-        $this->autoDelete($this->limasBoilerKetiga);
-        $this->autoDelete($this->limasTurbinPertama);
-        $this->autoDelete($this->limasTurbinKedua);
-        $this->autoDelete($this->limasTurbinKetiga);
-        $this->autoDelete($this->limasTurbinKeempat);
-        $this->autoDelete($this->limasAlbaPertama);
-        $this->autoDelete($this->limasAlbaKedua);
-
-        $limasBoiler = [
+        $limasBoiler = array_merge(
             $this->limasBoilerPertama->limasBoilerPertama(),
             $this->limasBoilerKedua->limasBoilerKedua(),
             $this->limasBoilerKetiga->limasBoilerKetiga()
-        ];
+        );
 
-        $limasTurbin = [
+        $limasTurbin = array_merge(
             $this->limasTurbinPertama->limasTurbinPertama(),
             $this->limasTurbinKedua->limasTurbinKedua(),
             $this->limasTurbinKetiga->limasTurbinKetiga(),
             $this->limasTurbinKeempat->limasTurbinKeempat(),
-        ];
+        );
 
-        $limasAlba = [
+        $limasAlba = array_merge(
             $this->limasAlbaPertama->limasAlbaPertama(),
             $this->limasAlbaKedua->limasAlbaKedua()
-        ];
+        );
+
+        $scheduleSatu = $this->scheduleSatu->scheduleUnitSatu();
+        $scheduleDua = $this->scheduleDua->scheduleUnitDua();
+        $scheduleCommon = $this->scheduleCommon->scheduleCommon();
 
         $hari = date('Y-m-d H:i:s');
         $like = user()->bidang;
@@ -91,9 +102,15 @@ class Home extends BaseController
             'limasBoiler' => $limasBoiler,
             'limasTurbin' => $limasTurbin,
             'limasAlba' => $limasAlba,
-            'jadwalCoUnit1' => $this->scheduleSatu->scheduleSatu(),
-            'jadwalCoUnit2' => $this->scheduleDua->scheduleDua(),
-            'jadwalCoCommon' => $this->scheduleCommon->scheduleCommon(),
+            'isNoneBoiler' => $this->isNone($limasBoiler),
+            'isNoneTurbin' => $this->isNone($limasTurbin),
+            'isNoneAlba' => $this->isNone($limasAlba),
+            'jadwalCoUnit1' => $scheduleSatu,
+            'jadwalCoUnit2' => $scheduleDua,
+            'jadwalCoCommon' => $scheduleCommon,
+            'isNullSatu' => $this->isNull($scheduleSatu),
+            'isNullDua' => $this->isNull($scheduleDua),
+            'isNullCommon' => $this->isNull($scheduleCommon),
             'notice' => $this->noticeModel->where($where)->findAll()
         ];
 

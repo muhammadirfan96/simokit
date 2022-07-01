@@ -38,26 +38,11 @@ class LimasTurbinKetigaModel extends Model
         "auxilliary steam deader #2"
     ];
 
-    public function limasTurbinKetigaFix()
-    {
-        $limasTurbinKetiga = $this->orderBy('id', 'desc')->findAll(31, 0);
-        $limasTurbinKetigaID = [];
-        foreach ($limasTurbinKetiga as $row) {
-            $limasTurbinKetigaID[] = $row['id'];
-        }
-        asort($limasTurbinKetigaID);
-        $limasTurbinKetigaFix = [];
-        foreach ($limasTurbinKetigaID as $fix) {
-            $limasTurbinKetigaFix[] = $this->find($fix);
-        }
-        return $limasTurbinKetigaFix;
-    }
-
     public function limasTurbinKetiga()
     {
         $limasTurbinKetiga = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
-            $limasTurbinKetiga[] = 'data belum diinput';
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasTurbinKetiga[] = "!";
         } else {
             $rowLimasTurbinKetiga = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
 

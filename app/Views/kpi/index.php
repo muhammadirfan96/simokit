@@ -24,7 +24,7 @@
         <div class="col rounded shadow p-2">
             <table class="table table-sm">
                 <?php if (count($kpiUser) == 0) : ?>
-                    <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text-danger" style="font-size: 160px;"></i><br>KPI BELUM DI TAMBAHKAN</p>
+                    <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text_merah" style="font-size: 160px;"></i><br>KPI BELUM DI TAMBAHKAN</p>
                 <?php endif ?>
                 <?php foreach ($kpiUser as $row) : ?>
                     <tr>

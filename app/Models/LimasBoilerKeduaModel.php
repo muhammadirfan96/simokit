@@ -39,29 +39,13 @@ class LimasBoilerKeduaModel extends Model
         "saf 2b"
     ];
 
-    public function limasBoilerKeduaFix()
-    {
-        $limasBoilerKedua = $this->orderBy('id', 'desc')->findAll(31, 0);
-        $limasBoilerKeduaID = [];
-        foreach ($limasBoilerKedua as $row) {
-            $limasBoilerKeduaID[] = $row['id'];
-        }
-        asort($limasBoilerKeduaID);
-        $limasBoilerKeduaFix = [];
-        foreach ($limasBoilerKeduaID as $fix) {
-            $limasBoilerKeduaFix[] = $this->find($fix);
-        }
-        return $limasBoilerKeduaFix;
-    }
-
     public function limasBoilerKedua()
     {
         $limasBoilerKedua = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
-            $limasBoilerKedua[] = 'data belum diinput';
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasBoilerKedua[] = "!";
         } else {
             $rowLimasBoilerKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
             for ($i = 0; $i < count($rowLimasBoilerKedua); $i++) {
                 if (!empty($rowLimasBoilerKedua[$i + 2])) {
                     $limasBoilerKedua[] = $this->peralatanBoilerKedua[$i];

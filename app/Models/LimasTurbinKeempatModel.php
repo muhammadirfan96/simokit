@@ -36,26 +36,11 @@ class LimasTurbinKeempatModel extends Model
         "cccwp b #2"
     ];
 
-    public function limasTurbinKeempatFix()
-    {
-        $limasTurbinKeempat = $this->orderBy('id', 'desc')->findAll(31, 0);
-        $limasTurbinKeempatID = [];
-        foreach ($limasTurbinKeempat as $row) {
-            $limasTurbinKeempatID[] = $row['id'];
-        }
-        asort($limasTurbinKeempatID);
-        $limasTurbinKeempatFix = [];
-        foreach ($limasTurbinKeempatID as $fix) {
-            $limasTurbinKeempatFix[] = $this->find($fix);
-        }
-        return $limasTurbinKeempatFix;
-    }
-
     public function limasTurbinKeempat()
     {
         $limasTurbinKeempat = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
-            $limasTurbinKeempat[] = 'data belum diinput';
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasTurbinKeempat[] = "!";
         } else {
             $rowLimasTurbinKeempat = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
 

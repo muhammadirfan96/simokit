@@ -20,26 +20,11 @@ class LimasAlbaKeduaModel extends Model
         "switch gear room 400 v #2"
     ];
 
-    public function limasAlbaKeduaFix()
-    {
-        $limasAlbaKedua = $this->orderBy('id', 'desc')->findAll(31, 0);
-        $limasAlbaKeduaID = [];
-        foreach ($limasAlbaKedua as $row) {
-            $limasAlbaKeduaID[] = $row['id'];
-        }
-        asort($limasAlbaKeduaID);
-        $limasAlbaKeduaFix = [];
-        foreach ($limasAlbaKeduaID as $fix) {
-            $limasAlbaKeduaFix[] = $this->find($fix);
-        }
-        return $limasAlbaKeduaFix;
-    }
-
     public function limasAlbaKedua()
     {
         $limasAlbaKedua = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
-            $limasAlbaKedua[] = 'data belum diinput';
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasAlbaKedua[] = "!";
         } else {
             $rowLimasAlbaKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
 

@@ -37,198 +37,173 @@ class ScheduleDuaModel extends Model
         "ball cleaning #2"
     ];
 
-    public function scheduleDuaFix()
+    public function data()
     {
-        $schedule = $this->orderBy('id', 'desc')->findAll(31, 0);
-        $scheduleID = [];
-        foreach ($schedule as $row) {
-            $scheduleID[] = $row['id'];
-        }
-        asort($scheduleID);
-        $scheduleDuaFix = [];
-        foreach ($scheduleID as $fix) {
-            $scheduleDuaFix[] = $this->find($fix);
-        }
-
-        return $scheduleDuaFix;
+        $dataHariIni = $this->where(['tanggal' => date('Y-m-d')])->first();
+        $dataHariKemarin = $this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->first();
+        $data = [$dataHariIni, $dataHariKemarin];
+        return $data;
     }
 
-    public function scheduleDua()
+    public function coDuaPeralatan($keyA, $keyB, $pesan1, $pesan2)
     {
-
-        $jadwalCoUnit2 = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
-            $jadwalCoUnit2[] = "data belum diinput";
-        } elseif ($this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first() == null) {
-            $jadwalCoUnit2[] = "data belum belum dapat ditampilkan";
-        } else {
-            $hariIniUnit2 = $this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first();
-            $kemarinUnit2 = $this->where(['tanggal' => date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))))])->orderBy('id', 'desc')->first();
-
-            //cwp a booster pump
-            if ($hariIniUnit2["cwpaboosterpumpa"] !== $kemarinUnit2["cwpaboosterpumpa"] || $hariIniUnit2["cwpaboosterpumpb"] !== $kemarinUnit2["cwpaboosterpumpb"]) {
-                $cwpa = "change over";
-                if (!empty($hariIniUnit2["cwpaboosterpumpa"])) {
-                    $cwpa .= " CWP A BOOSTER PUMP B ke A";
-                } else {
-                    $cwpa .= " CWP A BOOSTER PUMP A ke B";
-                }
-                $jadwalCoUnit2[] = $cwpa;
-            }
-
-            //cwp b booster pump
-            if ($hariIniUnit2["cwpbboosterpumpa"] !== $kemarinUnit2["cwpbboosterpumpa"] || $hariIniUnit2["cwpbboosterpumpb"] !== $kemarinUnit2["cwpbboosterpumpb"]) {
-                $cwpb = "change over";
-                if (!empty($hariIniUnit2["cwpbboosterpumpa"])) {
-                    $cwpb .= " CWP B BOOSTER PUMP B ke A";
-                } else {
-                    $cwpb .= " CWP B BOOSTER PUMP A ke B";
-                }
-                $jadwalCoUnit2[] = $cwpb;
-            }
-
-            //ccwp
-            if ($hariIniUnit2["ccwp2a"] !== $kemarinUnit2["ccwp2a"] || $hariIniUnit2["ccwp2b"] !== $kemarinUnit2["ccwp2b"]) {
-                $ccwp2 = "change over";
-                if (!empty($hariIniUnit2["ccwp2a"])) {
-                    $ccwp2 .= " CCWP 2 B ke A";
-                } else {
-                    $ccwp2 .= " CCWP 2 A ke B";
-                }
-                $jadwalCoUnit2[] = $ccwp2;
-            }
-
-            //cep
-            if ($hariIniUnit2["cep2a"] !== $kemarinUnit2["cep2a"] || $hariIniUnit2["cep2b"] !== $kemarinUnit2["cep2b"]) {
-                $cep2 = "change over";
-                if (!empty($hariIniUnit2["cep2a"])) {
-                    $cep2 .= " CEP 2 B ke A";
-                } else {
-                    $cep2 .= " CEP 2 A ke B";
-                }
-                $jadwalCoUnit2[] = $cep2;
-            }
-
-            // vacum
-            if ($hariIniUnit2["vacuumpump2a"] !== $kemarinUnit2["vacuumpump2a"] || $hariIniUnit2["vacuumpump2b"] !== $kemarinUnit2["vacuumpump2b"]) {
-                $vacuum2 = "change over";
-                if (!empty($hariIniUnit2["vacuumpump2a"])) {
-                    $vacuum2 .= " VACUUM PUMP 2 B ke A";
-                } else {
-                    $vacuum2 .= " VACUUM PUMP 2 A ke B";
-                }
-                $jadwalCoUnit2[] = $vacuum2;
-            }
-
-            // bfp
-            if ($hariIniUnit2["bfp2a"] !== $kemarinUnit2["bfp2a"] || $hariIniUnit2["bfp2b"] !== $kemarinUnit2["bfp2b"] || $hariIniUnit2["bfp2c"] !== $kemarinUnit2["bfp2c"]) {
-                $bfp2 = "change over";
-                if ($hariIniUnit2["bfp2a"] === $kemarinUnit2["bfp2a"]) {
-                    if (!empty($hariIniUnit2["bfp2b"])) {
-                        $bfp2 .= " FEED WATER PUMP 2 C ke B";
-                    } else {
-                        $bfp2 .= " FEED WATER PUMP 2 B ke C";
-                    }
-                }
-
-                if ($hariIniUnit2["bfp2b"] === $kemarinUnit2["bfp2b"]) {
-                    if (!empty($hariIniUnit2["bfp2a"])) {
-                        $bfp2 .= " FEED WATER PUMP 2 C ke A";
-                    } else {
-                        $bfp2 .= " FEED WATER PUMP 2 A ke C";
-                    }
-                }
-
-                if ($hariIniUnit2["bfp2c"] === $kemarinUnit2["bfp2c"]) {
-                    if (!empty($hariIniUnit2["bfp2a"])) {
-                        $bfp2 .= " FEED WATER PUMP 2 B ke A";
-                    } else {
-                        $bfp2 .= " FEED WATER PUMP 2 A ke B";
-                    }
-                }
-                $jadwalCoUnit2[] = $bfp2;
-            }
-
-            // eh oil
-            if (!empty($hariIniUnit2["ehoilpump2a"]) && !empty($kemarinUnit2["ehoilpump2a"])) {
-                if (!empty($hariIniUnit2["ehoilpump2b"])) {
-                    $ehoilpump2 = "WARMING UP EH OIL PUMP 2 B";
-                    $jadwalCoUnit2[] = $ehoilpump2;
-                }
-            } elseif (!empty($hariIniUnit2["ehoilpump2b"]) && !empty($kemarinUnit2["ehoilpump2b"])) {
-                if (!empty($hariIniUnit2["ehoilpump2a"])) {
-                    $ehoilpump2 = "WARMING UP EH OIL PUMP 2 A";
-                    $jadwalCoUnit2[] = $ehoilpump2;
-                }
-            }
-
-            // gland seal fan
-            if ($hariIniUnit2["glandsealfan2a"] !== $kemarinUnit2["glandsealfan2a"] || $hariIniUnit2["glandsealfan2b"] !== $kemarinUnit2["glandsealfan2b"]) {
-                $glandsealfan2 = "change over";
-                if (!empty($hariIniUnit2["glandsealfan2a"])) {
-                    $glandsealfan2 .= " GLAND SEAL FAN 2 B ke A";
-                } else {
-                    $glandsealfan2 .= " GLAND SEAL FAN 2 A ke B";
-                }
-                $jadwalCoUnit2[] = $glandsealfan2;
-            }
-
-            // hpff
-            if ($hariIniUnit2["hpff2a"] !== $kemarinUnit2["hpff2a"] || $hariIniUnit2["hpff2b"] !== $kemarinUnit2["hpff2b"] || $hariIniUnit2["hpff2c"] !== $kemarinUnit2["hpff2c"]) {
-                $hpff2 = "change over";
-                if ($hariIniUnit2["hpff2a"] === $kemarinUnit2["hpff2a"]) {
-                    if (!empty($hariIniUnit2["hpff2b"])) {
-                        $hpff2 .= " HPFF 2 C ke B";
-                    } else {
-                        $hpff2 .= " HPFF 2 B ke C";
-                    }
-                }
-
-                if ($hariIniUnit2["hpff2b"] === $kemarinUnit2["hpff2b"]) {
-                    if (!empty($hariIniUnit2["hpff2a"])) {
-                        $hpff2 .= " HPFF 2 C ke A";
-                    } else {
-                        $hpff2 .= " HPFF 2 A ke C";
-                    }
-                }
-
-                if ($hariIniUnit2["hpff2c"] === $kemarinUnit2["hpff2c"]) {
-                    if (!empty($hariIniUnit2["hpff2a"])) {
-                        $hpff2 .= " HPFF 2 B ke A";
-                    } else {
-                        $hpff2 .= " HPFF 2 A ke B";
-                    }
-                }
-                $jadwalCoUnit2[] = $hpff2;
-            }
-
-            // oge fan
-            if ($hariIniUnit2["ogefan2a"] !== $kemarinUnit2["ogefan2a"] || $hariIniUnit2["ogefan2b"] !== $kemarinUnit2["ogefan2b"]) {
-                $ogefan2 = "change over";
-                if (!empty($hariIniUnit2["ogefan2a"])) {
-                    $ogefan2 .= " OIL GAS EXTRACTOR FAN 2 B ke A";
-                } else {
-                    $ogefan2 .= " OIL GAS EXTRACTOR FAN 2 A ke B";
-                }
-                $jadwalCoUnit2[] = $ogefan2;
-            }
-
-            // cool fan
-            if ($hariIniUnit2["coolingfan2a"] !== $kemarinUnit2["coolingfan2a"] || $hariIniUnit2["coolingfan2b"] !== $kemarinUnit2["coolingfan2b"]) {
-                $coolingfan2 = "change over";
-                if (!empty($hariIniUnit2["coolingfan2a"])) {
-                    $coolingfan2 .= " COOLING FAN 2 B ke A";
-                } else {
-                    $coolingfan2 .= " COOLING FAN 2 A ke B";
-                }
-                $jadwalCoUnit2[] = $coolingfan2;
-            }
-            // ball cleaning
-
-            if (!empty($hariIniUnit2["ballcleaning2"])) {
-                $jadwalCoUnit2[] = "PENGOPERASIAN BALL CLEANING #2";
+        $changeOver = null;
+        if ($this->data()[0]["$keyA"] !== $this->data()[1]["$keyA"] || $this->data()[0]["$keyB"] !== $this->data()[1]["$keyB"]) {
+            $changeOver = "C.O. ";
+            if (!empty($this->data()[0]["$keyA"])) {
+                $changeOver .= " $pesan1";
+            } else {
+                $changeOver .= " $pesan2";
             }
         }
-        return $jadwalCoUnit2;
+        return $changeOver;
+    }
+
+    public function coTigaPeralatan($keyA, $keyB, $keyC, $pesan1, $pesan2, $pesan3, $pesan4, $pesan5, $pesan6)
+    {
+        $changeOver = null;
+        if ($this->data()[0]["$keyA"] !== $this->data()[1]["$keyA"] || $this->data()[0]["$keyB"] !== $this->data()[1]["$keyB"] || $this->data()[0]["$keyC"] !== $this->data()[1]["$keyC"]) {
+            $changeOver = "C.O. ";
+            if ($this->data()[0]["$keyA"] === $this->data()[1]["$keyA"]) {
+                if (!empty($this->data()[0]["$keyB"])) {
+                    $changeOver .= $pesan1;
+                } else {
+                    $changeOver .= $pesan2;
+                }
+            }
+
+            if ($this->data()[0]["$keyB"] === $this->data()[1]["$keyB"]) {
+                if (!empty($this->data()[0]["$keyA"])) {
+                    $changeOver .= $pesan3;
+                } else {
+                    $changeOver .= $pesan4;
+                }
+            }
+
+            if ($this->data()[0]["$keyC"] === $this->data()[1]["$keyC"]) {
+                if (!empty($this->data()[0]["$keyA"])) {
+                    $changeOver .= $pesan5;
+                } else {
+                    $changeOver .= $pesan6;
+                }
+            }
+        }
+        return $changeOver;
+    }
+
+    public function ehOil($keyA, $keyB, $pesan1, $pesan2)
+    {
+        $changeOver = null;
+        if (!empty($this->data()[0]["$keyA"]) && !empty($this->data()[1]["$keyA"])) {
+            if (!empty($this->data()[0]["$keyB"])) {
+                $changeOver = $pesan1;
+            }
+        } elseif (!empty($this->data()[0]["$keyB"]) && !empty($this->data()[1]["$keyB"])) {
+            if (!empty($this->data()[0]["$keyA"])) {
+                $changeOver = $pesan2;
+            }
+        }
+        return $changeOver;
+    }
+
+    public function warmingUp($key, $pesan)
+    {
+        $changeOver = null;
+        if (!empty($this->data()[0]["$key"])) {
+            $changeOver = $pesan;
+        }
+        return $changeOver;
+    }
+
+    public function scheduleUnitDua()
+    {
+        $listCO = [];
+        if ($this->data()[0] == null) {
+            $listCO[] = "!";
+        } elseif ($this->data()[1] == null) {
+            $listCO[] = "?";
+        } else {
+            $listCO[] = $this->coDuaPeralatan(
+                'cwpaboosterpumpa',
+                'cwpaboosterpumpb',
+                'CWP A BOOSTER PUMP B ke A',
+                'CWP A BOOSTER PUMP A ke B'
+            );
+            $listCO[] = $this->coDuaPeralatan(
+                'cwpbboosterpumpa',
+                'cwpbboosterpumpb',
+                'CWP B BOOSTER PUMP B ke A',
+                'CWP B BOOSTER PUMP A ke B'
+            );
+            $listCO[] = $this->coDuaPeralatan(
+                'ccwp2a',
+                'ccwp2b',
+                'CCWP 2 B ke A',
+                'CCWP 2 A ke B'
+            );
+            $listCO[] = $this->coDuaPeralatan(
+                'cep2a',
+                'cep2b',
+                'CEP 2 B ke A',
+                'CEP 2 A ke B'
+            );
+            $listCO[] = $this->coDuaPeralatan(
+                'vacuumpump2a',
+                'vacuumpump2b',
+                'VACUUM PUMP 2 B ke A',
+                'VACUUM PUMP 2 A ke B'
+            );
+            $listCO[] = $this->coDuaPeralatan(
+                'glandsealfan2a',
+                'glandsealfan2b',
+                'GLAND SEAL FAN 2 B ke A',
+                'GLAND SEAL FAN 2 A ke B'
+            );
+            $listCO[] = $this->coDuaPeralatan(
+                'ogefan2a',
+                'ogefan2b',
+                'OIL GAS EXTRACTOR FAN 2 B ke A',
+                'OIL GAS EXTRACTOR FAN 2 A ke B'
+            );
+            $listCO[] = $this->coDuaPeralatan(
+                'coolingfan2a',
+                'coolingfan2b',
+                'COOLING FAN 2 B ke A',
+                'COOLING FAN 2 A ke B'
+            );
+            $listCO[] = $this->coTigaPeralatan(
+                "bfp2a",
+                "bfp2b",
+                "bfp2c",
+                "FEED WATER PUMP 2 C ke B",
+                "FEED WATER PUMP 2 B ke C",
+                "FEED WATER PUMP 2 C ke A",
+                "FEED WATER PUMP 2 A ke C",
+                "FEED WATER PUMP 2 B ke A",
+                "FEED WATER PUMP 2 A ke B"
+            );
+            $listCO[] = $this->coTigaPeralatan(
+                "hpff2a",
+                "hpff2b",
+                "hpff2c",
+                "HPFF 2 C ke B",
+                "HPFF 2 B ke C",
+                "HPFF 2 C ke A",
+                "HPFF 2 A ke C",
+                "HPFF 2 B ke A",
+                "HPFF 2 A ke B"
+            );
+            $listCO[] = $this->ehOil(
+                'ehoilpump2a',
+                'ehoilpump2b',
+                'WARMING UP EH OIL PUMP 2 B',
+                'WARMING UP EH OIL PUMP 2 A'
+            );
+            $listCO[] = $this->warmingUp(
+                'ballcleaning2',
+                'PENGOPERASIAN BALL CLEANING #2'
+            );
+        }
+        return $listCO;
     }
 }

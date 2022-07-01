@@ -33,29 +33,13 @@ class LimasBoilerKetigaModel extends Model
         "lower burner 2d"
     ];
 
-    public function limasBoilerKetigaFix()
-    {
-        $limasBoilerKetiga = $this->orderBy('id', 'desc')->findAll(31, 0);
-        $limasBoilerKetigaID = [];
-        foreach ($limasBoilerKetiga as $row) {
-            $limasBoilerKetigaID[] = $row['id'];
-        }
-        asort($limasBoilerKetigaID);
-        $limasBoilerKetigaFix = [];
-        foreach ($limasBoilerKetigaID as $fix) {
-            $limasBoilerKetigaFix[] = $this->find($fix);
-        }
-        return $limasBoilerKetigaFix;
-    }
-
     public function limasBoilerKetiga()
     {
         $limasBoilerKetiga = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
-            $limasBoilerKetiga[] = 'data belum diinput';
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasBoilerKetiga[] = "!";
         } else {
             $rowLimasBoilerKetiga = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
-
             for ($i = 0; $i < count($rowLimasBoilerKetiga); $i++) {
                 if (!empty($rowLimasBoilerKetiga[$i + 2])) {
                     $limasBoilerKetiga[] = $this->peralatanBoilerKetiga[$i];

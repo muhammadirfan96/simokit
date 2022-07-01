@@ -40,26 +40,11 @@ class LimasTurbinKeduaModel extends Model
         "valve daearator #2"
     ];
 
-    public function limasTurbinKeduaFix()
-    {
-        $limasTurbinKedua = $this->orderBy('id', 'desc')->findAll(31, 0);
-        $limasTurbinKeduaID = [];
-        foreach ($limasTurbinKedua as $row) {
-            $limasTurbinKeduaID[] = $row['id'];
-        }
-        asort($limasTurbinKeduaID);
-        $limasTurbinKeduaFix = [];
-        foreach ($limasTurbinKeduaID as $fix) {
-            $limasTurbinKeduaFix[] = $this->find($fix);
-        }
-        return $limasTurbinKeduaFix;
-    }
-
     public function limasTurbinKedua()
     {
         $limasTurbinKedua = [];
-        if ($this->where(['tanggal' => date('Y-m-d')])->orderBy('id', 'desc')->first() == null) {
-            $limasTurbinKedua[] = 'data belum diinput';
+        if ($this->where(['tanggal' => date('Y-m-d')])->first() == null) {
+            $limasTurbinKedua[] = "!";
         } else {
             $rowLimasTurbinKedua = array_values($this->where(['tanggal' => date('Y-m-d')])->first());
 

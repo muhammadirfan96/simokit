@@ -14,7 +14,7 @@ use App\Models\LimasAlbaKeduaModel;
 
 class Input_limas extends BaseController
 {
-    protected $limasBoilerPertamaModel, $limasBoilerKeduaModel, $limasBoilerKetigaModel, $limasTurbinPertamaModel, $limasTurbinKeduaModel, $limasTurbinKetigaModel, $limasTurbinKeempatModel, $limasAlbaPertamaModel, $limasAlbaKeduaModel, $tablesboiler, $scheduleBoiler, $keyBoiler, $tablesTurbin, $scheduleTurbin, $keyTurbin, $tablesAlba, $scheduleAlba, $keyAlba, $hari;
+    protected $limasBoilerPertamaModel, $limasBoilerKeduaModel, $limasBoilerKetigaModel, $limasTurbinPertamaModel, $limasTurbinKeduaModel, $limasTurbinKetigaModel, $limasTurbinKeempatModel, $limasAlbaPertamaModel, $limasAlbaKeduaModel;
 
     public function __construct()
     {
@@ -27,141 +27,211 @@ class Input_limas extends BaseController
         $this->limasTurbinKeempatModel = new LimasTurbinKeempatModel();
         $this->limasAlbaPertamaModel = new LimasAlbaPertamaModel();
         $this->limasAlbaKeduaModel = new LimasAlbaKeduaModel();
+    }
 
-        //boiler
-        $this->tablesBoiler = [
+    public function schedulePerBulan($model, $tahun, $tanggal)
+    {
+        $where = "tanggal LIKE '%$tahun-$tanggal%'";
+        $schedule = $model->where($where)->findAll();
+        return $schedule;
+    }
+
+    public function scheduleBoilerPerbulan($tahun, $bulan)
+    {
+        return $this->scheduleBoiler = [
+            $this->schedulePerBulan($this->limasBoilerPertamaModel, $tahun, $bulan),
+            $this->schedulePerBulan($this->limasBoilerKeduaModel, $tahun, $bulan),
+            $this->schedulePerBulan($this->limasBoilerKetigaModel, $tahun, $bulan)
+        ];
+    }
+    public function scheduleTurbinPerbulan($tahun, $bulan)
+    {
+        return $this->scheduleBoiler = [
+            $this->schedulePerBulan($this->limasTurbinPertamaModel, $tahun, $bulan),
+            $this->schedulePerBulan($this->limasTurbinKeduaModel, $tahun, $bulan),
+            $this->schedulePerBulan($this->limasTurbinKetigaModel, $tahun, $bulan),
+            $this->schedulePerBulan($this->limasTurbinKeempatModel, $tahun, $bulan)
+        ];
+    }
+    public function scheduleAlbaPerbulan($tahun, $bulan)
+    {
+        return $this->scheduleBoiler = [
+            $this->schedulePerBulan($this->limasAlbaPertamaModel, $tahun, $bulan),
+            $this->schedulePerBulan($this->limasAlbaKeduaModel, $tahun, $bulan)
+        ];
+    }
+
+    public function namaPeralatanBoiler()
+    {
+        return [
             $this->limasBoilerPertamaModel->peralatanBoilerPertama, $this->limasBoilerKeduaModel->peralatanBoilerKedua, $this->limasBoilerKetigaModel->peralatanBoilerKetiga
         ];
+    }
 
-        $this->scheduleBoiler = [
-            $this->limasBoilerPertamaModel->limasBoilerPertamaFix(),
-            $this->limasBoilerKeduaModel->limasBoilerKeduaFix(),
-            $this->limasBoilerKetigaModel->limasBoilerKetigaFix()
-        ];
-
-        $this->keyBoiler = [
+    public function keyTableBoiler()
+    {
+        return [
             $this->limasBoilerPertamaModel->getFieldNames('limasboilerpertama'),
             $this->limasBoilerKeduaModel->getFieldNames('limasboilerkedua'),
             $this->limasBoilerKetigaModel->getFieldNames('limasboilerketiga')
         ];
+    }
 
-        // turbin
-        $this->tablesTurbin = [
+    public function namaPeralatanTurbin()
+    {
+        return [
             $this->limasTurbinPertamaModel->peralatanTurbinPertama, $this->limasTurbinKeduaModel->peralatanTurbinKedua, $this->limasTurbinKetigaModel->peralatanTurbinKetiga, $this->limasTurbinKeempatModel->peralatanTurbinKeempat
         ];
+    }
 
-        $this->scheduleTurbin = [
-            $this->limasTurbinPertamaModel->limasTurbinPertamaFix(),
-            $this->limasTurbinKeduaModel->limasTurbinKeduaFix(),
-            $this->limasTurbinKetigaModel->limasTurbinKetigaFix(),
-            $this->limasTurbinKeempatModel->limasTurbinKeempatFix()
-        ];
-
-        $this->keyTurbin = [
+    public function keyTableTurbin()
+    {
+        return [
             $this->limasTurbinPertamaModel->getFieldNames('limasturbinpertama'),
             $this->limasTurbinKeduaModel->getFieldNames('limasturbinkedua'),
             $this->limasTurbinKetigaModel->getFieldNames('limasturbinketiga'),
             $this->limasTurbinKeempatModel->getFieldNames('limasturbinkeempat')
         ];
+    }
 
-        //alba
-        $this->tablesAlba = [
+    public function namaPeralatanAlba()
+    {
+        return [
             $this->limasAlbaPertamaModel->peralatanAlbaPertama,
             $this->limasAlbaKeduaModel->peralatanAlbaKedua
         ];
+    }
 
-        $this->scheduleAlba = [
-            $this->limasAlbaPertamaModel->limasAlbaPertamaFix(),
-            $this->limasAlbaKeduaModel->limasAlbaKeduaFix()
-        ];
-
-        $this->keyAlba = [
+    public function keyTableAlba()
+    {
+        return [
             $this->limasAlbaPertamaModel->getFieldNames('limasalbapertama'),
             $this->limasAlbaKeduaModel->getFieldNames('limasalbakedua')
         ];
+    }
 
+    protected $thn = ['2021' => 2021, '2022' => 2022, '2023' => 2023, '2024' => 2024, '2025' => 2025, '2026' => 2026, '2027' => 2027, '2028' => 2028, '2029' => 2029, '2030' => 2030];
+
+    protected $bln = ['01' => 'januari', '02' => 'februari', '03' => 'maret', '04' => 'april', '05' => 'mei', '06' => 'juni', '07' => 'juli', '08' => 'agustus', '09' => 'september', '10' => 'oktober', '11' => 'november', '12' => 'desember'];
+
+    public function hari($tahun, $bulan)
+    {
         $bln30 = ["04", "06", "09", "11"];
-        $bln = date('m');
+        $bln = $bulan;
         if (in_array($bln, $bln30)) {
-            $this->hari = 30;
+            $hari = 30;
         } elseif ($bln == "02") {
-            if (date('Y') % 4 === 0) {
-                $this->hari = 29;
+            if ($tahun % 4 == 0) {
+                $hari = 29;
             } else {
-                $this->hari = 28;
+                $hari = 28;
             }
         } else {
-            $this->hari = 31;
+            $hari = 31;
         }
+        return $hari;
     }
-    //  $schedule[$k - 1][$i - 1][$key[$k - 1][$j - 97]] == 'ya' ? 'checked' : ''
 
     public function index()
     {
         $data = [
             'title' => 'input | kegiatan 5s',
-            'hari' => $this->hari,
-            'tables' => $this->tablesBoiler,
+            'hari' => $this->hari(date('Y'), date('m')),
+            'tahun' => date('Y'),
+            'bulanAngka' => date('m'),
+            'bulanHuruf' => $this->bln[date('m')],
+            'blnList' => $this->bln,
+            'thnList' => $this->thn,
+            'tables' => $this->namaPeralatanBoiler(),
             'bagian' => 'boiler',
-            'schedule' => $this->scheduleBoiler,
-            'key' => $this->keyBoiler
+            'schedule' => $this->scheduleBoilerPerbulan(date('Y'), date('m')),
+            'key' => $this->keyTableBoiler()
         ];
 
         return view('input_limas/index', $data);
     }
 
-    public function boiler()
+    public function boiler($tahun, $bulan)
     {
         $data = [
-            'hari' => $this->hari,
-            'tables' => $this->tablesBoiler,
+            'hari' => $this->hari($tahun, $bulan),
+            'tahun' => $tahun,
+            'bulanAngka' => $bulan,
+            'bulanHuruf' => $this->bln[$bulan],
+            'tables' => $this->namaPeralatanBoiler(),
             'bagian' => 'boiler',
-            'schedule' => $this->scheduleBoiler,
-            'key' => $this->keyBoiler
+            'schedule' => $this->scheduleBoilerPerbulan($tahun, $bulan),
+            'key' => $this->keyTableBoiler()
         ];
-        // dd($data);
+        // d($data);
 
         return view('input_limas/table', $data);
     }
 
-    public function turbin()
+    public function turbin($tahun, $bulan)
     {
         $data = [
-            'hari' => $this->hari,
-            'tables' => $this->tablesTurbin,
+            'hari' => $this->hari($tahun, $bulan),
+            'tahun' => $tahun,
+            'bulanAngka' => $bulan,
+            'bulanHuruf' => $this->bln[$bulan],
+            'tables' => $this->namaPeralatanTurbin(),
             'bagian' => 'turbin',
-            'schedule' => $this->scheduleTurbin,
-            'key' => $this->keyTurbin
+            'schedule' => $this->scheduleTurbinPerbulan($tahun, $bulan),
+            'key' => $this->keyTableTurbin()
         ];
-        // dd($data);
+        // d($data);
 
         return view('input_limas/table', $data);
     }
 
-    public function alba()
+    public function alba($tahun, $bulan)
     {
         $data = [
-            'hari' => $this->hari,
-            'tables' => $this->tablesAlba,
+            'hari' => $this->hari($tahun, $bulan),
+            'tahun' => $tahun,
+            'bulanAngka' => $bulan,
+            'bulanHuruf' => $this->bln[$bulan],
+            'tables' => $this->namaPeralatanAlba(),
             'bagian' => 'alba',
-            'schedule' => $this->scheduleAlba,
-            'key' => $this->keyAlba
+            'schedule' => $this->scheduleAlbaPerbulan($tahun, $bulan),
+            'key' => $this->keyTableAlba()
         ];
-        // dd($data);
+        // d($data);
 
         return view('input_limas/table', $data);
     }
 
     public function simpan()
     {
-        if ($this->request->getVar('boiler') == "v") {
-            // dd($this->request->getVar());
-            $key1 = $this->limasBoilerPertamaModel->getFieldNames('limasboilerpertama');
+        $tahun = $this->request->getVar('tahun');
+        $bulan = $this->request->getVar('bulan');
+
+        if ($this->request->getVar('method') == "boiler") {
+            $key1 = $this->keyTableBoiler()[0];
             $this->limasBoilerPertamaModel->setAllowedFields($key1);
-            // $this->limasBoilerPertamaModel->truncate('limasboilerpertama');
-            for ($i = 1; $i <= 31; $i++) {
+
+            // hapus jika ada data yang sama di DB
+            $data = $this->scheduleBoilerPerbulan($tahun, $bulan);
+            if ($data[0] != null) {
+                foreach ($data[0] as $row) {
+                    $this->limasBoilerPertamaModel->delete($row['id']);
+                    $this->limasBoilerKeduaModel->delete($row['id']);
+                    $this->limasBoilerKetigaModel->delete($row['id']);
+                }
+                $pesan = 'update';
+            } else {
+                $pesan = 'tambahkan';
+            }
+
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value1 = [''];
-                $value1[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value1[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
                 for ($j = 99; $j <= 124; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "1") == null) {
                         $value1[] = "";
@@ -174,12 +244,17 @@ class Input_limas extends BaseController
 
                 $this->limasBoilerPertamaModel->save($result);
             }
-            $key2 = $this->limasBoilerKeduaModel->getFieldNames('limasboilerkedua');
+            $key2 = $this->keyTableBoiler()[1];
             $this->limasBoilerKeduaModel->setAllowedFields($key2);
-            // $this->limasBoilerKeduaModel->truncate('limasboilerkedua');
-            for ($i = 1; $i <= 31; $i++) {
+
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value2 = [''];
-                $value2[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value2[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
                 for ($j = 99; $j <= 124; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "2") == null) {
                         $value2[] = "";
@@ -192,12 +267,16 @@ class Input_limas extends BaseController
 
                 $this->limasBoilerKeduaModel->save($result);
             }
-            $key3 = $this->limasBoilerKetigaModel->getFieldNames('limasboilerketiga');
+            $key3 = $this->keyTableBoiler()[2];
             $this->limasBoilerKetigaModel->setAllowedFields($key3);
-            // $this->limasBoilerKetigaModel->truncate('limasboilerketiga');
-            for ($i = 1; $i <= 31; $i++) {
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value3 = [''];
-                $value3[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value3[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
                 for ($j = 99; $j <= 118; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "3") == null) {
                         $value3[] = "";
@@ -210,16 +289,35 @@ class Input_limas extends BaseController
 
                 $this->limasBoilerKetigaModel->save($result);
             }
-            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s boiler berhasil di update !');
+            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s boiler bulan ' . $bulan . '-' . $tahun . ' telah di ' . $pesan . ' !');
         }
-        if ($this->request->getVar('turbin') == "v") {
-            // dd($this->request->getVar());
-            $key1 = $this->limasTurbinPertamaModel->getFieldNames('limasturbinpertama');
+        if ($this->request->getVar('method') == "turbin") {
+            $key1 = $this->keyTableTurbin()[0];
             $this->limasTurbinPertamaModel->setAllowedFields($key1);
-            // $this->limasTurbinPertamaModel->truncate('limasturbinpertama');
-            for ($i = 1; $i <= 31; $i++) {
+
+            // hapus jika ada data yang sama di DB
+            $data = $this->scheduleTurbinPerbulan($tahun, $bulan);
+            if ($data[0] != null) {
+                foreach ($data[0] as $row) {
+                    $this->limasTurbinPertamaModel->delete($row['id']);
+                    $this->limasTurbinKeduaModel->delete($row['id']);
+                    $this->limasTurbinKetigaModel->delete($row['id']);
+                    $this->limasTurbinKeempatModel->delete($row['id']);
+                }
+                $pesan = 'update';
+            } else {
+                $pesan = 'tambahkan';
+            }
+
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value1 = [''];
-                $value1[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value1[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
+                // $value1[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 126; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "1") == null) {
                         $value1[] = "";
@@ -233,12 +331,17 @@ class Input_limas extends BaseController
                 $this->limasTurbinPertamaModel->save($result);
             }
 
-            $key2 = $this->limasTurbinKeduaModel->getFieldNames('limasturbinkedua');
+            $key2 = $this->keyTableTurbin()[1];
             $this->limasTurbinKeduaModel->setAllowedFields($key2);
-            // $this->limasTurbinKeduaModel->truncate('limasturbinkedua');
-            for ($i = 1; $i <= 31; $i++) {
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value2 = [''];
-                $value2[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value2[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
+                // $value2[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 126; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "2") == null) {
                         $value2[] = "";
@@ -251,12 +354,17 @@ class Input_limas extends BaseController
                 $this->limasTurbinKeduaModel->save($result);
             }
 
-            $key3 = $this->limasTurbinKetigaModel->getFieldNames('limasturbinketiga');
+            $key3 = $this->keyTableTurbin()[2];
             $this->limasTurbinKetigaModel->setAllowedFields($key3);
-            // $this->limasTurbinKetigaModel->truncate('limasturbinketiga');
-            for ($i = 1; $i <= 31; $i++) {
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value3 = [''];
-                $value3[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value3[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
+                // $value3[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 124; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "3") == null) {
                         $value3[] = "";
@@ -269,12 +377,17 @@ class Input_limas extends BaseController
                 $this->limasTurbinKetigaModel->save($result);
             }
 
-            $key4 = $this->limasTurbinKeempatModel->getFieldNames('limasturbinkeempat');
+            $key4 = $this->keyTableTurbin()[3];
             $this->limasTurbinKeempatModel->setAllowedFields($key4);
-            // $this->limasTurbinKeempatModel->truncate('limasturbinkeempat');
-            for ($i = 1; $i <= 31; $i++) {
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value4 = [''];
-                $value4[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value4[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
+                // $value4[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 122; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "4") == null) {
                         $value4[] = "";
@@ -286,16 +399,34 @@ class Input_limas extends BaseController
 
                 $this->limasTurbinKeempatModel->save($result);
             }
-            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s turbin berhasil di update !');
+            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s turbin bulan ' . $bulan . '-' . $tahun . ' telah di ' . $pesan . ' !');
         }
-        if ($this->request->getVar('alba') == "v") {
+        if ($this->request->getVar('method') == "alba") {
             // dd($this->request->getVar());
-            $key1 = $this->limasAlbaPertamaModel->getFieldNames('limasalbapertama');
+            $key1 = $this->keyTableAlba()[0];
             $this->limasAlbaPertamaModel->setAllowedFields($key1);
-            // $this->limasAlbaPertamaModel->truncate('limasalbapertama');
-            for ($i = 1; $i <= 31; $i++) {
+
+            // hapus jika ada data yang sama di DB
+            $data = $this->scheduleAlbaPerbulan($tahun, $bulan);
+            if ($data[0] != null) {
+                foreach ($data[0] as $row) {
+                    $this->limasAlbaPertamaModel->delete($row['id']);
+                    $this->limasAlbaKeduaModel->delete($row['id']);
+                }
+                $pesan = 'update';
+            } else {
+                $pesan = 'tambahkan';
+            }
+
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value1 = [''];
-                $value1[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value1[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
+                // $value1[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 126; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "1") == null) {
                         $value1[] = "";
@@ -308,12 +439,17 @@ class Input_limas extends BaseController
                 $this->limasAlbaPertamaModel->save($result);
             }
 
-            $key2 = $this->limasAlbaKeduaModel->getFieldNames('limasalbakedua');
+            $key2 = $this->keyTableAlba()[1];
             $this->limasAlbaKeduaModel->setAllowedFields($key2);
-            // $this->limasAlbaKeduaModel->truncate('limasalbakedua');
-            for ($i = 1; $i <= 31; $i++) {
+            for ($i = 1; $i <= $this->hari($tahun, $bulan); $i++) {
                 $value2 = [''];
-                $value2[] = date('Y-m-' . $i);
+                if (strlen($i) == 1) {
+                    $angka0 = 0;
+                } else {
+                    $angka0 = null;
+                }
+                $value2[] = date($tahun . '-' . $bulan . '-' . $angka0 . $i);
+                // $value2[] = date('Y-m-' . $i);
                 for ($j = 99; $j <= 106; $j++) {
                     if ($this->request->getVar("$i" . "$j" . "2") == null) {
                         $value2[] = "";
@@ -325,7 +461,7 @@ class Input_limas extends BaseController
 
                 $this->limasAlbaKeduaModel->save($result);
             }
-            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s alba berhasil di update !');
+            session()->setFlashdata('pesanSuccess', 'jadwal kegiatan 5s alba bulan ' . $bulan . '-' . $tahun . ' telah di ' . $pesan . ' !');
         }
         return redirect()->to(base_url('/input_limas'));
     }
