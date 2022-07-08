@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Array_daftarSopIk;
 use App\Models\Daftar_pertanyaanModel;
 use App\Models\ChecklistModel;
 use App\Models\JawabanModel;
@@ -10,6 +9,7 @@ use App\Models\KomenModel;
 use Myth\Auth\Models\UserModel;
 use App\Models\Array_formchecklist;
 use App\Models\AtasanModel;
+use App\Models\Data_Nama_Peralatan_Checklist;
 use \Mpdf\Mpdf;
 
 class Checklist extends BaseController
@@ -27,14 +27,25 @@ class Checklist extends BaseController
 
     public function index()
     {
-        $peralatan = new Array_daftarSopIk();
+        $peralatan = new Data_Nama_Peralatan_Checklist();
 
         $data = [
-            'title' => 'pilih sop ik',
-            'peralatan' => $peralatan->semuaPeralatan()
+            ['1', $peralatan->allValues(0), 'fa-check-double', $peralatan->allKeys(0)],
+            ['2', $peralatan->allValues(1), 'fa-check-double', $peralatan->allKeys(1)],
+            ['3', $peralatan->allValues(2), 'fa-check-double', $peralatan->allKeys(2)],
+            ['4', $peralatan->allValues(3), 'fa-check-double', $peralatan->allKeys(3)],
+            ['5', $peralatan->allValues(4), 'fa-check-double', $peralatan->allKeys(4)],
+            ['6', $peralatan->allValues(5), 'fa-check-double', $peralatan->allKeys(5)],
+            ['7', $peralatan->allValues(6), 'fa-check-double', $peralatan->allKeys(6)]
         ];
 
-        return view('checklist/index', $data);
+
+        $datas = [
+            'title' => 'pilih sop ik',
+            'data' => $data,
+        ];
+
+        return view('checklist/index', $datas);
     }
 
     public function pilihPeralatan($peralatan)

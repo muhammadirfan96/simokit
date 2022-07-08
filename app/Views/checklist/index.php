@@ -14,18 +14,6 @@
     </div>
 </div>
 
-<?php
-$data = [
-    ['1', $peralatan['boiler'], 'fa-check-double', 'peralatan boiler'],
-    ['2', $peralatan['turbin'], 'fa-check-double', 'peralatan turbin'],
-    ['3', $peralatan['alba'], 'fa-check-double', 'peralatan alba'],
-    ['4', [], 'fa-check-double', 'shutdown'],
-    ['5', [], 'fa-check-double', 'cold state start up'],
-    ['6', [], 'fa-check-double', 'warm state start up'],
-    ['7', [], 'fa-check-double', 'hot state start up']
-];
-?>
-
 <div class="container-fluid text-center">
     <div class="row ">
 

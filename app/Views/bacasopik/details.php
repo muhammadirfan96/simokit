@@ -13,6 +13,19 @@
     </div>
 </div>
 
+<?php
+
+// Header content type 
+// header('Content-type: application/pdf');
+
+// header('Content-Disposition: inline; filename="' . $namaPeralatan . '"');
+
+// header('Content-Transfer-Encoding: binary');
+
+// header('Accept-Ranges: bytes');
+
+?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col">
