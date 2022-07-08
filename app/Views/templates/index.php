@@ -12,14 +12,8 @@
     <link href="<?= base_url(); ?>/sb-admin/css/styles.css" rel="stylesheet" />
     <link href="<?= base_url(); ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?= base_url(); ?>/fontawesome/css/all.css" rel="stylesheet">
-    <!-- <link href="<?= base_url(); ?>/css/template.css" rel="stylesheet"> -->
     <link href="<?= base_url(); ?>/css/templates.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/css/profil.css" rel="stylesheet">
-
-    <!-- signature -->
-    <!-- <link href="<?= base_url(); ?>/signature/css/jquery-ui.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>/signature/css/jquery.signature.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>/signature/css/box.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -32,10 +26,6 @@
     <!-- for table database -->
     <script src="<?= base_url(); ?>/sb-admin/dataTable/simple-dataTable.js"></script>
     <script src="<?= base_url(); ?>/sb-admin/js/datatables-simple-demo.js"></script>
-
-    <!-- for signature -->
-    <!-- <script src="<?= base_url(); ?>/signature/js/jquery-ui.js"></script> -->
-    <!-- <script src="<?= base_url(); ?>/signature/js/jquery.signature.js"></script> -->
 
     <!-- for sweet alert -->
     <script src="<?= base_url(); ?>/sweetalert/sweetalert2.all.min.js"></script>

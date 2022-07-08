@@ -49,12 +49,18 @@ class Kpi_monitoring extends BaseController
         $builder->join('users_kpi', 'list_of_kpi.id = users_kpi.kpi_id');
         $join = $builder->get()->getResult('array');
 
+        $listEvidence = [];
+        foreach ($join as $row) {
+            $listEvidence[] = explode(' | ', $row['evidence']);
+        }
+
         $user = $this->UserModel->asArray()->find($id);
 
         $data = [
             'title' => 'detail kpi',
             'listKpi' => $listKpi,
             'kpiUser' => $join,
+            'listEvidence' => $listEvidence,
             'user' => $user
         ];
 
@@ -98,32 +104,35 @@ class Kpi_monitoring extends BaseController
         return redirect()->to(base_url('/kpi_monitoring/details/' . $this->request->getVar('user_id')));
     }
 
-    public function delete($kpiId, $userId)
+    public function delete($id, $userId)
     {
-        $dataLama = $this->UserKpiModel->find($kpiId);
+        $dataLama = $this->UserKpiModel->find($id);
         if (!empty($dataLama['evidence'])) {
-            if (file_exists('pdf-kpi/' . $dataLama['evidence'])) {
-                unlink('pdf-kpi/' . $dataLama['evidence']);
+            $listEvidence = explode(' | ', $dataLama['evidence']);
+            foreach ($listEvidence as $evidence) {
+                if (file_exists('pdf-kpi/' . $evidence)) {
+                    unlink('pdf-kpi/' . $evidence);
+                }
             }
         }
 
-        $this->UserKpiModel->delete($kpiId);
+        $this->UserKpiModel->delete($id);
 
         session()->setFlashdata('pesanSuccess', 'kpi telah di hapus');
         return redirect()->to(base_url('/kpi_monitoring/details/' . $userId));
     }
 
-    public function approve($kpiId, $userId)
+    public function approve($id, $userId)
     {
         $this->UserKpiModel->save([
-            'id' => $kpiId,
+            'id' => $id,
             'approve' => 'y'
         ]);
         session()->setFlashdata('pesanSuccess', 'evidence kpi telah diaprove');
         return redirect()->to(base_url('/kpi_monitoring/details/' . $userId));
     }
 
-    public function reset($kpiId, $userId)
+    public function reset($id, $userId)
     {
         $dataLama = $this->UserKpiModel->where('user_id', $userId)->findAll();
         // d($dataLama);
@@ -135,8 +144,11 @@ class Kpi_monitoring extends BaseController
                 'approve' => 'n'
             ]);
             if (!empty($row['evidence'])) {
-                if (file_exists('pdf-kpi/' . $row['evidence'])) {
-                    unlink('pdf-kpi/' . $row['evidence']);
+                $listEvidence = explode(' | ', $row['evidence']);
+                foreach ($listEvidence as $evidence) {
+                    if (file_exists('pdf-kpi/' . $evidence)) {
+                        unlink('pdf-kpi/' . $evidence);
+                    }
                 }
             }
         }

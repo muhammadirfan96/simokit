@@ -22,38 +22,64 @@ class Kpi extends BaseController
         $builder->join('users_kpi', 'list_of_kpi.id = users_kpi.kpi_id');
         $join = $builder->get()->getResult('array');
 
+        $listEvidence = [];
+        foreach ($join as $row) {
+            $listEvidence[] = explode(' | ', $row['evidence']);
+        }
+
         $data = [
             'title' => 'key performance indicator',
             'kpiUser' => $join,
+            'listEvidence' => $listEvidence
         ];
 
         return view('kpi/index', $data);
     }
 
-    public function upload($kpiId)
+    public function upload($id)
     {
-        $dataLama = $this->UserKpiModel->find($kpiId);
+        $dataLama = $this->UserKpiModel->find($id);
         if ($dataLama == null) {
             session()->setFlashdata('pesanWarning', 'kpi tidak ditemukan');
             return redirect()->to(base_url('/kpi'));
         }
-        if (!empty($dataLama['evidence'])) {
-            if (file_exists('pdf-kpi/' . $dataLama['evidence'])) {
-                unlink('pdf-kpi/' . $dataLama['evidence']);
-            }
-        }
 
-        $file = $this->request->getFile($kpiId);
+        $file = $this->request->getFile($id);
         $namaFile = $file->getRandomName();
 
+        if (!empty($dataLama['evidence'])) {
+            $evidence = $dataLama['evidence'] . ' | ' . $namaFile;
+        } else {
+            $evidence = $namaFile;
+        }
+
         $this->UserKpiModel->save([
-            'id' => $kpiId,
-            'evidence' => $namaFile
+            'id' => $id,
+            'evidence' => $evidence
         ]);
 
         $file->move('pdf-kpi', $namaFile);
 
         session()->setFlashdata('pesanSuccess', 'evidence kpi telah ditambahkan');
+        return redirect()->to(base_url('/kpi'));
+    }
+
+    public function delete($id, $evidence)
+    {
+        if (file_exists('pdf-kpi/' . $evidence)) {
+            unlink('pdf-kpi/' . $evidence);
+        }
+
+        $dataLama = $this->UserKpiModel->find($id);
+        $listEvidence = explode(' | ', $dataLama['evidence']);
+
+        $sisaEvidence = array_diff($listEvidence, [$evidence]);
+
+        $this->UserKpiModel->save([
+            'id' => $id,
+            'evidence' => implode(' | ', $sisaEvidence)
+        ]);
+        session()->setFlashdata('pesanSuccess', 'evidence kpi telah dihapus');
         return redirect()->to(base_url('/kpi'));
     }
 

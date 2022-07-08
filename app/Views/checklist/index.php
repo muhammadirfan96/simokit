@@ -16,13 +16,13 @@
 
 <?php
 $data = [
-    ['1', $peralatan['boiler'], 'fa-gear', 'peralatan boiler'],
-    ['2', $peralatan['turbin'], 'fa-hammer', 'peralatan turbin'],
-    ['3', $peralatan['alba'], 'fa-wrench', 'peralatan alba'],
-    ['4', [], 'fa-screwdriver', 'shutdown'],
-    ['5', [], 'fa-screwdriver-wrench', 'cold state start up'],
-    ['6', [], 'fa-gears', 'warm state start up'],
-    ['7', [], 'fa-anchor', 'hot state start up']
+    ['1', $peralatan['boiler'], 'fa-check-double', 'peralatan boiler'],
+    ['2', $peralatan['turbin'], 'fa-check-double', 'peralatan turbin'],
+    ['3', $peralatan['alba'], 'fa-check-double', 'peralatan alba'],
+    ['4', [], 'fa-check-double', 'shutdown'],
+    ['5', [], 'fa-check-double', 'cold state start up'],
+    ['6', [], 'fa-check-double', 'warm state start up'],
+    ['7', [], 'fa-check-double', 'hot state start up']
 ];
 ?>
 

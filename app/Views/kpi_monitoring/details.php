@@ -49,7 +49,7 @@
                         <li>status kpi menjadi belum terapprove</li>
                     </ul>
                 </ol>
-                <button class="btn btn-sm bg_merah0 text-white fst-italic" type="button" onclick="return konfir('reset', null, <?= $user['id']; ?>)">reset</button>
+                <button class="btn btn-sm bg_merah0 text-white fst-italic" type="button" onclick="return konfir('kpi_monitoring','reset', null, '<?= $user['id']; ?>')">reset</button>
             </div>
         </div>
         <div class="col-md-6">
@@ -60,6 +60,7 @@
                         <?php if (count($kpiUser) == 0) : ?>
                             <p class="text-center fw-bolder mt-4"><i class="fas fa-triangle-exclamation text_merah" style="font-size: 150px;"></i><br>KPI BELUM DI TAMBAHKAN</p>
                         <?php endif ?>
+                        <?php $i = 0 ?>
                         <?php foreach ($kpiUser as $row) : ?>
                             <tr>
                                 <td width="90%"><?= $row['name']; ?></td>
@@ -80,14 +81,16 @@
                                                 <div class="modal-body">
                                                     <?php if ($row['evidence'] != '') : ?>
                                                         <table class="table table-sm table-borderless">
-                                                            <tr>
-                                                                <td width="90%">
-                                                                    <?= $row['evidence']; ?>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="/kpi/download/<?= $row['evidence']; ?>" class="btn btn-sm bg_biru0 fst-italic text-white" target="_blank">download</a>
-                                                                </td>
-                                                            </tr>
+                                                            <?php foreach ($listEvidence[$i] as $evidence) : ?>
+                                                                <tr>
+                                                                    <td width="90%">
+                                                                        <?= $evidence; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="/kpi/download/<?= $evidence; ?>" class="btn btn-sm bg_biru0 fst-italic text-white" target="_blank">download</a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach ?>
                                                         </table>
                                                     <?php endif ?>
                                                     <?php if ($row['evidence'] == '') : ?>
@@ -99,9 +102,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm text-white bg_merah0 fst-italic" type="button" onclick="return konfir('delete',<?= $row['id']; ?>,<?= $row['user_id']; ?>)">delete</button>
+                                    <button class="btn btn-sm text-white bg_merah0 fst-italic" type="button" onclick="return konfir('kpi_monitoring','delete','<?= $row['id']; ?>','<?= $row['user_id']; ?>')">delete</button>
                                 </td>
                             </tr>
+                            <?php $i++ ?>
                         <?php endforeach ?>
                     </table>
                 </div>
@@ -133,24 +137,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    function konfir(method, idKpi, idUser) {
-        Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: "Anda akan menghapus permanen data ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.location.href = '/kpi_monitoring/' + method + '/' + idKpi + '/' + idUser;
-            }
-        });
-    }
-</script>
+<script src="<?= base_url('/js/sweetalert.js'); ?>"></script>
 
 <?= $this->endSection(); ?>

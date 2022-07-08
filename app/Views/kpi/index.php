@@ -26,6 +26,7 @@
                 <?php if (count($kpiUser) == 0) : ?>
                     <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text_merah" style="font-size: 160px;"></i><br>KPI BELUM DI TAMBAHKAN</p>
                 <?php endif ?>
+                <?php $i = 0 ?>
                 <?php foreach ($kpiUser as $row) : ?>
                     <tr>
                         <td width="90%"><?= $row['name']; ?></td>
@@ -46,24 +47,29 @@
                                         <div class="modal-body">
                                             <?php if ($row['evidence'] != '') : ?>
                                                 <table class="table table-sm table-borderless">
-                                                    <tr>
-                                                        <td width="90%">
-                                                            <?= $row['evidence']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <a href="/kpi/download/<?= $row['evidence']; ?>" class="btn btn-sm bg_biru0 fst-italic text-white" target="_blank">download</a>
-                                                        </td>
-                                                    </tr>
+                                                    <?php foreach ($listEvidence[$i] as $evidence) : ?>
+                                                        <tr>
+                                                            <td width="90%">
+                                                                <?= $evidence; ?>
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-sm text-white bg_merah0 fst-italic" type="button" onclick="return konfir('kpi','delete','<?= $row['id']; ?>','<?= $evidence; ?>')">delete</button>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/kpi/download/<?= $evidence; ?>" class="btn btn-sm bg_biru0 fst-italic text-white" target="_blank">download</a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach ?>
                                                 </table>
                                             <?php endif ?>
                                             <?php if ($row['evidence'] == '') : ?>
-                                                <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text-danger" style="font-size: 160px;"></i><br>EVIDENCE BELUM ADA</p>
+                                                <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text_merah" style="font-size: 160px;"></i><br>EVIDENCE BELUM ADA</p>
                                             <?php endif ?>
 
                                             <form action="/kpi/upload/<?= $row['id']; ?>" method="post" enctype="multipart/form-data">
                                                 <input class="form-control rounded mb-3" type="file" name="<?= $row['id']; ?>" id="<?= $row['id']; ?>" required>
 
-                                                <button class="btn btn-sm bg_hijau0 fst-italic text-white" <?= $row['approve'] == 'y' ? 'disabled' : ''; ?>><?= $row['evidence'] != '' ? 'edit' : 'upload'; ?></button>
+                                                <button class="btn btn-sm bg_hijau0 fst-italic text-white" <?= $row['approve'] == 'y' ? 'disabled' : ''; ?>>upload</button>
                                                 <span class="text-danger fst-italic"><?= $row['approve'] == 'y' ? 'evidence sudah diapprove. tidak dapat diedit' : ''; ?></span>
                                             </form>
                                         </div>
@@ -72,10 +78,12 @@
                             </div>
                         </td>
                     </tr>
+                    <?php $i++ ?>
                 <?php endforeach ?>
             </table>
         </div>
     </div>
 </div>
+<script src="<?= base_url('/js/sweetalert.js'); ?>"></script>
 
 <?= $this->endSection(); ?>
