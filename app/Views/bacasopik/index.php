@@ -43,7 +43,7 @@
                                     <?php foreach ($row[1] as $ro) : ?>
                                         <tr>
                                             <td class="text-start">
-                                                <a class="text-decoration-none text-dark" href="bacasopik/details/<?= $row[3] . '/' . $ro; ?>"><?= $ro; ?></a>
+                                                <a target="_blank" class="text-decoration-none text-dark" href="<?= base_url('list-sopik/' . $row[3] . '/' . $ro); ?>"><?= $ro; ?></a>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>

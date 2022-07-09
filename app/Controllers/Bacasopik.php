@@ -25,17 +25,4 @@ class Bacasopik extends BaseController
 
         return view('bacasopik/index', $datas);
     }
-
-    public function details($bagian, $namaPeralatan)
-    {
-        $data = [
-            'title' => 'sop ' . $namaPeralatan,
-            'bagian' => $bagian,
-            'namaPeralatan' => $namaPeralatan
-        ];
-
-        // $this->response->setContentType('application/pdf');
-
-        return view('bacasopik/details', $data);
-    }
 }
