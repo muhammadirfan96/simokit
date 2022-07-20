@@ -25,4 +25,40 @@ class Bacasopik extends BaseController
 
         return view('bacasopik/index', $datas);
     }
+
+    public function details($bagian, $namaPeralatan)
+    {
+        $boiler = 'https://drive.google.com/drive/folders/1Ri6UnOa206v_HF7LhovdIGanya3yzqHj?usp=sharing';
+        $turbin = 'https://drive.google.com/drive/folders/1i9XLQx_WecqSBz26Hzx54nb_VqSMzHmq?usp=sharing';
+        $alba = 'https://drive.google.com/drive/folders/1P5ZZjGXmFCFO8bmHGAMwHe0xDdfan2FH?usp=sharing';
+        $wtp = 'https://drive.google.com/drive/folders/1sKkrZu4jjiIwVa7oluaVYGKN47IgJDIy?usp=sharing';
+        $umum = 'https://drive.google.com/drive/folders/18IBMwXVj5vIsY-C38LgdcKJmUsN1xO0s?usp=sharing';
+
+        switch ($bagian) {
+            case 'boiler':
+                header("Location: $boiler");
+                break;
+            case 'turbin':
+                header("Location: $turbin");
+                break;
+            case 'alba':
+                header("Location: $alba");
+                break;
+            case 'wtp':
+                header("Location: $wtp");
+                break;
+            default:
+                header("Location: $umum");
+                break;
+        }
+
+        exit;
+
+        // $data = [
+        //     'bagian' => $bagian,
+        //     'namaPeralatan' => $namaPeralatan
+        // ];
+
+        // return view('bacasopik/details', $data);
+    }
 }

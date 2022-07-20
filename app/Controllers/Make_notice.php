@@ -70,7 +70,7 @@ class Make_notice extends BaseController
         $this->noticeModel->setAllowedFields(array_keys($data));
         $this->noticeModel->save($data);
 
-        session()->setFlashdata('pesan', 'anda telah menambahkan notice baru');
+        session()->setFlashdata('pesanSuccess', 'anda telah menambahkan notice baru');
         return redirect()->to(base_url('/make_notice'));
     }
 }

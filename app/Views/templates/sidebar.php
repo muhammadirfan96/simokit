@@ -51,9 +51,9 @@
                         <div class="sb-nav-link-icon text-dark"><i class="fas fa-pen"></i></div>
                         Make Form 5S
                     </a>
-                    <a class="nav-link pb-0 mb-0" href="/">
+                    <a class="nav-link pb-0 mb-0" href="/input_kwh">
                         <div class="sb-nav-link-icon text-dark"><i class="fas fa-keyboard"></i></div>
-                        Input Logsheet
+                        Input Kwh
                     </a>
 
                     <?php if (in_groups('operator shift a') || in_groups('operator shift b') || in_groups('operator shift c') || in_groups('operator shift d')) : ?>

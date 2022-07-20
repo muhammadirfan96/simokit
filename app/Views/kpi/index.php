@@ -67,7 +67,7 @@
                                             <?php endif ?>
 
                                             <form action="/kpi/upload/<?= $row['id']; ?>" method="post" enctype="multipart/form-data">
-                                                <input class="form-control rounded mb-3" type="file" name="<?= $row['id']; ?>" id="<?= $row['id']; ?>" required>
+                                                <input class="form-control rounded mb-3" type="file" name="<?= $row['id']; ?>" id="<?= $row['id']; ?>" required accept="application/pdf">
 
                                                 <button class="btn btn-sm bg_hijau0 fst-italic text-white" <?= $row['approve'] == 'y' ? 'disabled' : ''; ?>>upload</button>
                                                 <span class="text-danger fst-italic"><?= $row['approve'] == 'y' ? 'evidence sudah diapprove. tidak dapat diedit' : ''; ?></span>

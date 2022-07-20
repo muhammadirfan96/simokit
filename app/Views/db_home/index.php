@@ -14,17 +14,6 @@
     </div>
 </div>
 
-<?php
-$data = [
-    ['db_servicerequest', 'fa-pen', 'service request'],
-    ['db_limas', 'fa-pen', 'kegiatan 5s'],
-    ['db_checklist', 'fa-tasks', 'checklist sop'],
-    ['db_users', 'fa-user', 'user list'],
-    ['db_notice', 'fa-bullhorn', 'notice'],
-    ['#', 'fa-keyboard', 'logsheet']
-];
-?>
-
 <div class="container-fluid text-center">
     <div class="row">
         <?php foreach ($data as $row) : ?>
@@ -41,8 +30,6 @@ $data = [
             </div>
         <?php endforeach ?>
         <div class="col-xl-3 col-md-6 mb-3">
-            <?php session('login'); ?>
-            <?php session('loginAdmin'); ?>
             <a href="<?= base_url('temp/admin/admin.php'); ?>" class="text-decoration-none rounded shadow d-block">
                 <div class="p-2 bg_hijau1 rounded-top border_bottom2 text-start">
                     <i class="fas fa-database fs-2 text-success"></i>
