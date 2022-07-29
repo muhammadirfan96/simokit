@@ -7,18 +7,23 @@
             </div>
         </div>
         <div class="col-xl-6">
-            <div class="shadow mb-3 p-3 rounded">
+            <div class="shadow mb-3 p-3 rounded" style="min-height: 296px;">
                 <span class="fw-bold text-light text-uppercase px-2 rounded bg_orange0">data kpi</span>
-                <div class="d-flex align-items-center">
-                    <div class="" style="width: 50%;">
-                        <canvas class="" id="kpi"></canvas>
+                <?php if ($jmlhDataKpi == [0, 0, 0]) : ?>
+                    <p class="text-center fw-bolder"><i class="fas fa-triangle-exclamation text_merah" style="font-size: 120px;"></i><br>anda belum menurunkan kpi apapun</p>
+                <?php endif ?>
+                <?php if ($jmlhDataKpi != [0, 0, 0]) : ?>
+                    <div class="d-flex align-items-center">
+                        <div class="" style="width: 50%;">
+                            <canvas class="" id="kpi"></canvas>
+                        </div>
+                        <div class="ms-3">
+                            <div class="d-inline-block border border-2" style="width: 40px; height:14px;border-color:rgb(186, 0, 0) !important;background-color:rgba(186, 0, 0, 0.2) !important;"></div><span class="ms-1 size12">belum ada evidence</span><br>
+                            <div class="d-inline-block border border-2" style="width: 40px; height:14px;border-color:rgb(16, 11, 112) !important;background-color:rgba(16, 11, 112, 0.2) !important;"></div><span class="ms-1 size12">belum diapprove</span><br>
+                            <div class="d-inline-block border border-2" style="width: 40px; height:14px;border-color:rgb(0, 186, 29) !important;background-color:rgba(0, 186, 29, 0.2) !important;"></div><span class="ms-1 size12">sudah diapprove</span>
+                        </div>
                     </div>
-                    <div class="ms-3">
-                        <div class="d-inline-block border border-2" style="width: 40px; height:14px;border-color:rgb(186, 0, 0) !important;background-color:rgba(186, 0, 0, 0.2) !important;"></div><span class="ms-1 size12">belum ada evidence</span><br>
-                        <div class="d-inline-block border border-2" style="width: 40px; height:14px;border-color:rgb(16, 11, 112) !important;background-color:rgba(16, 11, 112, 0.2) !important;"></div><span class="ms-1 size12">belum diapprove</span><br>
-                        <div class="d-inline-block border border-2" style="width: 40px; height:14px;border-color:rgb(0, 186, 29) !important;background-color:rgba(0, 186, 29, 0.2) !important;"></div><span class="ms-1 size12">sudah diapprove</span>
-                    </div>
-                </div>
+                <?php endif ?>
             </div>
         </div>
         <div class="col-xl-6">
@@ -268,7 +273,8 @@
                     // data: ['33', '35', '38', '41', '44', '47', '49', '53', '58', '64'],
                     fill: false,
                     borderColor: 'rgba(16, 11, 112, 0.5)',
-                    tension: 0.1
+                    tension: 0.1,
+                    yAxisID: 'kanan'
                 }
             ]
         },
@@ -279,6 +285,9 @@
                         display: true,
                         text: 'jumlah laporan'
                     }
+                },
+                kanan: {
+                    position: 'right'
                 }
             }
         }

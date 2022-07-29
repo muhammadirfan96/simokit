@@ -28,6 +28,7 @@
                     <th scope="col">aksi</th>
                     <th scope="col">ket</th>
                     <th scope="col">diinput oleh</th>
+                    <th scope="col">bidang</th>
                     <th scope="col">nomor sr</th>
                     <th scope="col">tanggal</th>
                     <th scope="col">unit</th>
@@ -55,6 +56,7 @@
                     <th scope="col">aksi</th>
                     <th scope="col">ket</th>
                     <th scope="col">diinput oleh</th>
+                    <th scope="col">bidang</th>
                     <th scope="col">nomor sr</th>
                     <th scope="col">tanggal</th>
                     <th scope="col">unit</th>
@@ -79,6 +81,7 @@
             </tfoot>
 
             <tbody>
+                <?php $i = 0 ?>
                 <?php foreach ($servicerequest as $row) : ?>
                     <tr>
                         <td>
@@ -95,6 +98,7 @@
                         </td>
                         <td><?= $row["ket"]; ?></td>
                         <td><?= $row["diinput_oleh"]; ?></td>
+                        <td><?= $bidang[$i]; ?></td>
                         <td><?= $row["nomorSr"] ?></td>
                         <td><?= $row["tanggal"] ?></td>
                         <td><?= $row["unit"]; ?></td>
@@ -116,6 +120,7 @@
                         <td><?= $row["tindakanSementara2"]; ?></td>
                         <td><?= $row["tindakanSementara3"]; ?></td>
                     </tr>
+                    <?php $i++ ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

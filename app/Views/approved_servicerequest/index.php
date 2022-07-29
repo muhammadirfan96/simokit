@@ -12,15 +12,6 @@
             </a>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <?php if (session()->getFlashdata('pesan')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?= session()->getFlashdata('pesan'); ?>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
 </div>
 
 <div class="card mb-4">

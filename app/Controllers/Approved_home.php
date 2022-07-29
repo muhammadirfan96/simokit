@@ -6,11 +6,17 @@ class Approved_home extends BaseController
 {
     public function index()
     {
-
         $data = [
-            'title' => 'approved | home'
+            ['approved_servicerequest', 'fa-pen', 'service request'],
+            ['approved_limas', 'fa-pen', 'kegiatan 5s'],
+            ['approved_checklist', 'fa-tasks', 'checklist sop']
         ];
 
-        return view('approved_home/index', $data);
+        $datas = [
+            'title' => 'approved | home',
+            'data' => $data,
+        ];
+
+        return view('approved_home/index', $datas);
     }
 }

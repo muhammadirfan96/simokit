@@ -14,14 +14,6 @@
     </div>
 </div>
 
-<?php
-$data = [
-    ['approved_servicerequest', 'fa-pen', 'service request'],
-    ['approved_limas', 'fa-pen', 'kegiatan 5s'],
-    ['approved_checklist', 'fa-tasks', 'checklist sop']
-];
-?>
-
 <div class="container-fluid text-center">
     <div class="row justify-content-center">
         <?php foreach ($data as $row) : ?>

@@ -12,7 +12,8 @@ class Db_home extends BaseController
             ['db_checklist', 'fa-tasks', 'checklist sop'],
             ['db_users', 'fa-user', 'user list'],
             ['db_notice', 'fa-bullhorn', 'notice'],
-            ['db_kwh', 'fa-keyboard', 'data kwh']
+            ['db_kwh', 'fa-keyboard', 'data kwh'],
+            ['db_absensi', 'fa-book', 'data absensi'],
         ];
 
         $datas = [

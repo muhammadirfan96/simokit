@@ -59,8 +59,22 @@ class Db_limas extends BaseController
             $result = $this->limasModel->findAll();
         }
 
+        // menemukan bidang
+        $bidang = [];
+        foreach ($result as $row) {
+            $bidang[] = $this->UserModel
+                ->asArray()
+                ->where(
+                    ['username' => explode(' | ', $row['diinput_oleh'])[0]]
+                )
+                ->first()['bidang'];
+        }
+
+        // end
+
         $data = [
             'title' => 'database | limas',
+            'bidang' => $bidang,
             'limas' => $result
         ];
 

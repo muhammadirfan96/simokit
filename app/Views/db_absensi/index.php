@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-11">
-            <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">database kwh</span></p>
+            <p class="fs-4 fw-bold my-3 text-light text-uppercase"><span class="bg-secondary rounded px-2">database absensi</span></p>
         </div>
         <div class="col-1 justify-content-end d-flex">
             <a class="fs-4 text-danger my-3" href="/db_home">
@@ -27,44 +27,44 @@
                 <tr>
                     <th scope="col">action</th>
                     <th scope="col">diinput</th>
-                    <th scope="col">waktu kwh</th>
-                    <th scope="col">Kwh KIT #1</th>
-                    <th scope="col">Kwh KIT #2</th>
-                    <th scope="col">Kwh PS #1</th>
-                    <th scope="col">Kwh PS #2</th>
-                    <th scope="col">Kwh ET #1</th>
-                    <th scope="col">Kwh ET #2</th>
+                    <th scope="col">waktu absensi</th>
+                    <th scope="col">shift</th>
+                    <th scope="col">sakit</th>
+                    <th scope="col">izin</th>
+                    <th scope="col">sppd</th>
+                    <th scope="col">mangkir</th>
+                    <th scope="col">catatan</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th scope="col">action</th>
                     <th scope="col">diinput</th>
-                    <th scope="col">waktu kwh</th>
-                    <th scope="col">Kwh KIT #1</th>
-                    <th scope="col">Kwh KIT #2</th>
-                    <th scope="col">Kwh PS #1</th>
-                    <th scope="col">Kwh PS #2</th>
-                    <th scope="col">Kwh ET #1</th>
-                    <th scope="col">Kwh ET #2</th>
+                    <th scope="col">waktu absensi</th>
+                    <th scope="col">shift</th>
+                    <th scope="col">sakit</th>
+                    <th scope="col">izin</th>
+                    <th scope="col">sppd</th>
+                    <th scope="col">mangkir</th>
+                    <th scope="col">catatan</th>
                 </tr>
             </tfoot>
 
             <tbody>
                 <?php $i = 0 ?>
-                <?php foreach ($kwh as $row) : ?>
+                <?php foreach ($absensi as $row) : ?>
                     <tr>
                         <td>
-                            <button class="btn btn-sm text-white bg_merah0 fst-italic" type="button" onclick="return konfir('db_kwh','delete','<?= $row['id']; ?>',null)">delete</button>
+                            <button class="btn btn-sm text-white bg_merah0 fst-italic" type="button" onclick="return konfir('db_absensi','delete','<?= $row['id']; ?>',null)">delete</button>
                         </td>
                         <td><?= $nama[$i] . ' | ' . $waktu[$i]; ?></td>
                         <td><?= $row["waktu"]; ?></td>
-                        <td><?= $row["kit1"]; ?></td>
-                        <td><?= $row["kit2"]; ?></td>
-                        <td><?= $row["ps1"]; ?></td>
-                        <td><?= $row["ps2"]; ?></td>
-                        <td><?= $row["et1"]; ?></td>
-                        <td><?= $row["et2"]; ?></td>
+                        <td><?= $row["shift"]; ?></td>
+                        <td><?= $row["sakit"]; ?></td>
+                        <td><?= $row["izin"]; ?></td>
+                        <td><?= $row["sppd"]; ?></td>
+                        <td><?= $row["mangkir"]; ?></td>
+                        <td><?= $row["catatan"]; ?></td>
                     </tr>
                     <?php $i++ ?>
                 <?php endforeach; ?>

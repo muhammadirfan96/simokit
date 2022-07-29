@@ -28,6 +28,7 @@
                     <th scope="col">aksi</th>
                     <th scope="col">tanggal</th>
                     <th scope="col">diinput oleh</th>
+                    <th scope="col">bidang</th>
                     <th scope="col">nama peralatan</th>
                     <th scope="col">catatan</th>
                 </tr>
@@ -37,12 +38,14 @@
                     <th scope="col">aksi</th>
                     <th scope="col">tanggal</th>
                     <th scope="col">diinput oleh</th>
+                    <th scope="col">bidang</th>
                     <th scope="col">nama peralatan</th>
                     <th scope="col">catatan</th>
                 </tr>
             </tfoot>
 
             <tbody>
+                <?php $i = 0 ?>
                 <?php foreach ($checklist as $row) : ?>
                     <tr>
                         <td>
@@ -59,9 +62,11 @@
                         </td>
                         <td><?= $row["tanggal"]; ?></td>
                         <td><?= $row["diinput_oleh"]; ?></td>
+                        <td><?= $bidang[$i]; ?></td>
                         <td><?= $row["namaPeralatan"] ?></td>
                         <td><?= $row["catatan"] ?></td>
                     </tr>
+                    <?php $i++ ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

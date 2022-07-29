@@ -30,10 +30,14 @@
             </div>
         <?php endforeach ?>
         <div class="col-xl-3 col-md-6 mb-3">
-            <a href="<?= base_url('temp/admin/admin.php'); ?>" class="text-decoration-none rounded shadow d-block">
-                <div class="p-2 bg_hijau1 rounded-top border_bottom2 text-start">
+            <a href="<?= base_url('/temp'); ?>" class="text-decoration-none rounded shadow d-block">
+                <div class="p-2 bg_hijau1 rounded-top border_bottom2 text-start position-relative">
                     <i class="fas fa-database fs-2 text-success"></i>
                     <p class="fw-bolder text-uppercase fs-5 d-inline-block mb-0 text-success text-right">database</p>
+                    <div class="position-absolute end-0 top-0 fst-italic text-dark size12">
+                        <div>u=renop</div>
+                        <div>p=operasi#1</div>
+                    </div>
                 </div>
                 <div class="rounded-bottom text-dark fw-bolder text-uppercase py-2">
                     tahun 2021

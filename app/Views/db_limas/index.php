@@ -28,6 +28,7 @@
                     <th scope="col">aksi</th>
                     <th scope="col">tanggal</th>
                     <th scope="col">diinput oleh</th>
+                    <th scope="col">bidang</th>
                     <th scope="col">nama peralatan</th>
                     <th scope="col">area</th>
                     <th scope="col">saran</th>
@@ -38,6 +39,7 @@
                     <th scope="col">aksi</th>
                     <th scope="col">tanggal</th>
                     <th scope="col">diinput oleh</th>
+                    <th scope="col">bidang</th>
                     <th scope="col">nama peralatan</th>
                     <th scope="col">area</th>
                     <th scope="col">saran</th>
@@ -45,6 +47,7 @@
             </tfoot>
 
             <tbody>
+                <?php $i = 0 ?>
                 <?php foreach ($limas as $row) : ?>
                     <tr>
                         <td>
@@ -61,10 +64,12 @@
                         </td>
                         <td><?= $row["tanggal"]; ?></td>
                         <td><?= $row["diinput_oleh"]; ?></td>
+                        <td><?= $bidang[$i]; ?></td>
                         <td><?= $row["namaPeralatan"] ?></td>
                         <td><?= $row["area"] ?></td>
                         <td><?= $row["saran"] ?></td>
                     </tr>
+                    <?php $i++ ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

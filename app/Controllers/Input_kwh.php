@@ -27,6 +27,17 @@ class Input_kwh extends BaseController
     public function save()
     {
         d($this->request->getVar());
+        $dataLama = $this->KwhModel
+            ->where([
+                'waktu' => $this->request->getVar('waktu'),
+            ])
+            ->first();
+
+        $pesan = 'tidak ada data yang sama';
+        if ($dataLama != null) {
+            $this->KwhModel->delete($dataLama['id']);
+            $pesan = 'data yang sama dihapus';
+        }
         // die;
         $dataValidate = [
             'waktu' => [
@@ -90,7 +101,7 @@ class Input_kwh extends BaseController
         $this->KwhModel->setAllowedFields(array_keys($data));
         $this->KwhModel->save($data);
 
-        session()->setFlashdata('pesanSuccess', 'data kwh berhasil ditambahkan');
+        session()->setFlashdata('pesanSuccess', 'data kwh berhasil ditambahkan' . $pesan);
         return redirect()->to(base_url('/input_kwh'));
     }
 }

@@ -60,8 +60,22 @@ class Db_checklist extends BaseController
             $result = $this->ChecklistModel->findAll();
         }
 
+        // menemukan bidang
+        $bidang = [];
+        foreach ($result as $row) {
+            $bidang[] = $this->UserModel
+                ->asArray()
+                ->where(
+                    ['username' => explode(' | ', $row['diinput_oleh'])[0]]
+                )
+                ->first()['bidang'];
+        }
+
+        // end
+
         $data = [
             'title' => 'database | checklist',
+            'bidang' => $bidang,
             'checklist' => $result
         ];
 

@@ -54,8 +54,22 @@ class Db_servicerequest extends BaseController
             $result = $this->servicerequestModel->findAll();
         }
 
+        // menemukan bidang
+        $bidang = [];
+        foreach ($result as $row) {
+            $bidang[] = $this->UserModel
+                ->asArray()
+                ->where(
+                    ['username' => explode(' | ', $row['diinput_oleh'])[0]]
+                )
+                ->first()['bidang'];
+        }
+
+        // end
+
         $data = [
             'title' => 'database | servicerequest',
+            'bidang' => $bidang,
             'servicerequest' => $result
         ];
 

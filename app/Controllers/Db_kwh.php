@@ -30,14 +30,14 @@ class Db_kwh extends BaseController
             $waktu[] = explode(' | ', $row['diinput'])[1];
         }
 
-        $data = [
+        $datas = [
             'title' => 'database | kwh',
             'nama' => $nama,
             'waktu' => $waktu,
             'kwh' => $this->KwhModel->findAll()
         ];
 
-        return view('db_kwh/index', $data);
+        return view('db_kwh/index', $datas);
     }
 
     public function delete($id)
