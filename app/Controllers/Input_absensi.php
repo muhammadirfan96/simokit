@@ -20,14 +20,16 @@ class Input_absensi extends BaseController
     public function getUsers($bidang)
     {
         if (user()->bidang != 'admin') {
-            $atasan = $this->AtasanModel->where('nama', user()->fullname)->first();
-            $users = $this->UserModel->asArray()->where('bidang', $atasan['bawahan'])->findAll();
-            return $users;
+            $namaAtasan = user()->fullname;
+            $bdgAtasan = user()->bidang;
+        } else {
+            $namaAtasan = $this->UserModel->asArray()->where('bidang', $bidang)->first()['fullname'];
+            $bdgAtasan = $bidang;
         }
-
-        $namaAtasan = $this->UserModel->asArray()->where('bidang', $bidang)->first()['fullname'];
         $atasan = $this->AtasanModel->where('nama', $namaAtasan)->first();
-        $users = $this->UserModel->asArray()->where('bidang', $atasan['bawahan'])->findAll();
+        $bdg = $atasan['bawahan'];
+        $where = "bidang = '$bdg' OR bidang = '$bdgAtasan'";
+        $users = $this->UserModel->asArray()->where($where)->findAll();
         return $users;
     }
 
