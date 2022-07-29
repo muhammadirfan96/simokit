@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div id="table" class="row">
+        <div id="table" class="row justify-content-evenly">
             <?= $this->include('input_absensi/table'); ?>
         </div>
         <div class="row">

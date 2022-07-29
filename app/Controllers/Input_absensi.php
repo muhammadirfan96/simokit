@@ -14,7 +14,7 @@ class Input_absensi extends BaseController
         $this->UserModel = new UserModel();
         $this->AtasanModel = new AtasanModel();
         $this->AbsensiModel = new AbsensiModel();
-        $this->ket = ['sakit', 'izin', 'sppd', 'mangkir'];
+        $this->ket = ['sakit', 'izin', 'cuti', 'sppd', 'mangkir'];
     }
 
     public function getUsers($bidang)
@@ -123,6 +123,7 @@ class Input_absensi extends BaseController
         $listStatus = [
             'sakit' => [],
             'izin' => [],
+            'cuti' => [],
             'sppd' => [],
             'mangkir' => [],
         ];
@@ -137,6 +138,7 @@ class Input_absensi extends BaseController
 
         $sakit = implode(' | ', $listStatus['sakit']);
         $izin = implode(' | ', $listStatus['izin']);
+        $cuti = implode(' | ', $listStatus['cuti']);
         $sppd = implode(' | ', $listStatus['sppd']);
         $mangkir = implode(' | ', $listStatus['mangkir']);
 
@@ -146,6 +148,7 @@ class Input_absensi extends BaseController
             'waktu' => $request['waktu'],
             'sakit' => $sakit,
             'izin' => $izin,
+            'cuti' => $cuti,
             'sppd' => $sppd,
             'mangkir' => $mangkir,
             'catatan' => $request['catatan'],
@@ -154,7 +157,7 @@ class Input_absensi extends BaseController
         $this->AbsensiModel->setAllowedFields(array_keys($data));
         $this->AbsensiModel->save($data);
 
-        session()->setFlashdata('pesanSuccess', 'data absensi berhasil ditambahkan' . $pesan);
+        session()->setFlashdata('pesanSuccess', 'data absensi berhasil ditambahkan ' . $pesan);
         return redirect()->to(base_url('/input_absensi'));
     }
 }

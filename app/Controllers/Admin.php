@@ -148,6 +148,7 @@ class Admin extends BaseController
             [
                 'sakit' => [],
                 'izin' => [],
+                'cuti' => [],
                 'sppd' => [],
                 'mangkir' => []
             ],
