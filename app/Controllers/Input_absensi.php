@@ -8,12 +8,13 @@ use Myth\Auth\Models\UserModel;
 
 class Input_absensi extends BaseController
 {
-    protected $UserModel, $AtasanModel, $AbsensiModel, $ket = ['sakit', 'izin', 'sppd', 'mangkir'];
+    protected $UserModel, $AtasanModel, $AbsensiModel, $ket;
     public function __construct()
     {
         $this->UserModel = new UserModel();
         $this->AtasanModel = new AtasanModel();
         $this->AbsensiModel = new AbsensiModel();
+        $this->ket = ['sakit', 'izin', 'sppd', 'mangkir'];
     }
 
     public function getUsers($bidang)
