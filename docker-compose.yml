@@ -1,0 +1,37 @@
+# version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: simokit_db
+      MYSQL_USER: simokit_user
+      MYSQL_PASSWORD: Sayasaja123#1
+      MYSQL_ROOT_PASSWORD: Sayasaja123#12
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: Sayasaja123#12
+
+volumes:
+  db_data:

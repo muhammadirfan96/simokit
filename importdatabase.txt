@@ -1,0 +1,61 @@
+Sip, kalau kamu mau masuk dulu ke dalam container MySQL dan lalu import file `.sql`-nya secara manual, begini langkah-langkahnya:
+
+---
+
+### **1. Masuk ke container MySQL**
+
+```bash
+docker exec -it simokit_hostinger-db-1 bash
+```
+
+---
+
+### **2. Masuk ke MySQL dari dalam container**
+
+```bash
+mysql -u root -p
+```
+
+Kemudian masukkan password MySQL kamu (misal: `root`).
+
+---
+
+### **3. Buat database jika belum ada**
+
+```sql
+CREATE DATABASE simokit;
+```
+
+---
+
+### **4. Keluar dari MySQL CLI**
+
+```sql
+EXIT;
+```
+
+---
+
+### **5. Import file `.sql`**
+
+Masih di dalam container bash, sekarang jalankan:
+
+```bash
+mysql -u root -p simokit < /path/to/simokit.sql
+```
+
+Tapi karena file `simokit.sql` biasanya **tidak berada di dalam container**, kamu harus **copy file dari host ke dalam container dulu**, seperti ini (dari terminal di luar container):
+
+```bash
+docker cp simokit.sql simokit_hostinger-db-1:/simokit.sql
+```
+
+Setelah itu kembali lagi ke langkah dalam bash container dan jalankan:
+
+```bash
+mysql -u root -p simokit < /simokit.sql
+```
+
+---
+
+Kalau kamu butuh bantu cek isi `docker-compose.yml` untuk lihat username/password database, kirimkan saja isinya. Siap bantu!
