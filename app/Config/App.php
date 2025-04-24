@@ -24,7 +24,8 @@ class App extends BaseConfig
      * @var string
      */
     // public $baseURL = 'https://webpunagaya.com/';
-    public $baseURL = 'http://localhost:8080/';
+    // public $baseURL = 'http://localhost:8080/';
+    public $baseURL = 'http://212.85.26.212:8080/';
 
     /**
      * --------------------------------------------------------------------------
